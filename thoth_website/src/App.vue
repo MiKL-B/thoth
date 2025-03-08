@@ -10,7 +10,7 @@
     </div>
   </nav>
   <!-- hero -->
-  <section>
+  <section id="hero">
     <div class="background">
       <div></div>
       <div></div>
@@ -19,16 +19,15 @@
       <div class="row">
         <div class="col col-6 content-center">
           <h1>Thoth</h1>
-          <p class="text-blue">Lay down your thoughts!</p>
           <h4>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
-            consequatur nostrum officiis quo animi cumque est alias quos, dolore
-            labore!
+            <span class="text-blue">Lay down your thoughts</span>. Stay
+            organized and enhance your productivity.
           </h4>
-          <a href="#" download class="button primary">Download</a>
+          <p>Start taking notes now!</p>
+          <a href="#" download class="button primary">Download the app</a>
         </div>
         <div class="col col-6">
-          <img class="w-full" src="https://picsum.photos/800" />
+          <img class="w-full img" src="/thoth.png" />
         </div>
       </div>
     </div>
@@ -37,11 +36,9 @@
   <section>
     <div id="features" class="container">
       <p class="text-center text-blue">FEATURES</p>
-      <h2 class="text-center">Simplify invoicing and elevate</h2>
+      <h2 class="text-center">Take notes easily</h2>
       <p class="text-center text-grey">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exer
+        Organize your thoughts, and stay on track all in one simple app!
       </p>
       <div
         class="row py-4"
@@ -49,14 +46,26 @@
         :key="feature.index"
         :class="{ 'flex-reverse': index % 2 !== 0 }"
       >
-        <div class="col col-6">
+        <div class="col col-6 content-center">
           <h3>{{ feature.title }}</h3>
           <p class="text-grey">{{ feature.description }}</p>
         </div>
         <div class="col col-6">
-          <img src="https://picsum.photos/500/300" />
+          <img class="img" :src="'/' + feature.src + '.png'" />
         </div>
       </div>
+    </div>
+  </section>
+  <!-- more features -->
+  <section>
+    <div id="morefeatures" class="container">
+      <p class="text-center text-blue">MORE FEATURES</p>
+      <ul>
+        <li v-for="feature in moreFeatures">
+          <strong>{{ feature.title }}</strong>
+          {{ feature.description }}
+        </li>
+      </ul>
     </div>
   </section>
   <!-- faq -->
@@ -74,27 +83,29 @@
   <section class="text-center">
     <div id="application" class="container bg-blue border-radius">
       <p class="text-blue">READY TO GET STARTED ?</p>
-      <a href="#" download class="button primary">Download</a>
+      <a href="#" download class="button primary">Download the app</a>
     </div>
   </section>
   <!-- about us -->
   <section>
     <div id="aboutus" class="container">
       <div class="row">
-        <div class="col col-6">
+        <div class="col col-6 content-center">
           <h3>About us</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            I am a passionate frontend developer who creates tools to make daily
+            life easier for those who need them.
           </p>
+          <p>You can find my work on my GitHub repository.</p>
+          <a
+            href="https://github.com/MiKL-B"
+            target="_blank"
+            class="button primary"
+            >Github</a
+          >
         </div>
         <div class="col col-6">
-          <img src="https://picsum.photos/500/300" />
+          <img class="flex mx-auto" src="/thoth-bird.png" />
         </div>
       </div>
     </div>
@@ -118,6 +129,7 @@
         </div>
       </div>
     </div>
+    <p class="text-center">© 2025 Thoth</p>
   </footer>
 </template>
 
@@ -128,50 +140,80 @@ export default {
     return {
       features: [
         {
-          title: "feature 1",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          src: "",
+          title: "Dark theme",
+          description: "A dark theme is available.",
+          src: "thoth-dark",
         },
         {
-          title: "feature 2",
+          title: "Distraction-free mode",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          src: "",
+            "You can switch between default view and distraction-free mode.",
+          src: "thoth-distraction-free",
         },
         {
-          title: "feature 2",
+          title: "Preview markdown",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          src: "",
+            "You can switch between note view, preview, and side-by-side view.",
+          src: "thoth-split",
+        },
+      ],
+      moreFeatures: [
+        {
+          title: "Note demo",
+          description:
+            "The cheat sheet that will allow you to write markdown more easily.",
         },
         {
-          title: "feature 2",
+          title: "Export",
+          description: "You can export data to different formats like JSON.",
+        },
+        {
+          title: "Import",
+          description: "You can import data from different formats like JSON",
+        },
+        {
+          title: "Tags",
+          description: "You can add tags, update color and text to your notes.",
+        },
+        {
+          title: "Filters",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          src: "",
+            "You can organize your notes by filtering them by name, date, status, tags...",
+        },
+        {
+          title: "Translation",
+          description:
+            "The application supports both French and English languages.",
+        },
+        {
+          title: "Font",
+          description:
+            "You can change the font as well as its size, so that you can make the application your own.",
+        },
+        {
+          title: "Note features",
+          description:
+            "You can duplicate, pin / unpin, as well as set as important, the notes you want.",
+        },
+        {
+          title: "Embedded database",
+          description: "Your data is saved in a database on your computer.",
         },
       ],
       questions: [
         {
-          title: "Question 1",
+          title: "What features does your note-taking app offer?",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 1",
+            "Our app offers many features, such as creating and organizing notes, you can find the features section on our website.",
         },
         {
-          title: "Question 1",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 1",
+          title: "Is the app free?",
+          description: "Yes it is.",
         },
         {
-          title: "Question 1",
+          title: "Is there a dark mode in the app?",
           description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 1",
-        },
-        {
-          title: "Question 1",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 1",
+            "Yes, the app offers a dark mode. You can enable this option in the app's settings.",
         },
       ],
     };
@@ -179,6 +221,10 @@ export default {
 };
 </script>
 <style>
+#hero {
+  padding: 8rem 1.5rem;
+  margin-bottom: 1rem;
+}
 .flex-reverse {
   display: flex;
   flex-direction: row-reverse;
@@ -237,5 +283,11 @@ export default {
 }
 section {
   position: relative;
+}
+img {
+  height: 300px;
+}
+.img {
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
 }
 </style>
