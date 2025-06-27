@@ -1,0 +1,280 @@
+<form (ngSubmit)="onSubmit()">
+  @if (isRegister){
+  <h2>Register</h2>
+  <span class="form-info">Sign in to access to your notes!</span>
+  <div class="field">
+    <label for="name">Name</label>
+    <input id="name" type="text" name="name" [(ngModel)]="name" placeholder="Enter your name">
+    <small class="error">error</small>
+  </div>
+  }@else {
+  <h2>Welcome Back</h2>
+  <span class="form-info">Sign in to access to your notes!</span>
+  <button type="button">Continue with GitHub</button>
+  <div class="separator">
+    <div class="border-dashed"></div>
+    <span>or</span>
+    <div class="border-dashed"></div>
+  </div>
+  }
+
+  <div class="field">
+    <label for="email">Email Address</label>
+    <input id="email" type="email" name="email" [(ngModel)]="email" placeholder="Enter your email">
+    <small class="error">error</small>
+  </div>
+  <div class="field">
+    <div style="display:flex;justify-content: space-between;">
+      <label for="password">Password</label>
+      @if(!isRegister){
+      <span>Forgot password?</span>
+      }
+    </div>
+    <div class="password">
+      <input [type]="isVisiblePassword ? 'text' : 'password'" name="password" [(ngModel)]="password"
+        placeholder="Enter your password">
+      <button type="button" (click)="togglePassword()">
+        @if(isVisiblePassword){
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-eye-icon lucide-eye">
+          <path
+            d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        }
+        @else {
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-eye-off-icon lucide-eye-off">
+          <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
+          <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+          <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
+          <path d="m2 2 20 20" />
+        </svg>
+        }
+      </button>
+    </div>
+    <small class="error">error</small>
+  </div>
+
+  @if(isRegister){
+  <div class="field_row">
+    <input id="condition" type="checkbox">
+    <label for="condition">J'accepte les conditions</label>
+  </div>
+  <input type="submit" value="Sign Up" class="primary">
+  <span>Already have an account? <a (click)="toggleForm()">Sign In</a></span>
+  }@else {
+  <div class="field_row">
+    <input id="rememberme" type="checkbox">
+    <label for="rememberme">Remember me</label>
+  </div>
+  <input type="submit" value="Sign In" class="primary">
+  <span>Don't have an account? <a (click)="toggleForm()">Sign Up</a></span>
+  }
+
+</form>
+<!-- <template>
+  <div id=" container">
+      <form @submit.prevent="submitForm">
+        <p style="text-align: center; margin-top: 1rem">{{ isRegister ? 'Register' : 'Login' }}</p>
+
+        <div class="field" v-if="isRegister">
+          <label>Name:</label>
+          <input type="text" v-model="selectedName" placeholder="character name" @input="validateName" />
+          <small class="error" v-if="errors.name">{{ errors.name }}</small>
+        </div>
+
+        <div class="field">
+          <label>Email:</label>
+          <input type="email" v-model="selectedEmail" placeholder="email@example.com" @input="validateEmail" />
+          <small class="error" v-if="errors.email">{{ errors.email }}</small>
+        </div>
+
+        <div class="field">
+          <label>Password:</label>
+          <div style="display: flex; align-items: center; gap: 0.2rem">
+            <input style="flex-grow: 1" :type="isPasswordVisible ? 'text' : 'password'" v-model="selectedPassword"
+              @input="validatePassword" />
+            <button type="button" @click="togglePasswordVisibility" style="height: 30px; width: 30px">
+              <svg v-if="isPasswordVisible" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye">
+                <path
+                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-eye-off-icon lucide-eye-off">
+                <path
+                  d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
+                <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+                <path
+                  d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
+                <path d="m2 2 20 20" />
+              </svg>
+            </button>
+          </div>
+
+          <small class="error" v-if="errors.password">{{ errors.password }}</small>
+        </div>
+
+        <input type="text" style="display: none" v-model="honeypot" autocomplete="off" tabindex="-1" name="website"
+          placeholder="Leave this empty" />
+        <button class="success" type="submit" :disabled="Object.keys(errors).length > 0 || honeypot !== ''">
+          submit
+        </button>
+      </form>
+
+      <button @click="toggleForm" style="display: flex; margin: auto; margin-top: 0.5rem">
+        {{ isRegister ? 'go login' : 'go register' }}
+      </button>
+      </div>
+      </template>
+
+      <script lang="ts" setup>
+        import { ref } from 'vue'
+
+        const isRegister = ref(false)
+        const isPasswordVisible = ref(false)
+
+        const selectedGender = ref('')
+        const selectedRace = ref('')
+        const selectedClasse = ref('')
+        const selectedName = ref('')
+        const selectedEmail = ref('')
+        const selectedPassword = ref('')
+
+        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        const regexPassword = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/
+
+        const honeypot = ref('')
+
+        const errors = ref < Record < string, string>> ({})
+
+        const genders = [{ name: 'male' }, { name: 'female' }, { name: 'non-binary' }]
+        const races = [{ name: 'human' }, { name: 'dwarf' }, { name: 'elf' }]
+        const classes = [{ name: 'warrior' }, { name: 'wizard' }, { name: 'rogue' }]
+
+        const toggleForm = () => {
+          isRegister.value = !isRegister.value
+          resetFieldValues()
+          resetErrors()
+        }
+
+        const togglePasswordVisibility = () => (isPasswordVisible.value = !isPasswordVisible.value)
+
+        const resetFieldValues = () => {
+          selectedGender.value = ''
+          selectedRace.value = ''
+          selectedClasse.value = ''
+          selectedName.value = ''
+          selectedEmail.value = ''
+          selectedPassword.value = ''
+        }
+
+        const resetErrors = () => (errors.value = {})
+
+        const validateGender = () => {
+          if (isRegister.value && !selectedGender.value) {
+            errors.value.gender = 'Gender required'
+          } else {
+            delete errors.value.gender
+          }
+        }
+
+        const validateRace = () => {
+          if (isRegister.value && !selectedRace.value) {
+            errors.value.race = 'Race required'
+          } else {
+            delete errors.value.race
+          }
+        }
+
+        const validateClasse = () => {
+          if (isRegister.value && !selectedClasse.value) {
+            errors.value.classe = 'Classe required'
+          } else {
+            delete errors.value.classe
+          }
+        }
+
+        const validateName = () => {
+          if (isRegister.value && !selectedName.value.trim()) {
+            errors.value.name = 'Name required'
+          } else {
+            delete errors.value.name
+          }
+        }
+
+        const validateEmail = () => {
+          if (!selectedEmail.value) {
+            errors.value.email = 'Email required'
+          } else if (!regexEmail.test(selectedEmail.value)) {
+            errors.value.email = 'Invalid email format'
+          } else {
+            delete errors.value.email
+          }
+        }
+
+        const validatePassword = () => {
+          const val = selectedPassword.value
+          if (!val) {
+            errors.value.password = 'Password required'
+          } else if (val.length < 8) {
+            errors.value.password = 'Password must be at least 8 characters'
+          } else if (val.length > 20) {
+            errors.value.password = 'Password must be at max 20 characters'
+          } else if (!regexPassword.test(val)) {
+            errors.value.password =
+              'Password must contain at least 1 uppercase letter, 1 number, 1 special character, and be at least 8 characters long.'
+          } else {
+            delete errors.value.password
+          }
+        }
+
+        const submitForm = () => {
+          if (honeypot.value) {
+            return
+          }
+          validateEmail()
+          validatePassword()
+          if (isRegister.value) {
+            validateGender()
+            validateRace()
+            validateClasse()
+            validateName()
+          }
+
+          if (Object.keys(errors.value).length === 0) {
+            alert('Formulaire valide, prêt à être envoyé !')
+          }
+        }
+      </script>
+
+      <style scoped>
+        #container {
+          height: calc(100% - 30px);
+          padding: 2px 0;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 0.2rem;
+        }
+
+        .field {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 0.2rem;
+        }
+
+        .error {
+          color: var(--pastel-red);
+          font-size: 0.8rem;
+        }
+      </style> -->
