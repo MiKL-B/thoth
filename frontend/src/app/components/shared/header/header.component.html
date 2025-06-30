@@ -1,17 +1,33 @@
 <header>
   <h1>Thoth</h1>
-    <nav>
+  <nav id="nav_desktop">
+    <ul>
+      <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+      <li><a routerLink="" fragment="features">Features</a></li>
+      <li><a routerLink="" fragment="pricing">Pricing</a></li>
+      <li><a routerLink="" fragment="faq">FAQ</a></li>
+    </ul>
+    <a routerLink="login" routerLinkActive="active">
+      <button>Sign In</button>
+    </a>
+  </nav>
+  <button id="bt_bars" (click)="toggleMenuMobile()">
+    <lucide-angular [img]="Menu"></lucide-angular>
+  </button>
+  @if(isOpenMenuMobile){
+  <div id="menu_mobile">
+    <nav id="nav_mobile">
+      <button id="bt_close_mobile" (click)="isOpenMenuMobile = false">
+        <lucide-angular [img]="X"></lucide-angular>
+      </button>
       <ul>
         <li><a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a></li>
+        <li><a routerLink="workspace">Workspace</a></li>
         <li><a routerLink="" fragment="features">Features</a></li>
         <li><a routerLink="" fragment="pricing">Pricing</a></li>
         <li><a routerLink="" fragment="faq">FAQ</a></li>
       </ul>
-      <a routerLink="login" routerLinkActive="active">
-        <button>Sign In</button>
-      </a>
     </nav>
-    <button id="bt_bars">
-      <lucide-angular [img]="Menu"></lucide-angular>
-    </button>
+  </div>
+  }
 </header>

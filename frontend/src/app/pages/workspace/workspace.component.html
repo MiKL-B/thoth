@@ -1,1 +1,14 @@
-<p>workspace works!</p>
+<div id="container_workspace">
+    <div>
+        <button (click)="selectView('dashboard')">Dashboard</button>
+        <button (click)="selectView('notes')">Notes</button>
+    </div>
+    <section class="view-container">
+        @if(currentView === 'dashboard'){
+        <app-dashboard />
+        }
+        @if (currentView === 'notes'){
+        <app-notes />
+        }
+    </section>
+</div>

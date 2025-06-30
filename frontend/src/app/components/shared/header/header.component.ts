@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { LucideAngularModule, Menu } from 'lucide-angular';
+import { LucideAngularModule, Menu,X } from 'lucide-angular';
 
 @Component({
   selector: 'app-header',
@@ -10,4 +10,10 @@ import { LucideAngularModule, Menu } from 'lucide-angular';
 })
 export class HeaderComponent {
   readonly Menu = Menu;
+  readonly X = X;
+  isOpenMenuMobile:boolean = false;
+  toggleMenuMobile(){
+    this.isOpenMenuMobile = !this.isOpenMenuMobile
+
+  }
 }
