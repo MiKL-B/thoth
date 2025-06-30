@@ -1,4 +1,6 @@
 @import "./reset.css";
+@import "./classes.css";
+@import "./input.css";
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Playfair+Display:wght@400;700&display=swap');
 
@@ -11,12 +13,15 @@
 }
 
 :root {
-  --dark: #444;
+  --dark: #444444;
   --white: #fafafa;
   --light: #f5f5f5;
   --border: 1px solid var(--dark);
   --border-dashed: 1px dashed var(--dark);
+  --border-card:1px solid rgba(68,68,68,0.5);
+
   --shadow: 1px 1px 0px var(--dark);
+  --shadow-card:1px 1px 0px rgba(68,68,68,0.3);
   --no-shadow: 0 0 0 var(--dark);
 
   --red: #ff8a9a;
@@ -39,8 +44,7 @@ html {
 }
 
 body {
-  font-size: 1.1rem;
-  line-height: 1.4;
+  line-height: 1.2;
   background-color: var(--light);
   color: var(--dark);
   position: relative;
@@ -66,11 +70,6 @@ svg {
   height: 20px;
 }
 
-main {
-  // max-width: 600px;
-  // margin: auto;
-  // filter: grayscale(100%);
-}
 
 section {
   max-width: 1200px;
@@ -145,26 +144,6 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-// input[type="password"],
-// input[type="search"] {
-//   border: 1px solid transparent;
-//   padding: 0.2rem 0;
-//   width: 100%;
-// }
-
-// .password,
-// .search {
-//   display: flex;
-//   align-items: center;
-//   border: 1px solid var(--dark);
-//   padding: 0 0.5rem 0 0.4rem;
-//   gap: 0.2rem;
-
-
-//   & svg:hover {
-//     cursor: pointer;
-//   }
-// }
 
 
 .tree {
@@ -189,18 +168,7 @@ input[type="checkbox"] {
   text-decoration: underline;
 }
 
-.field {
-  display: inline-flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-  text-align: left;
-}
 
-.field_row {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
 
 
 textarea {
@@ -219,11 +187,7 @@ textarea {
   cursor: pointer;
 }
 
-.form {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+
 
 select {
   outline: none;
@@ -315,13 +279,10 @@ ul {
 }
 
 .card {
-  background: var(--light);
-  border: 1px solid rgba(68, 68, 68, 1);
-  padding: 1rem;
-  min-width: 250px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 1px 1px rgba(68, 68, 68, 0.1);
+  box-shadow: var(--shadow-card);
+  border:var(--border-card);
+  background:var(--white);
+  padding:1.5rem;
 }
 
 hr {

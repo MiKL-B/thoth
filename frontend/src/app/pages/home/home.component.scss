@@ -6,6 +6,7 @@ section {
   display: flex;
   flex-direction: column;
   border-bottom: var(--border);
+  gap:1rem;
 
   h2,
   p {
@@ -22,10 +23,6 @@ section {
 img {
   max-width: 300px;
   max-height: 300px;
-}
-
-button {
-  gap: 0.5rem;
 }
 
 #keyfigures {
@@ -60,7 +57,6 @@ button {
 #pricing,
 #faq {
   border-bottom: var(--border);
-
 }
 
 #features-top,
@@ -84,19 +80,14 @@ button {
   gap: 1rem;
 
   div {
-    border: var(--border);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 1rem;
-    background-color: var(--white);
   }
 
   svg {
     margin: 1rem auto;
   }
-
-
 }
 
 .feature-title {
@@ -113,11 +104,8 @@ button {
   gap: 1rem;
 
   .card {
-    border: var(--border);
     display: grid;
     grid-template-rows: auto 1fr auto;
-    padding: 1rem;
-    background-color: var(--white);
   }
 
   ul {
@@ -158,8 +146,6 @@ button {
 }
 
 .question {
-  border: var(--border);
-  padding: 1rem;
   align-items: center;
   background: var(--white);
 
