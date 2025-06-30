@@ -13,15 +13,16 @@
 }
 
 :root {
+  --dark-bright: #999;
   --dark: #444444;
   --white: #fafafa;
   --light: #f5f5f5;
   --border: 1px solid var(--dark);
   --border-dashed: 1px dashed var(--dark);
-  --border-card:1px solid rgba(68,68,68,0.5);
+  --border-card: 1px solid var(--dark-bright);
 
   --shadow: 1px 1px 0px var(--dark);
-  --shadow-card:1px 1px 0px rgba(68,68,68,0.3);
+  --shadow-card: 1px 1px 0px var(--dark-bright);
   --no-shadow: 0 0 0 var(--dark);
 
   --red: #ff8a9a;
@@ -45,12 +46,11 @@ html {
 
 body {
   line-height: 1.2;
-  background-color: var(--light);
   color: var(--dark);
   position: relative;
   margin: auto;
-  padding: 0 1rem;
 
+  background-color: var(--light);
   background-repeat: repeat;
   background-size: auto;
   background-image: url("/noise-lines.png");
@@ -280,9 +280,9 @@ ul {
 
 .card {
   box-shadow: var(--shadow-card);
-  border:var(--border-card);
-  background:var(--white);
-  padding:1.5rem;
+  border: var(--border-card);
+  background: var(--white);
+  padding: 1.5rem;
 }
 
 hr {

@@ -1,12 +1,12 @@
 section {
-  padding: 5rem 0;
+  padding: 5rem 1rem;
 }
 
 #header {
   display: flex;
   flex-direction: column;
   border-bottom: var(--border);
-  gap:1rem;
+  gap: 1rem;
 
   h2,
   p {

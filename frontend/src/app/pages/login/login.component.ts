@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from '../../components/shared/header/header.component';
+import { FooterComponent } from '../../components/shared/footer/footer.component';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule,HeaderComponent,FooterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

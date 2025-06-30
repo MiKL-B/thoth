@@ -1,5 +1,107 @@
+ul {
+    list-style-type: none;
+}
+
+
+#container_workspace {
+    height: 100vh;
+}
+
+
+#button_mobile {
+    margin: 1rem;
+}
+
+#menu_mobile {
+    display: flex;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 3rem;
+    background-color: var(--light);
+    background-repeat: repeat;
+    background-size: auto;
+    background-image: url("/noise-lines.png");
+    border-bottom: var(--border);
+
+    nav {
+        padding: 1rem;
+    }
+
+    nav,
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+#panel_left {
+    display: none;
+}
+
+#panel_right {
+    padding: 1rem;
+}
+
+svg {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    stroke: var(--dark);
+}
+
 @media screen and (min-width:768px) {
     #container_workspace {
         display: flex;
+        flex-direction: row;
+    }
+
+    #button_mobile,
+    #menu_mobile {
+        display: none;
+    }
+
+    #panel_left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow-x: hidden;
+        width: 50px;
+        border-right: var(--border);
+        height: 100%;
+    }
+
+    #panel_right {
+        width: 100%;
+    }
+
+
+
+    .icon {
+        display: grid;
+        grid-template-columns: 30px 120px;
+        align-items: center;
+        padding: 0.5rem;
+        gap: 1rem;
+
+        &:hover {
+            background: var(--dark-bright);
+            color: var(--light);
+            cursor: pointer;
+
+            svg {
+                stroke: var(--light);
+            }
+        }
+
+        &.active {
+            background: var(--dark);
+            color: var(--light);
+
+            svg {
+                stroke: var(--light);
+            }
+        }
     }
 }

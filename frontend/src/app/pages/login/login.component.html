@@ -1,19 +1,20 @@
+<app-header />
 <form class="card" (ngSubmit)="onSubmit()">
   <h2>{{isRegister ? 'Register': 'Welcome Back'}}</h2>
   <span class="mb-2">Sign in to access to your notes!</span>
   @if (isRegister){
-    <div class="field_col">
-      <label for="name">Name</label>
-      <input id="name" type="text" name="name" [(ngModel)]="name" placeholder="Enter your name">
-      <small class="error">error</small>
-    </div>
+  <div class="field_col">
+    <label for="name">Name</label>
+    <input id="name" type="text" name="name" [(ngModel)]="name" placeholder="Enter your name">
+    <small class="error">error</small>
+  </div>
   }@else {
-    <button type="button">Continue with GitHub</button>
-    <div class="separator">
-      <div class="border-dashed"></div>
-      <span>or</span>
-      <div class="border-dashed"></div>
-    </div>
+  <button type="button">Continue with GitHub</button>
+  <div class="separator">
+    <div class="border-dashed"></div>
+    <span>or</span>
+    <div class="border-dashed"></div>
+  </div>
   }
   <div class="field_col">
     <label for="email">Email Address</label>
@@ -24,48 +25,48 @@
     <div style="display:flex;justify-content: space-between;">
       <label for="password">Password</label>
       @if(!isRegister){
-        <span>Forgot password?</span>
+      <span>Forgot password?</span>
       }
     </div>
     <div class="field--password">
       <input [type]="isVisiblePassword ? 'text' : 'password'" name="password" [(ngModel)]="password"
         placeholder="Enter your password">
-        <div (click)="togglePassword()">
-          @if(isVisiblePassword){
-            <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-eye-icon lucide-eye">
-              <path
-                d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-          }
-          @else {
-            <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-eye-off-icon lucide-eye-off">
-              <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
-              <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
-              <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
-              <path d="m2 2 20 20" />
-            </svg>
-          }
-        </div>
+      <div (click)="togglePassword()">
+        @if(isVisiblePassword){
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-eye-icon lucide-eye">
+          <path
+            d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+        }
+        @else {
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-eye-off-icon lucide-eye-off">
+          <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
+          <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
+          <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
+          <path d="m2 2 20 20" />
+        </svg>
+        }
+      </div>
     </div>
     <small>error</small>
   </div>
   <div class="field_col">
     <input type="text" style="display: none" autocomplete="off" tabindex="-1" name="website"
-          placeholder="Leave this empty" />
+      placeholder="Leave this empty" />
   </div>
   <div class="field_row">
     @if(isRegister){
-      <input id="condition" type="checkbox">
-      <label for="condition">J'accepte les conditions</label>
+    <input id="condition" type="checkbox">
+    <label for="condition">J'accepte les conditions</label>
     }
     @else {
-      <input id="rememberme" type="checkbox">
-      <label for="rememberme">Remember me</label>
+    <input id="rememberme" type="checkbox">
+    <label for="rememberme">Remember me</label>
     }
   </div>
   <input type="submit" value="Sign Up" class="primary">
@@ -73,6 +74,7 @@
     <a (click)="toggleForm()">Sign {{isRegister ? 'In' : 'Up'}}</a>
   </span>
 </form>
+<app-footer />
 <!-- <template>
   <div id=" container">
       <form @submit.prevent="submitForm">
