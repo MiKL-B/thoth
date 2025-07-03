@@ -30,33 +30,6 @@
   --blue: #88c9e8;
   --purple: #c39bd3;
   --orange: #ffb285;
-
-  --space-0: 0px;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 16px;
-  --space-4: 24px;
-  --space-5: 32px;
-  --space-6: 40px;
-  --space-7: 48px;
-  --space-8: 64px;
-
-}
-
-.m-1 {
-  margin: var(--space-1);
-}
-
-.m-2 {
-  margin: var(--space-2);
-}
-
-.p-3 {
-  padding: var(--space-3);
-}
-
-.mb-4 {
-  margin-bottom: var(--space-4);
 }
 
 h1,
@@ -77,8 +50,6 @@ body {
   background-color: var(--light);
 }
 
-
-
 a {
   color: var(--dark);
 }
@@ -98,14 +69,10 @@ h2 {
 }
 
 .buttons {
-  // display: flex;
-  // gap: 0.5rem;
-  // align-items: center;
-
   display: flex;
-  gap: var(--space-2);
+  gap: 0.5rem;
   align-items: center;
-  margin-bottom: var(--space-3);
+
 }
 
 input,
@@ -318,7 +285,7 @@ ul {
   box-shadow: var(--shadow);
   border: var(--border);
   background: var(--white);
-  padding: var(--space-5);
+  padding: 1rem;
 }
 
 hr {
