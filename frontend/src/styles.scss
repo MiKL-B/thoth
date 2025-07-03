@@ -13,17 +13,15 @@
 }
 
 :root {
-  --dark-bright: #555;
-  --grey: #999;
-  --dark: #2d2d2d;
+  --dark-bright: #777;
+  --grey: #c2c2c2;
+  --dark: #3d3d3d;
   --white: #fafafa;
-  --light: #f5f5f5;
+  --light: #f6f6f6;
   --border: 1px solid var(--dark);
   --border-dashed: 1px dashed var(--dark);
-  --border-card: 1px solid grey;
 
-  --shadow: 1px 1px 0px var(--dark);
-  --shadow-card: 1px 1px 0px grey;
+  --shadow: 2px 2px 0px var(--grey);
   --no-shadow: 0 0 0 var(--dark);
 
   --red: #ff8a9a;
@@ -33,6 +31,32 @@
   --purple: #c39bd3;
   --orange: #ffb285;
 
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 40px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+}
+
+.m-1 {
+  margin: var(--space-1);
+}
+
+.m-2 {
+  margin: var(--space-2);
+}
+
+.p-3 {
+  padding: var(--space-3);
+}
+
+.mb-4 {
+  margin-bottom: var(--space-4);
 }
 
 h1,
@@ -51,9 +75,6 @@ body {
   position: relative;
   margin: auto;
   background-color: var(--light);
-  background-repeat: repeat;
-  background-size: auto;
-  background-image: url("/noise-lines.png");
 }
 
 
@@ -77,9 +98,14 @@ h2 {
 }
 
 .buttons {
+  // display: flex;
+  // gap: 0.5rem;
+  // align-items: center;
+
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-2);
   align-items: center;
+  margin-bottom: var(--space-3);
 }
 
 input,
@@ -92,9 +118,12 @@ button {
   font-size: 1rem;
   display: flex;
   align-items: center;
-  background: var(--light);
+  background: var(--white);
   gap: 0.5rem;
+  box-shadow: var(--shadow);
+  transition: all 0.1s ease;
 }
+
 
 input {
   height: 30px;
@@ -112,19 +141,17 @@ button svg {
 
 input[type="submit"],
 button {
-  box-shadow: var(--shadow);
-  transition:
-    transform 0.1s ease,
-    box-shadow 0.1s ease;
   height: 42px;
 
   &:hover {
+
     cursor: pointer;
   }
 
   &:active:not(:disabled) {
     transform: translate(2px, 2px);
     box-shadow: var(--no-shadow);
+
   }
 
   &:disabled {
@@ -201,11 +228,12 @@ select {
   border: var(--border);
   color: var(--dark);
   border-radius: 2px;
-  background: var(--light);
+  background: var(--white);
   padding: 0.2rem 0.4rem;
   font-family: "IBM Plex Mono", monospace;
   font-size: 1rem;
   height: 30px;
+  box-shadow: var(--shadow);
 }
 
 fieldset {
@@ -287,10 +315,10 @@ ul {
 }
 
 .card {
-  box-shadow: var(--shadow-card);
-  border: var(--border-card);
+  box-shadow: var(--shadow);
+  border: var(--border);
   background: var(--white);
-  padding: 1.5rem;
+  padding: var(--space-5);
 }
 
 hr {
