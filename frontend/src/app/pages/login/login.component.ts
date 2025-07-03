@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../components/shared/header/header.component';
 import { FooterComponent } from '../../components/shared/footer/footer.component';
+import { LucideIconComponent } from "../../components/shared/lucide-icon/lucide-icon.component";
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule,HeaderComponent,FooterComponent],
+  imports: [FormsModule, HeaderComponent, FooterComponent, LucideIconComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })

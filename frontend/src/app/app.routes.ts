@@ -9,9 +9,9 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   {
-    path:"workspace",
-    component:WorkspaceComponent,
-     canActivate:[authGuard],
+    path: "workspace",
+    component: WorkspaceComponent,
+    canActivate: [authGuard],
     //   children: [
     //   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     //   { path: 'dashboard', component: DashboardComponent },
@@ -22,6 +22,6 @@ export const routes: Routes = [
     // ]
   },
   {
-    path:"**", component:NotFoundComponent
+    path: "**", component: NotFoundComponent
   }
 ];

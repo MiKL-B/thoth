@@ -1,0 +1,72 @@
+import {
+    File,
+    HelpCircle,
+    PanelLeftOpen,
+    PanelLeftClose,
+    LayoutDashboard,
+    List,
+    User,
+    Kanban,
+    ChartGantt,
+    ChartNetwork,
+    Brain,
+    Settings,
+    Menu,
+    Calendar,
+    LayoutGrid,
+    ArrowRight,
+    ChevronDown,
+    Check,
+    Eye,
+    EyeOff,
+    LucideIconData,
+    AppWindow,
+    Funnel,
+    Notebook,
+    SquarePen,
+    Target,
+    Clock,
+    Link,
+    Tags,
+    Ellipsis,
+    Plus
+} from 'lucide-angular';
+
+export const ICONS = [
+    { name: 'File', icon: File },
+    { name: 'HelpCircle', icon: HelpCircle },
+    { name: 'User', icon: User },
+    { name: 'PanelLeftOpen', icon: PanelLeftOpen },
+    { name: 'PanelLeftClose', icon: PanelLeftClose },
+    { name: 'LayoutDashboard', icon: LayoutDashboard },
+    { name: 'List', icon: List },
+    { name: 'Kanban', icon: Kanban },
+    { name: 'Calendar', icon: Calendar },
+    { name: 'ChartGantt', icon: ChartGantt },
+    { name: 'ChartNetwork', icon: ChartNetwork },
+    { name: 'LayoutGrid', icon: LayoutGrid },
+    { name: 'Brain', icon: Brain },
+    { name: 'Settings', icon: Settings },
+    { name: 'Menu', icon: Menu },
+    { name: 'ArrowRight', icon: ArrowRight },
+    { name: 'ChevronDown', icon: ChevronDown },
+    { name: 'Check', icon: Check },
+    { name: 'Eye', icon: Eye },
+    { name: 'EyeOff', icon: EyeOff },
+    { name: "AppWindow", icon: AppWindow },
+    { name: "Funnel", icon: Funnel },
+    { name: "Notebook", icon: Notebook },
+    { name: "SquarePen", icon: SquarePen },
+    { name: "Target", icon: Target },
+    { name: "Clock", icon: Clock },
+    { name: "Link", icon: Link },
+    { name: "Tags", icon: Tags },
+    { name: "Ellipsis", icon: Ellipsis },
+    { name: "Plus", icon: Plus }
+];
+
+export const LUCIDE_ICONS = ICONS.reduce((acc, cur) => {
+    acc[cur.name] = cur.icon;
+    return acc;
+}, {} as Record<string, LucideIconData>);
+

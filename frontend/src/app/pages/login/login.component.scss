@@ -1,11 +1,15 @@
+#container_form {
+  padding: 0 1rem;
+}
+
 form {
   display: flex;
   flex-direction: column;
   text-align: center;
   margin: 5rem auto;
   max-width: 500px;
-  border:1px solid rgba(68,68,68,0.5);
-  box-shadow:var(--shadow-card)
+  border: var(--border-card);
+  box-shadow: var(--shadow-card);
 }
 
 h2 {
@@ -59,21 +63,23 @@ a {
   align-items: center;
 }
 
-.field--password{
+.field--password {
   display: flex;
   align-items: center;
   position: relative;
-  input{
+
+  input {
     padding-right: 2rem;
     flex-grow: 1;
   }
-  div{
+
+  div {
     position: absolute;
     z-index: 3;
-    top:0;
-    right:0;
-    bottom:0;
-    padding:0.5rem;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.2rem;
     cursor: pointer;
   }
 }

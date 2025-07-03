@@ -1,0 +1,127 @@
+<div id="note-view">
+    <div id="note-view-left">
+        <div id="note-filter-container">
+            <div id="note-add">
+                <app-lucide-icon name="list" />
+                <span>Notes</span>
+                <button class="bt_icon">
+                    <app-lucide-icon name="plus" [size]="16" />
+                </button>
+            </div>
+            <input type="search" placeholder="Search...">
+            <div id="note-filter">
+                <select name="" id="">
+                    <option value="">Tous</option>
+                    <option value="">Draft</option>
+                    <option value="">Todo</option>
+                    <option value="">In progress</option>
+                    <option value="">Finished</option>
+                    <option value="">Archived</option>
+                    <option value="">Trash</option>
+                </select>
+                <button class="bt_icon">
+                    <app-lucide-icon name="funnel" [size]="16" />
+                </button>
+            </div>
+        </div>
+        <app-note-list />
+    </div>
+    <div id="note-view-right">
+        <div id="note-title">
+            <button class="bt_icon">
+                <app-lucide-icon name="squarepen" [size]="16" />
+            </button>
+            <span>Note test</span>
+            <button id="bt_target" class="bt_icon">
+                <app-lucide-icon name="target" [size]="16" />
+            </button>
+        </div>
+        <div id="note-header">
+            <div id="note-header-infos">
+                <div class="note-header-info">
+                    <app-lucide-icon name=" calendar" [size]="20" [color]="'grey'" />
+                    <small class="text-grey">Créé le 15/01/2024</small>
+                </div>
+                <div class="note-header-info">
+                    <app-lucide-icon name="clock" [size]="20" [color]="'grey'" />
+                    <small class="text-grey">Échéance: 25/10/2024</small>
+                </div>
+                <div class="note-header-info">
+                    <app-lucide-icon name="user" [size]="20" [color]="'grey'" />
+                    <small class="text-grey">Assigné à Alice</small>
+                </div>
+            </div>
+            <div id="note-header-fields-container">
+                <div class="note-header-fields">
+                    <div class="note-header-field">
+                        <label for="">Status</label>
+                        <select name="" id="">
+                            <option value="">Draft</option>
+                            <option value="">Todo</option>
+                            <option value="">In progress</option>
+                            <option value="">Finished</option>
+                            <option value="">Archived</option>
+                        </select>
+                    </div>
+                    <div class="note-header-field">
+                        <label for="">Priority</label>
+                        <select name="" id="">
+                            <option value="">Important</option>
+                            <option value="">Urgent</option>
+                        </select>
+                    </div>
+                    <div class="note-header-field">
+                        <label for="">Add tag</label>
+                        <div class="note-header-field-add-tag">
+                            <input type="text" placeholder="Insert text here...">
+                            <button class="bt_icon">
+                                <app-lucide-icon name="plus" [size]="16" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="note-header-fields">
+                    <div class="note-header-field">
+                        <label for="">Start date</label>
+                        <input type="date">
+                    </div>
+                    <div class="note-header-field">
+                        <label for="">Due date</label>
+                        <input type="date">
+                    </div>
+                    <div class="note-header-field">
+                        <label for="">Duration (days)</label>
+                        <input type="number">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero ipsum earum magnam commodi nisi magni
+                esse
+                sequi ex quos mollitia non fuga, eligendi necessitatibus! Magni officia velit rem maxime quam excepturi
+                vitae labore dolorem eaque magnam voluptatibus est similique quas minima deserunt cumque, eum
+                consequuntur
+                atque distinctio hic, dolor earum? Autem, est, itaque unde quod sequi qui eius repellat vel obcaecati
+                culpa
+                vitae eaque veritatis eveniet voluptatum asperiores consequuntur officiis ducimus aspernatur pariatur
+                debitis rem placeat nihil? Distinctio odio optio culpa, quisquam ut, eveniet fugit earum vitae, veniam
+                consequuntur voluptatibus illo explicabo labore esse nulla! Qui facilis aliquam vero dolorem.
+            </p>
+            <hr>
+            <div class="note-footer-contents">
+                <app-lucide-icon name="link" [size]="20" [color]="'grey'" />
+                <p>Notes liées</p>
+            </div>
+            <p>Notes</p>
+            <hr>
+            <div class="note-footer-contents">
+                <app-lucide-icon name="tags" [size]="20" [color]="'grey'" />
+                <p>Tags</p>
+            </div>
+            <p>#tag</p>
+        </div>
+    </div>
+</div>

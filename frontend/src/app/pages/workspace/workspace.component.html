@@ -1,170 +1,104 @@
 <div id="container_workspace">
-    <button id="button_mobile" (click)="toggleMenuMobile()">
-        <lucide-angular [img]="Menu" />
-    </button>
+    <div id="buttons_mobile">
+        <button class="button_mobile" (click)="toggleMenuMobile()">
+            <app-lucide-icon name="appwindow" />
+        </button>
+    </div>
     @if(isOpenMenuMobile){
     <div id="menu_mobile">
         <nav>
             <ul>
-                <li (click)="selectView('dashboard')">Dashboard</li>
-                <li (click)="selectView('notes')">Notes</li>
+                <li (click)="selectView('notes')" [ngClass]="{active: currentView === 'notes'}">Notes</li>
+                <li (click)="selectView('dashboard')" [ngClass]="{active: currentView === 'dashboard'}">Dashboard</li>
+                <li (click)="selectView('notebook')" [ngClass]="{active: currentView === 'notebook'}">Notebook</li>
+                <li (click)="selectView('kanban')" [ngClass]="{active: currentView === 'kanban'}">Kanban</li>
+                <li (click)="selectView('calendar')" [ngClass]="{active: currentView === 'calendar'}">Calendar</li>
+                <li (click)="selectView('gantt')" [ngClass]="{active: currentView === 'gantt'}">Gantt</li>
+                <li (click)="selectView('pert')" [ngClass]="{active: currentView === 'pert'}">Pert</li>
+                <li (click)="selectView('eisenhower')" [ngClass]="{active: currentView === 'eisenhower'}">Eisenhower
+                </li>
+                <li (click)="selectView('brain')" [ngClass]="{active: currentView === 'brain'}">Second brain</li>
+                <li (click)="selectView('settings')" [ngClass]="{active: currentView === 'settings'}">Settings</li>
+                <li (click)="selectView('user')" [ngClass]="{active: currentView === 'user'}">User</li>
             </ul>
         </nav>
     </div>
     }
-    <div id="panel_left" [ngStyle]="{width: isOpenPanelLeft ? '200px' : '50px'}">
-        <div style="display: flex;flex-direction: column;">
-            @if(!isOpenPanelLeft){
-            <div style="padding:0.5rem 0 0 0.5rem; margin-bottom: 1rem;">
-                <svg (click)="togglePanelLeft()" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="lucide lucide-panel-left-open-icon lucide-panel-left-open">
-                    <rect width="18" height="18" x="3" y="3" rx="2" />
-                    <path d="M9 3v18" />
-                    <path d="m14 9 3 3-3 3" />
-                </svg>
+    <div id="panel_left">
+        <div id="panel_left_notebooks">
+            <div id="panel_left_notebooks_title">
+                <p class="text-grey">Notebooks</p>
+                <button class="bt_icon">
+                    <app-lucide-icon name="plus" [size]="16" />
+                </button>
             </div>
-            }
-            @else{
-            <div style="padding:0.5rem 0 0 0.5rem; margin-bottom: 1rem;">
-                <svg (click)="togglePanelLeft()" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="lucide lucide-panel-left-close-icon lucide-panel-left-close">
-                    <rect width="18" height="18" x="3" y="3" rx="2" />
-                    <path d="M9 3v18" />
-                    <path d="m16 15-3-3 3-3" />
-                </svg>
+            <div (click)="selectView('notes')" class="panel_left_view" [ngClass]="{active: currentView === 'notes'}">
+                <app-lucide-icon name="notebook" />
+                <span>All notes</span>
             </div>
-            }
 
-            <div (click)="selectView('dashboard')" class="icon" [ngClass]="{active: currentView === 'dashboard'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-layout-dashboard-icon lucide-layout-dashboard">
-                    <rect width="7" height="9" x="3" y="3" rx="1" />
-                    <rect width="7" height="5" x="14" y="3" rx="1" />
-                    <rect width="7" height="9" x="14" y="12" rx="1" />
-                    <rect width="7" height="5" x="3" y="16" rx="1" />
-                </svg>
-                @if(isOpenPanelLeft){
+            <!-- @for(notebook of notebooks; track notebook)
+            {
+            <app-notebook-list-item [title]="notebook.title" (selectView)="selectView(notebook.title)"
+                [currentView]="currentView" />
+            } -->
+
+        </div>
+        <div class="panel_left_views">
+            <div id="panel_left_views_title">
+                <p class="text-grey">Views</p>
+            </div>
+            <div (click)="selectView('dashboard')" class="panel_left_view"
+                [ngClass]="{active: currentView === 'dashboard'}">
+                <app-lucide-icon name="layoutdashboard" />
                 <span>Dashboard</span>
-                }
             </div>
-            <div (click)="selectView('notes')" class="icon" [ngClass]="{active: currentView === 'notes'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-list-icon lucide-list">
-                    <path d="M3 12h.01" />
-                    <path d="M3 18h.01" />
-                    <path d="M3 6h.01" />
-                    <path d="M8 12h13" />
-                    <path d="M8 18h13" />
-                    <path d="M8 6h13" />
-                </svg>
-                <span>Notes</span>
-            </div>
-            <div (click)="selectView('kanban')" class="icon" [ngClass]="{active: currentView === 'kanban'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-kanban-icon lucide-kanban">
-                    <path d="M6 5v11" />
-                    <path d="M12 5v6" />
-                    <path d="M18 5v14" />
-                </svg>
+
+            <div (click)="selectView('kanban')" class="panel_left_view" [ngClass]="{active: currentView === 'kanban'}">
+                <app-lucide-icon name="kanban" />
                 <span>Kanban</span>
             </div>
-            <div (click)="selectView('calendar')" class="icon" [ngClass]="{active: currentView === 'calendar'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-calendar-icon lucide-calendar">
-                    <path d="M8 2v4" />
-                    <path d="M16 2v4" />
-                    <rect width="18" height="18" x="3" y="4" rx="2" />
-                    <path d="M3 10h18" />
-                </svg>
-                <span>Calendrier</span>
+            <div (click)="selectView('calendar')" class="panel_left_view"
+                [ngClass]="{active: currentView === 'calendar'}">
+                <app-lucide-icon name="calendar" />
+                <span>Calendar</span>
             </div>
-            <div (click)="selectView('gantt')" class="icon" [ngClass]="{active: currentView === 'gantt'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-chart-gantt-icon lucide-chart-gantt">
-                    <path d="M10 6h8" />
-                    <path d="M12 16h6" />
-                    <path d="M3 3v16a2 2 0 0 0 2 2h16" />
-                    <path d="M8 11h7" />
-                </svg>
+            <div (click)="selectView('gantt')" class="panel_left_view" [ngClass]="{active: currentView === 'gantt'}">
+                <app-lucide-icon name="chartgantt" />
                 <span>Gantt</span>
             </div>
-            <div (click)="selectView('pert')" class="icon" [ngClass]="{active: currentView === 'pert'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-chart-network-icon lucide-chart-network">
-                    <path d="m13.11 7.664 1.78 2.672" />
-                    <path d="m14.162 12.788-3.324 1.424" />
-                    <path d="m20 4-6.06 1.515" />
-                    <path d="M3 3v16a2 2 0 0 0 2 2h16" />
-                    <circle cx="12" cy="6" r="2" />
-                    <circle cx="16" cy="12" r="2" />
-                    <circle cx="9" cy="15" r="2" />
-                </svg>
+            <div (click)="selectView('pert')" class="panel_left_view" [ngClass]="{active: currentView === 'pert'}">
+                <app-lucide-icon name="chartnetwork" />
                 <span>Pert</span>
             </div>
-            <div (click)="selectView('eisenhower')" class="icon" [ngClass]="{active: currentView === 'eisenhower'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-grid2x2-icon lucide-grid-2x2">
-                    <path d="M12 3v18" />
-                    <path d="M3 12h18" />
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                </svg>
+            <div (click)="selectView('eisenhower')" class="panel_left_view"
+                [ngClass]="{active: currentView === 'eisenhower'}">
+                <app-lucide-icon name="layoutgrid" />
                 <span>Eisenhower</span>
             </div>
-            <div (click)="selectView('brain')" class="icon" [ngClass]="{active: currentView === 'brain'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-brain-icon lucide-brain">
-                    <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
-                    <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
-                    <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4" />
-                    <path d="M17.599 6.5a3 3 0 0 0 .399-1.375" />
-                    <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
-                    <path d="M3.477 10.896a4 4 0 0 1 .585-.396" />
-                    <path d="M19.938 10.5a4 4 0 0 1 .585.396" />
-                    <path d="M6 18a4 4 0 0 1-1.967-.516" />
-                    <path d="M19.967 17.484A4 4 0 0 1 18 18" />
-                </svg>
+            <div (click)="selectView('brain')" class="panel_left_view" [ngClass]="{active: currentView === 'brain'}">
+                <app-lucide-icon name="brain" />
                 <span>Second brain</span>
             </div>
         </div>
-        <!--  -->
-        <div style="display: flex; flex-direction: column;">
-            <div (click)="selectView('settings')" class="icon" [ngClass]="{active: currentView === 'settings'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-settings-icon lucide-settings">
-                    <path
-                        d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-                    <circle cx="12" cy="12" r="3" />
-                </svg>
+        <div class="panel_left_views">
+            <div (click)="selectView('settings')" class="panel_left_view"
+                [ngClass]="{active: currentView === 'settings'}">
+                <app-lucide-icon name="settings" />
                 <span>Settings</span>
             </div>
-            <div (click)="selectView('user')" class="icon" [ngClass]="{active: currentView === 'user'}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="lucide lucide-user-icon lucide-user">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                </svg>
+            <div (click)="selectView('user')" class="panel_left_view" [ngClass]="{active: currentView === 'user'}">
+                <app-lucide-icon name="user" />
                 <span>User</span>
             </div>
         </div>
     </div>
     <div id="panel_right">
-        @if(currentView === 'dashboard'){
-        <app-dashboard />
-        }
         @if (currentView === 'notes'){
-        <app-notes />
+        <app-note-view />
+        }
+        @if(currentView === 'dashboard'){
+        <app-dashboard-view />
         }
     </div>
 </div>

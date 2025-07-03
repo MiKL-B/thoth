@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NotesComponent } from './notes.component';
+import { LucideIconComponent } from './lucide-icon.component';
 
-describe('NotesComponent', () => {
-  let component: NotesComponent;
-  let fixture: ComponentFixture<NotesComponent>;
+describe('LucideIconComponent', () => {
+  let component: LucideIconComponent;
+  let fixture: ComponentFixture<LucideIconComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NotesComponent]
+      imports: [LucideIconComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(NotesComponent);
+    fixture = TestBed.createComponent(LucideIconComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

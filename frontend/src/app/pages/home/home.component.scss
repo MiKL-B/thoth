@@ -30,7 +30,6 @@ img {
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   border-bottom: var(--border);
-
 }
 
 .keyfigure {
@@ -83,10 +82,6 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: center;
-  }
-
-  svg {
-    margin: 1rem auto;
   }
 }
 
@@ -148,10 +143,6 @@ img {
 .question {
   align-items: center;
   background: var(--white);
-
-  svg {
-    width: 50px;
-  }
 }
 
 .question-header {
@@ -164,7 +155,7 @@ img {
 
 @media screen and (min-width:768px) {
   section {
-    padding: 8rem 0;
+    padding: 8rem 1rem;
   }
 
   #header {
