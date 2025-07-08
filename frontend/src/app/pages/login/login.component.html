@@ -1,6 +1,7 @@
 <app-header />
 <div id="container_form">
-  <form class="card" (ngSubmit)="onSubmit()">
+
+  <form (ngSubmit)="onSubmit()">
     <h2>{{isRegister ? 'Register': 'Welcome Back'}}</h2>
     <span class="mb-2">Sign in to access to your notes!</span>
     @if (isRegister){
@@ -47,14 +48,19 @@
       <input type="text" style="display: none" autocomplete="off" tabindex="-1" name="website"
         placeholder="Leave this empty" />
     </div>
+
     <div class="field_row">
       @if(isRegister){
-      <input id="condition" type="checkbox">
-      <label for="condition">J'accepte les conditions</label>
+      <label class="checkbox-wrapper">
+        <input type="checkbox" />
+        Accepter les conditions
+      </label>
       }
       @else {
-      <input id="rememberme" type="checkbox">
-      <label for="rememberme">Remember me</label>
+      <label class="checkbox-wrapper">
+        <input type="checkbox" />
+        Remember me
+      </label>
       }
     </div>
     <input type="submit" value="Sign Up" class="primary">
@@ -62,6 +68,7 @@
       <a (click)="toggleForm()">Sign {{isRegister ? 'In' : 'Up'}}</a>
     </span>
   </form>
+
 </div>
 <app-footer />
 <!-- <template>

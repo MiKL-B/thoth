@@ -1,6 +1,9 @@
-@import "./styles/reset.css";
-@import "./styles/classes.css";
+// @import "./styles/reset.css";
+@import './styles/container.css';
+@import "./styles/utilities.css";
 @import "./styles/input.css";
+@import './styles/button.css';
+@import './styles/article.css';
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Playfair+Display:wght@400;700&display=swap');
 
@@ -13,15 +16,14 @@
 }
 
 :root {
-  --dark-bright: #777;
-  --grey: #c2c2c2;
-  --dark: #3d3d3d;
+  --dark: #333C4E;
+  --dark2: #525F7A;
   --white: #fafafa;
   --light: #f6f6f6;
   --border: 1px solid var(--dark);
   --border-dashed: 1px dashed var(--dark);
 
-  --shadow: 2px 2px 0px var(--grey);
+  --shadow: 1px 1px 0px var(--dark2);
   --no-shadow: 0 0 0 var(--dark);
 
   --red: #ff8a9a;
@@ -30,12 +32,33 @@
   --blue: #88c9e8;
   --purple: #c39bd3;
   --orange: #ffb285;
+
+  --blue-dark: #65BAE2;
+
+  --bg-color: var(--light);
+  --text-color: var(--dark);
+}
+
+html[data-theme="dark"] {
+  --bg-color: var(--dark);
+  --text-color: var(--light);
 }
 
 h1,
 h2 {
   font-family: "Playfair Display", serif;
   font-weight: 700;
+}
+
+h1 {
+  font-size: clamp(1.8rem, 10vw, 2.5rem);
+}
+
+hgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 html {
@@ -45,18 +68,19 @@ html {
 body {
   line-height: 1.2;
   color: var(--dark);
+  background: var(--light);
   position: relative;
   margin: auto;
-  background-color: var(--light);
+
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 a {
   color: var(--dark);
 }
 
-.text-grey {
-  color: grey;
-}
+
 
 section {
   max-width: 1200px;
@@ -68,15 +92,9 @@ h2 {
   font-weight: 600;
 }
 
-.buttons {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
 
-}
 
-input,
-button {
+input {
   outline: none;
   border: var(--border);
   color: var(--dark);
@@ -85,59 +103,41 @@ button {
   font-size: 1rem;
   display: flex;
   align-items: center;
-  background: var(--white);
   gap: 0.5rem;
-  box-shadow: var(--shadow);
-  transition: all 0.1s ease;
-}
-
-
-input {
+  background: transparent;
   height: 30px;
+
 }
 
-button svg {
-  align-items: center;
-  display: flex;
-}
 
-.bt_icon {
-  height: 30px;
-  width: 30px;
-}
-
-input[type="submit"],
-button {
+input[type="submit"] {
   height: 42px;
 
   &:hover {
-
     cursor: pointer;
   }
 
   &:active:not(:disabled) {
     transform: translate(2px, 2px);
     box-shadow: var(--no-shadow);
-
   }
 
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;
     transform: none;
-    box-shadow: var(--shadow);
+  }
+
+  &.primary {
+    background: var(--dark);
+    color: var(--light);
+
+    svg {
+      stroke: var(--light);
+    }
   }
 }
 
-input[type="submit"].primary,
-button.primary {
-  background: var(--dark);
-  color: var(--light);
-
-  svg {
-    stroke: var(--light);
-  }
-}
 
 input[type="radio"],
 input[type="checkbox"] {
@@ -195,12 +195,11 @@ select {
   border: var(--border);
   color: var(--dark);
   border-radius: 2px;
-  background: var(--white);
   padding: 0.2rem 0.4rem;
   font-family: "IBM Plex Mono", monospace;
   font-size: 1rem;
   height: 30px;
-  box-shadow: var(--shadow);
+  background-color: transparent;
 }
 
 fieldset {
@@ -281,12 +280,7 @@ ul {
   height: 32px;
 }
 
-.card {
-  box-shadow: var(--shadow);
-  border: var(--border);
-  background: var(--white);
-  padding: 1rem;
-}
+
 
 hr {
   border: none;
@@ -299,7 +293,6 @@ mark {
   background-color: var(--dark);
   color: var(--light);
   padding: 0 0.2rem;
-  /* border: 1px dashed var(--dark); */
 }
 
 details {
@@ -346,50 +339,7 @@ progress::-webkit-progress-value {
 }
 
 
-/* toggle checkbox */
-.toggle {
-  position: relative;
-  display: inline-block;
-  width: 42px;
-  height: 22px;
-}
 
-.toggle input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--light);
-  border: 1px solid var(--dark);
-  transition: 0.2s;
-}
-
-.slider::before {
-  content: "";
-  position: absolute;
-  height: 16px;
-  width: 16px;
-  left: 2px;
-  top: 2px;
-  background-color: var(--dark);
-  transition: 0.2s;
-}
-
-.toggle input:checked+.slider {
-  background-color: var(--light);
-}
-
-.toggle input:checked+.slider::before {
-  transform: translateX(20px);
-}
 
 /* breadcrumb */
 .breadcrumb {

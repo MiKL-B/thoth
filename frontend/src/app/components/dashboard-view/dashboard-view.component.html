@@ -1,14 +1,10 @@
 <div id="dashboard-view">
+    <article>
+        <header class="flex align-center gap-4">
+            <app-lucide-icon name="file" />
 
-    <div class="card">
-        <div class="card-content">
-            <div class="card-right">
-                <app-lucide-icon name="file" />
-            </div>
-            <div class="card-info">
-                <span class="card-value">0</span>
-                <small class="card-title">Total notes</small>
-            </div>
-        </div>
-    </div>
+            <span>Total notes</span>
+        </header>
+        <span class="text-center text-xl"><strong>{{totalNotes}}</strong></span>
+    </article>
 </div>

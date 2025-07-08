@@ -1,9 +1,9 @@
-<div class="note card">
-    <div class="note-header">
-        <p>{{note.title}}</p>
-        <app-lucide-icon name="ellipsis" />
-    </div>
-    <div class="note-content">
-        <p>Content...</p>
-    </div>
-</div>
+<article style="margin-right: 1px;">
+    <header class="flex align-center justify-between">
+        <strong class="ellipsis">{{note.title}}</strong>
+        @if(note.pinned){
+        <app-lucide-icon name="pin" [size]="16" />
+        }
+    </header>
+    <p class="ellipsis">{{note.content}}</p>
+</article>

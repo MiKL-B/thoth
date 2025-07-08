@@ -1,9 +1,12 @@
 <app-header />
-<section id="header">
+<app-button-icon id="bt_top" name="chevronup" (click)="scrollTop()" />
+<section id="header" class="flex flex-col gap-6 border-bottom">
   <div>
-    <h2>Note taking app</h2>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum totam, culpa, veritatis in vel mollitia
-      aspernatur aut quibusdam soluta nemo quae! Aperiam veritatis saepe pariatur.</p>
+    <hgroup>
+      <h2>Note taking app</h2>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum totam, culpa, veritatis in vel mollitia
+        aspernatur aut quibusdam soluta nemo quae! Aperiam veritatis saepe pariatur.</p>
+    </hgroup>
     <div class="buttons">
       <button class="primary">Start taking notes</button>
       <button>Watch demo</button>
@@ -11,103 +14,52 @@
   </div>
   <img src="https://picsum.photos/300/300" alt="">
 </section>
-<section id="keyfigures">
-  <div class="keyfigure">
-    <p>10K+</p>
+<section class="flex flex-col gap-4 md:flex-row md:justify-between border-bottom">
+  <div class="flex flex-col align-center text-center">
+    <p class="text-xl"><strong>10K+</strong></p>
     <span>Active user</span>
   </div>
-  <div class="keyfigure">
-    <p>500K+</p>
+  <div class="flex flex-col align-center text-center">
+    <p class="text-xl"><strong>500K+</strong></p>
     <span>Created note</span>
   </div>
-  <div class="keyfigure">
-    <p>99.9%</p>
+  <div class="flex flex-col align-center text-center">
+    <p class="text-xl"><strong>99.9%</strong></p>
     <span>Uptime</span>
   </div>
-  <div class="keyfigure">
-    <p>4.9/5</p>
+  <div class="flex flex-col align-center text-center">
+    <p class="text-xl"><strong>4.9/5</strong></p>
     <span>Satisfaction</span>
   </div>
 </section>
-<section id="features">
-  <div id="features-top">
-    <span>FEATURES</span>
+<section id="features" class="flex flex-col gap-8 border-bottom">
+  <div class="text-center">
+    <span><strong>FEATURES</strong></span>
     <p>Everything you need in one place</p>
   </div>
-  <div id="features-bottom">
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
-    <div class="card">
-      <app-lucide-icon name="list" />
-      <p class="feature-title">Smart taking notes</p>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, ipsum.</p>
-    </div>
+  <div id="features-bottom" class="flex flex-col gap-6">
+    @for(feature of features; track feature){
+    <article>
+      <header class="text-center">
+        <app-lucide-icon [name]="feature.icon" />
+      </header>
+      <p class="text-center"><strong>{{feature.title}}</strong></p>
+      <p>{{feature.description}}</p>
+    </article>
+    }
   </div>
 </section>
-<section id="pricing">
-  <div id="pricing-top">
-    <span>PRICING</span>
+<section id="pricing" class="flex flex-col gap-8 border-bottom">
+  <div class="text-center">
+    <span><strong>PRICING</strong></span>
     <p>Choose the plan that's right for you</p>
   </div>
   <div id="pricing-bottom">
-    <div class="card">
-      <div class="pricing-header">
-        <p class="pricing-title">Free</p>
-        <p class="pricing-price"><span class="price">0€</span>/month</p>
-      </div>
+    <article>
+      <header>
+        <p class="text-center">Free</p>
+        <p class="text-center"><span class="text-xl">0€</span>/month</p>
+      </header>
       <ul>
         <li>
           <app-lucide-icon name="check" />
@@ -118,34 +70,15 @@
           Feature 1
         </li>
       </ul>
-      <button>Get started free</button>
-    </div>
-    <div class="card">
-      <div class="pricing-header">
-        <p class="pricing-title" style="font-weight: bold;">Pro</p>
-        <p class="pricing-price"><span class="price">9€</span>/month</p>
-      </div>
-      <ul>
-        <li>
-          <app-lucide-icon name="check" />
-          Feature 1
-        </li>
-        <li>
-          <app-lucide-icon name="check" />
-          Feature 1
-        </li>
-        <li>
-          <app-lucide-icon name="check" />
-          Feature 1
-        </li>
-      </ul>
-      <button class="primary">Start pro trial</button>
-    </div>
-    <div class="card">
-      <div class="pricing-header">
-        <p class="pricing-title">Team</p>
-        <p class="pricing-price"><span class="price">19€</span>/month</p>
-      </div>
+      <footer>
+        <button class="w-full">Get started free</button>
+      </footer>
+    </article>
+    <article>
+      <header>
+        <p class="text-center"><strong>Pro</strong></p>
+        <p class="text-center"><span class="text-xl">9€</span>/month</p>
+      </header>
       <ul>
         <li>
           <app-lucide-icon name="check" />
@@ -164,37 +97,59 @@
           Feature 1
         </li>
       </ul>
-      <button>Contact us</button>
-    </div>
-
+      <footer>
+        <button class="primary w-full">Get started free</button>
+      </footer>
+    </article>
+    <article>
+      <header>
+        <p class="text-center">Team</p>
+        <p class="text-center"><span class="text-xl">19€</span>/month</p>
+      </header>
+      <ul>
+        <li>
+          <app-lucide-icon name="check" />
+          Feature 1
+        </li>
+        <li>
+          <app-lucide-icon name="check" />
+          Feature 1
+        </li>
+        <li>
+          <app-lucide-icon name="check" />
+          Feature 1
+        </li>
+        <li>
+          <app-lucide-icon name="check" />
+          Feature 1
+        </li>
+      </ul>
+      <footer>
+        <button class="w-full">Get started free</button>
+      </footer>
+    </article>
   </div>
   <p style="text-align: center;">All plans include a 14-day free trial</p>
 </section>
-<section id="faq">
-  <div id="faq-top">
-    <span>FAQ</span>
+<section id="faq" class="flex flex-col gap-8 border-bottom">
+  <div class="text-center">
+    <span><strong>FAQ</strong></span>
     <p>Common questions</p>
   </div>
-  <div id="faq-bottom">
-    <div class="question card">
-      <div class="question-header">
-        <span>Question 1</span>
-        <app-lucide-icon name="chevrondown" />
-      </div>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam vel molestiae alias, sapiente tempore eum
-        odio? Corporis, cupiditate dolore et totam sunt corrupti nulla debitis.</p>
-    </div>
-    <div class="question card">
-      <div class="question-header">
-        <span>Question 2</span>
-        <app-lucide-icon name="chevrondown" />
-      </div>
-    </div>
+  <div id="faq-bottom" class="flex flex-col gap-6">
+    @for(question of [1,2,3,4,5,6]; track question){
+    <details name="accordion">
+      <summary>Question {{question}}</summary>
+      <p>Answer {{question}}</p>
+    </details>
+    }
+
+
   </div>
 </section>
-<section id="ready">
-  <div id="ready-top">
-    <span>READY TO GET STARTED?</span>
+<section id="ready" class="flex flex-col gap-8">
+  <div class="text-center">
+    <span><strong>READY TO GET STARTED?</strong></span>
     <p>Start your free trial today</p>
   </div>
   <div class="buttons" style="margin:auto;">

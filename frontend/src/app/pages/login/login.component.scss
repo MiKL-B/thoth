@@ -1,15 +1,15 @@
 #container_form {
-  padding: 0 1rem;
+  padding: 1rem;
 }
 
 form {
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin: 5rem auto;
   max-width: 500px;
+  margin: auto;
   border: var(--border);
-  box-shadow: var(--shadow);
+  padding: 1rem;
 }
 
 h2 {
@@ -82,4 +82,32 @@ a {
     padding: 0.2rem;
     cursor: pointer;
   }
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: 0.5rem;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: var(--border);
+  position: relative;
+}
+
+
+.checkbox-wrapper input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+  background: var(--dark);
+  border: var(--border);
 }

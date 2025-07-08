@@ -23,13 +23,19 @@ import {
     AppWindow,
     Funnel,
     Notebook,
-    SquarePen,
     Target,
     Clock,
     Link,
     Tags,
     Ellipsis,
-    Plus
+    Plus,
+    ChevronUp,
+    Pencil,
+    BookOpen,
+    Trash,
+    CopyPlus,
+    Pin,
+    PinOff
 } from 'lucide-angular';
 
 export const ICONS = [
@@ -56,13 +62,19 @@ export const ICONS = [
     { name: "AppWindow", icon: AppWindow },
     { name: "Funnel", icon: Funnel },
     { name: "Notebook", icon: Notebook },
-    { name: "SquarePen", icon: SquarePen },
+    { name: "Pencil", icon: Pencil },
     { name: "Target", icon: Target },
     { name: "Clock", icon: Clock },
     { name: "Link", icon: Link },
     { name: "Tags", icon: Tags },
     { name: "Ellipsis", icon: Ellipsis },
-    { name: "Plus", icon: Plus }
+    { name: "Plus", icon: Plus },
+    { name: "ChevronUp", icon: ChevronUp },
+    { name: "BookOpen", icon: BookOpen },
+    { name: "Trash", icon: Trash },
+    { name: "CopyPlus", icon: CopyPlus },
+    { name: "Pin", icon: Pin },
+    { name: "PinOff", icon: PinOff }
 ];
 
 export const LUCIDE_ICONS = ICONS.reduce((acc, cur) => {

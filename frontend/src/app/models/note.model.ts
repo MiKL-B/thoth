@@ -1,4 +1,10 @@
 export class Note {
-    constructor(public title: string) { }
+    constructor(
+        public id: number,
+        public title: string,
+        public content: string,
+        public pinned: boolean,
+        public notebookID: number,
+    ) { }
 
 }

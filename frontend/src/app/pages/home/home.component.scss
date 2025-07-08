@@ -1,111 +1,16 @@
-section {
-  padding: 5rem 1rem;
-}
-
-#header {
-  display: flex;
-  flex-direction: column;
-  border-bottom: var(--border);
-  gap: 1rem;
-
-  h2,
-  p {
-    margin-bottom: 1.5rem;
-  }
-}
-
-
-.buttons {
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-}
-
 img {
   max-width: 300px;
   max-height: 300px;
 }
-
-#keyfigures {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  border-bottom: var(--border);
-}
-
-.keyfigure {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-
-  p {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-}
-
-#features,
-#pricing,
-#faq,
-#ready {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-#features,
-#pricing,
-#faq {
-  border-bottom: var(--border);
-}
-
-#features-top,
-#pricing-top,
-#faq-top,
-#ready-top {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-
-  span {
-    font-size: smaller;
-    font-weight: bold;
-  }
-}
-
-#features-bottom {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-}
-
-.feature-title {
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-
 
 #pricing-bottom {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 
-  .card {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-  }
 
   ul {
     list-style-type: none;
-    padding: 1rem 0;
   }
 
   li {
@@ -121,50 +26,22 @@ img {
   }
 }
 
-
-
-.pricing-title,
-.pricing-price {
-  text-align: center;
+#bt_top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
 }
 
 
-
-.price {
-  font-size: 2.5rem;
+section {
+  padding: min(5rem, 8rem) min(1rem, 1rem);
 }
-
-#faq-bottom {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.question {
-  align-items: center;
-  background: var(--white);
-}
-
-.question-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-
 
 @media screen and (min-width:768px) {
-  section {
-    padding: 8rem 1rem;
-  }
+
 
   #header {
     flex-direction: row;
-  }
-
-  #keyfigures {
-    display: flex;
-    justify-content: space-between;
   }
 
   #features-bottom,

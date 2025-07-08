@@ -1,11 +1,10 @@
 footer {
   display: flex;
   flex-direction: column;
-  padding: 5rem 1rem;
+  padding: 1rem;
   max-width: 1200px;
   margin: auto;
   gap: 2rem;
-  border-top: var(--border);
 }
 
 ul {
@@ -15,6 +14,8 @@ ul {
 #footer-top {
   display: flex;
   flex-direction: column;
+  border-top: var(--border);
+  padding-top: 1rem;
 }
 
 #footer-bottom {
@@ -24,9 +25,10 @@ ul {
 }
 
 @media screen and (min-width:768px) {
+
+
   #footer-top {
     flex-direction: row;
     justify-content: space-between;
-
   }
 }

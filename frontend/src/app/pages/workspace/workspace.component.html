@@ -8,97 +8,44 @@
     <div id="menu_mobile">
         <nav>
             <ul>
-                <li (click)="selectView('notes')" [ngClass]="{active: currentView === 'notes'}">Notes</li>
-                <li (click)="selectView('dashboard')" [ngClass]="{active: currentView === 'dashboard'}">Dashboard</li>
-                <li (click)="selectView('notebook')" [ngClass]="{active: currentView === 'notebook'}">Notebook</li>
-                <li (click)="selectView('kanban')" [ngClass]="{active: currentView === 'kanban'}">Kanban</li>
-                <li (click)="selectView('calendar')" [ngClass]="{active: currentView === 'calendar'}">Calendar</li>
-                <li (click)="selectView('gantt')" [ngClass]="{active: currentView === 'gantt'}">Gantt</li>
-                <li (click)="selectView('pert')" [ngClass]="{active: currentView === 'pert'}">Pert</li>
-                <li (click)="selectView('eisenhower')" [ngClass]="{active: currentView === 'eisenhower'}">Eisenhower
+                @for(view of views; track view.title){
+                <li (click)="selectView(view.title)" [ngClass]="{active: selectedView === view.title}">
+                    {{view.title | titlecase}}
                 </li>
-                <li (click)="selectView('brain')" [ngClass]="{active: currentView === 'brain'}">Second brain</li>
-                <li (click)="selectView('settings')" [ngClass]="{active: currentView === 'settings'}">Settings</li>
-                <li (click)="selectView('user')" [ngClass]="{active: currentView === 'user'}">User</li>
+                }
+                @for(view of bottomViews; track view.title){
+                <li (click)="selectView(view.title)" [ngClass]="{active: selectedView === view.title}">
+                    {{view.title | titlecase}}
+                </li>
+                }
             </ul>
         </nav>
     </div>
     }
     <div id="panel_left">
-        <div id="panel_left_notebooks">
-            <div id="panel_left_notebooks_title">
-                <p class="text-grey">Notebooks</p>
-                <button class="bt_icon">
-                    <app-lucide-icon name="plus" [size]="16" />
-                </button>
-            </div>
-            <div (click)="selectView('notes')" class="panel_left_view" [ngClass]="{active: currentView === 'notes'}">
-                <app-lucide-icon name="notebook" />
-                <span>All notes</span>
-            </div>
-
-            <!-- @for(notebook of notebooks; track notebook)
-            {
-            <app-notebook-list-item [title]="notebook.title" (selectView)="selectView(notebook.title)"
-                [currentView]="currentView" />
-            } -->
-
-        </div>
         <div class="panel_left_views">
             <div id="panel_left_views_title">
-                <p class="text-grey">Views</p>
+                <span style="font-size: 24px;"><strong>Views</strong></span>
             </div>
-            <div (click)="selectView('dashboard')" class="panel_left_view"
-                [ngClass]="{active: currentView === 'dashboard'}">
-                <app-lucide-icon name="layoutdashboard" />
-                <span>Dashboard</span>
+            @for(view of views; track view.title){
+            <div (click)="selectView(view.title)" class="panel_left_view"
+                [ngClass]="{active: selectedView === view.title}">
+                <app-lucide-icon [name]="view.icon" />
+                <span>{{view.title | titlecase}}</span>
             </div>
-
-            <div (click)="selectView('kanban')" class="panel_left_view" [ngClass]="{active: currentView === 'kanban'}">
-                <app-lucide-icon name="kanban" />
-                <span>Kanban</span>
-            </div>
-            <div (click)="selectView('calendar')" class="panel_left_view"
-                [ngClass]="{active: currentView === 'calendar'}">
-                <app-lucide-icon name="calendar" />
-                <span>Calendar</span>
-            </div>
-            <div (click)="selectView('gantt')" class="panel_left_view" [ngClass]="{active: currentView === 'gantt'}">
-                <app-lucide-icon name="chartgantt" />
-                <span>Gantt</span>
-            </div>
-            <div (click)="selectView('pert')" class="panel_left_view" [ngClass]="{active: currentView === 'pert'}">
-                <app-lucide-icon name="chartnetwork" />
-                <span>Pert</span>
-            </div>
-            <div (click)="selectView('eisenhower')" class="panel_left_view"
-                [ngClass]="{active: currentView === 'eisenhower'}">
-                <app-lucide-icon name="layoutgrid" />
-                <span>Eisenhower</span>
-            </div>
-            <div (click)="selectView('brain')" class="panel_left_view" [ngClass]="{active: currentView === 'brain'}">
-                <app-lucide-icon name="brain" />
-                <span>Second brain</span>
-            </div>
+            }
         </div>
         <div class="panel_left_views">
-            <div (click)="selectView('settings')" class="panel_left_view"
-                [ngClass]="{active: currentView === 'settings'}">
-                <app-lucide-icon name="settings" />
-                <span>Settings</span>
+            @for(view of bottomViews; track view.title){
+            <div (click)="selectView(view.title)" class="panel_left_view"
+                [ngClass]="{active: selectedView === view.title}">
+                <app-lucide-icon [name]="view.icon" />
+                <span>{{view.title | titlecase}}</span>
             </div>
-            <div (click)="selectView('user')" class="panel_left_view" [ngClass]="{active: currentView === 'user'}">
-                <app-lucide-icon name="user" />
-                <span>User</span>
-            </div>
+            }
         </div>
     </div>
     <div id="panel_right">
-        @if (currentView === 'notes'){
-        <app-note-view />
-        }
-        @if(currentView === 'dashboard'){
-        <app-dashboard-view />
-        }
+        <ng-container [ngComponentOutlet]="viewComponents[selectedView]"></ng-container>
     </div>
 </div>

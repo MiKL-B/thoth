@@ -8,5 +8,5 @@ import { LucideIconComponent } from "../shared/lucide-icon/lucide-icon.component
   styleUrl: './dashboard-view.component.scss'
 })
 export class DashboardViewComponent {
-
+  totalNotes: number = 0;
 }
