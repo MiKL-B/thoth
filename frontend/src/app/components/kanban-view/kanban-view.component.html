@@ -6,43 +6,8 @@
                 <span><strong>(0)</strong></span>
             </header>
             <div class="content">
-                @for(note of notes; track note.id){
-                <app-note-list-item [note]="note" />
-                }
             </div>
         </div>
-        <div class="col">
-            <header class="flex justify-between">
-                <span><strong>Todo</strong></span>
-                <span><strong>(5)</strong></span>
-            </header>
-            <div class="content">
-                @for(note of notes; track note.id){
-                <app-note-list-item [note]="note" />
-                }
-            </div>
-        </div>
-        <div class="col">
-            <header class="flex justify-between">
-                <span><strong>In progress</strong></span>
-                <span><strong>(10)</strong></span>
-            </header>
-            <div class="content">
-                @for(note of notes; track note.id){
-                <app-note-list-item [note]="note" />
-                }
-            </div>
-        </div>
-        <div class="col">
-            <header class="flex justify-between">
-                <span><strong>Finished</strong></span>
-                <span><strong>(0)</strong></span>
-            </header>
-            <div class="content">
-                @for(note of notes; track note.id){
-                <app-note-list-item [note]="note" />
-                }
-            </div>
-        </div>
+
     </div>
 </div>
