@@ -1,0 +1,35 @@
+<div id="eisenhower-view">
+    <div id="columns">
+        <div class="col">
+
+            <header class="flex flex-col" style="padding:0.5rem; background:var(--green)">
+                <span><strong>Important & Urgent</strong></span>
+                <span><small>À faire immédiatement</small></span>
+            </header>
+            <div class="content">
+                @for(note of notes; track note.id){
+                <app-note-list-item [note]="note" />
+                }
+            </div>
+        </div>
+        <div class="col">
+            <header class="flex flex-col" style="padding:0.5rem;  background:var(--yellow)">
+                <span><strong>Important & Non Urgent</strong></span>
+                <span><small>À planifier</small></span>
+            </header>
+        </div>
+        <div class="col">
+            <header class="flex flex-col" style="padding:0.5rem;  background:var(--blue)">
+                <span><strong>Non Important & Urgent</strong></span>
+                <span><small>À déléguer</small></span>
+            </header>
+        </div>
+        <div class="col">
+            <header class="flex flex-col" style="padding:0.5rem;  background:var(--red)">
+                <span><strong>Non Important & Non Urgent</strong></span>
+                <span><small>À éliminer</small></span>
+            </header>
+        </div>
+
+    </div>
+</div>

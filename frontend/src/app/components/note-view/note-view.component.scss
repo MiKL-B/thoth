@@ -13,39 +13,6 @@ select {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-
-    #note-list {
-        height: 200px;
-        flex-grow: 1;
-        overflow: auto;
-    }
-}
-
-#note-filter-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-#note-add {
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    span {
-        font-size: 24px;
-    }
-}
-
-#note-filter {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-
-    select {
-        width: 100%;
-    }
 }
 
 #note-view-right {
@@ -54,37 +21,27 @@ select {
     border-top: var(--border-dashed);
 }
 
-#note-title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+#note-list {
+    height: 200px;
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
-    span {
-        font-size: 24px;
+
+app-note-list-item {
+    border: 1px solid transparent;
+
+    &.active {
+        border: var(--border);
     }
 }
 
-#bt_target {
-    margin-left: auto;
-}
-
-
-.note-footer-contents {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-
-.active {
-    background: var(--dark);
-    color: var(--light);
-}
 
 textarea {
     border: var(--border);
     padding: 0.5rem;
+    flex-grow: 1;
 }
 
 .ellipsis-note {
@@ -100,8 +57,10 @@ textarea {
     }
 
     #note-view-left {
-        border-right: var(--border-dashed);
         width: 400px;
+        padding-right: 0;
+        border-right: var(--border);
+
     }
 
     #note-view-right {
@@ -111,13 +70,37 @@ textarea {
         border-top: none;
     }
 
-    textarea {
-        flex-grow: 1;
-    }
 
     .ellipsis-note {
         max-width: 400px;
     }
 
+    .focus {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    #note-list {
+        overflow: unset;
+
+    }
+
+    app-note-list-item {
+        margin-right: -1px;
+        margin-bottom: -1px;
+        border: 1px solid transparent;
+        transition: 0.2s ease-in-out;
+
+        &:hover {
+            border: var(--border-dashed);
+            cursor: pointer;
+        }
+
+        &.active {
+            border: var(--border);
+            border-right: 1px solid var(--light);
+            margin-right: -1px;
+        }
+    }
 
 }

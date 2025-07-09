@@ -4,7 +4,7 @@ import { LucideIconComponent } from "../shared/lucide-icon/lucide-icon.component
 
 @Component({
   selector: 'app-note-list-item',
-  imports: [LucideIconComponent],
+  imports: [LucideIconComponent,],
   templateUrl: './note-list-item.component.html',
   styleUrl: './note-list-item.component.scss'
 })

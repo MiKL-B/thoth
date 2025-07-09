@@ -1,9 +1,34 @@
 <article style="margin-right: 1px;">
-    <header class="flex align-center justify-between">
+    <div class="flex align-center justify-between" style="height:20px">
         <strong class="ellipsis">{{note.title}}</strong>
+
         @if(note.pinned){
         <app-lucide-icon name="pin" [size]="16" />
         }
-    </header>
+    </div>
+    <div class="flex gap-4">
+        <mark style="background:var(--green)">DO IT</mark>
+    </div>
+    <!-- <div class="flex gap-4">
+        <mark style="background:lightgrey">DRAFT</mark>
+        <mark style="background:lightgrey">TODO</mark>
+        <mark style="background:lightgrey">INPROGRESS</mark>
+        <mark style="background:lightgrey">FINISHED</mark>
+    </div>
+    <div class="flex gap-4">
+        <mark style="background:lightgrey">ARCHIVED</mark>
+        <mark style="background:lightgrey">TRASH</mark>
+    </div>
+    <div class="flex gap-4">
+        <mark style="background:var(--green)">DO IT</mark>
+        <mark style="background:var(--yellow)">SCHEDULE IT</mark>
+    </div>
+    <div class="flex gap-4">
+        <mark style="background:var(--blue)">DELEGATE IT</mark>
+        <mark style="background:var(--red)">DELETE IT</mark>
+    </div> -->
     <p class="ellipsis">{{note.content}}</p>
+    <footer>
+        <span>Jun 23, 12:40 PM</span>
+    </footer>
 </article>

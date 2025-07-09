@@ -29,6 +29,7 @@ export class NoteViewComponent {
   selectedNote!: Note;
 
   isEditMode = false;
+  isFocusMode = false;
   addNotebook(): void {
     if (!this.notebooks) return;
     const newNotebook: Notebook = {
@@ -50,7 +51,8 @@ export class NoteViewComponent {
     this.isEditNotebookTitle = !this.isEditNotebookTitle;
   }
   deleteNotebook() {
-    if (window.confirm("Are you sure you want to delete this notebook ?")) {
+    const message = `Are you sure you want to delete this notebook: ${this.selectedNotebook.title}?`
+    if (window.confirm(message)) {
       this.notes = this.notes.filter((note) => note.notebookID !== this.selectedNotebook.id)
       this.notebooks = this.notebooks.filter((notebook) => notebook.id !== this.selectedNotebook.id);
       this.selectNotebook(this.defaultNotebook);
@@ -59,7 +61,7 @@ export class NoteViewComponent {
   addNote(): void {
     const newNote: Note = {
       id: this.idNote++,
-      title: "Note " + this.idNote,
+      title: "Untitled note " + this.idNote,
       content: "",
       pinned: false,
       notebookID: this.selectedNotebook.id
@@ -78,6 +80,9 @@ export class NoteViewComponent {
     this.notes.push(newNote);
     this.selectNote(newNote);
   }
+  get countNote(): number {
+    return this.filteredNotes.length;
+  }
   get filteredNotes(): Note[] {
     if (this.selectedNotebook.id === 0) {
       return this.notes;
@@ -92,11 +97,18 @@ export class NoteViewComponent {
     this.selectedNote.pinned = !this.selectedNote.pinned;
   }
   deleteNote() {
-    if (window.confirm("Are you sure you want to delete this note ?")) {
+    const message = `Are you sure you want to delete this note: ${this.selectedNote.title}?`
+    if (window.confirm(message)) {
       this.notes = this.notes.filter((note) => note.id !== this.selectedNote.id);
     }
   }
+  existingNote() {
+    return this.notes.find((note) => note.id === this.selectedNote.id)
+  }
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
+  }
+  toggleFocusMode() {
+    this.isFocusMode = !this.isFocusMode;
   }
 }

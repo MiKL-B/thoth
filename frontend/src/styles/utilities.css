@@ -11,11 +11,15 @@
     height: 100dvh;
 }
 
-.mb-1 {
+.mb-4 {
     margin-bottom: 0.5rem;
 }
 
-.mb-2 {
+.mb-6 {
+    margin-bottom: 1rem;
+}
+
+.mb-8 {
     margin-bottom: 2rem;
 }
 
