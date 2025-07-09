@@ -26,17 +26,14 @@ select {
     flex-grow: 1;
     overflow-y: auto;
     overflow-x: hidden;
+    gap: 0.5rem;
 }
 
 
-app-note-list-item {
-    border: 1px solid transparent;
-
-    &.active {
-        border: var(--border);
-    }
+app-note-list-item.active {
+    background: var(--dark);
+    color: var(--light);
 }
-
 
 textarea {
     border: var(--border);
@@ -58,10 +55,9 @@ textarea {
 
     #note-view-left {
         width: 400px;
-        padding-right: 0;
         border-right: var(--border);
-
     }
+
 
     #note-view-right {
         display: flex;
@@ -79,28 +75,4 @@ textarea {
         max-width: 1200px;
         margin: 0 auto;
     }
-
-    #note-list {
-        overflow: unset;
-
-    }
-
-    app-note-list-item {
-        margin-right: -1px;
-        margin-bottom: -1px;
-        border: 1px solid transparent;
-        transition: 0.2s ease-in-out;
-
-        &:hover {
-            border: var(--border-dashed);
-            cursor: pointer;
-        }
-
-        &.active {
-            border: var(--border);
-            border-right: 1px solid var(--light);
-            margin-right: -1px;
-        }
-    }
-
 }

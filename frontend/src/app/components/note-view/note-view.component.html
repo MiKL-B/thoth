@@ -1,8 +1,8 @@
 <div id="note-view">
     @if (!isFocusMode){
 
-    <div id="note-view-left">
-        <div class="flex gap-4 mb-8" style="padding-right:1rem;">
+    <div id="note-view-left" class="gap-4">
+        <div class="flex gap-4 mb-6">
             <div class="flex flex-col w-full">
                 <div class="flex align-center justify-between gap-4" style="margin-bottom: 0.5rem;">
                     @if(isEditNotebookTitle && selectedNotebook !== defaultNotebook){
@@ -27,8 +27,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="flex flex-col gap-4 mb-6" style="padding-right:1rem;">
+        <div class="flex flex-col gap-4">
             <div class="flex justify-between align-center">
                 <div class="flex gap-4" style="font-size: 24px;">
                     <span><strong>Notes</strong></span>
@@ -37,7 +36,7 @@
                 <app-button-icon name="plus" (click)="addNote()" title="New note" />
             </div>
             <input type="search" placeholder="Search notes..." style="width:100%;">
-            <div class="flex gap-4 justify-between mb-4">
+            <div class="flex gap-4 justify-between">
                 <select name="" id="" style="width: 100%;">
                     <option value="">Tous</option>
                     <option value="">Draft</option>
@@ -51,6 +50,7 @@
             </div>
         </div>
         <!-- notelist -->
+        <hr>
         <div id="note-list" class="flex flex-col">
             @for(note of filteredNotes; track note.id){
             <app-note-list-item [note]="note" (click)="selectNote(note)" [ngClass]="{active: selectedNote === note}" />
@@ -62,6 +62,7 @@
             </div>
             }
         </div>
+
     </div>
     }
     <div id="note-view-right" class="flex flex-col w-full gap-4" [ngClass]="{focus: isFocusMode}">
