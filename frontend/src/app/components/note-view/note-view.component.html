@@ -1,6 +1,5 @@
 <div id="note-view">
     @if (!isFocusMode){
-
     <div id="note-view-left" class="gap-4">
         <div class="flex gap-4 mb-6">
             <div class="flex flex-col w-full">
@@ -74,20 +73,12 @@
             <span style="font-size: 24px;" class="ellipsis-note"><strong>{{selectedNote.title}}</strong></span>
             }
             <div class="flex align-center gap-4">
-                @if (isEditMode){
-                <app-button-icon name="bookopen" (click)="toggleEditMode()" title="Read mode" />
-                }
-                @else {
-                <app-button-icon name="pencil" (click)="toggleEditMode()" title="Edit mode" />
-                }
-                @if(!isFocusMode){
+                <app-button-icon [name]="isEditMode ? 'bookopen': 'pencil'" (click)="toggleEditMode()"
+                    [title]="isEditMode ? 'Read mode' : 'Edit mode'" />
 
-                @if (selectedNote.pinned){
-                <app-button-icon name="pinoff" (click)="togglePinNote()" title="Unpin" />
-                }
-                @else {
-                <app-button-icon name="pin" (click)="togglePinNote()" title="Pin" />
-                }
+                @if(!isFocusMode){
+                <app-button-icon [name]="selectedNote.pinned ? 'pinoff': 'pin'" (click)="togglePinNote()"
+                    [title]="selectedNote.pinned ? 'Unpin': 'Pin'" />
 
                 <app-button-icon name="copyplus" (click)="duplicateNote()" title="Duplicate" />
                 <app-button-icon name="trash" (click)="deleteNote()" title="Delete" />
