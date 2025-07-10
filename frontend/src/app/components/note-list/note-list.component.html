@@ -1,8 +1,11 @@
-<div class="flex flex-col gap-4">
-    @for(note of notes; track note){
-    <app-note-list-item [note]="note" />
+<div id="note-list" class="flex flex-col gap-4">
+    @for(note of notes; track note.note_id){
+    <app-note-list-item [note]="note" [selected]="selectedNote === note" (click)="onNoteSelected(note)" />
     }
     @empty {
-    <p>No notes found</p>
+    <div class="flex flex-col justify-center m-auto align-center gap-6">
+        <app-lucide-icon name="file" [size]="42" />
+        <span><strong>No notes found</strong></span>
+    </div>
     }
 </div>

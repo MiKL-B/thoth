@@ -35,7 +35,14 @@ import {
     Trash,
     CopyPlus,
     Pin,
-    PinOff
+    PinOff,
+    Flame,
+    Lightbulb,
+    CircleDashed,
+    Circle,
+    CircleCheck,
+    Loader,
+    Archive
 } from 'lucide-angular';
 
 export const ICONS = [
@@ -74,7 +81,15 @@ export const ICONS = [
     { name: "Trash", icon: Trash },
     { name: "CopyPlus", icon: CopyPlus },
     { name: "Pin", icon: Pin },
-    { name: "PinOff", icon: PinOff }
+    { name: "PinOff", icon: PinOff },
+    { name: "Flame", icon: Flame },
+    { name: "LightBulb", icon: Lightbulb },
+    { name: "CircleDashed", icon: CircleDashed },
+    { name: "Circle", icon: Circle },
+    { name: "CircleCheck", icon: CircleCheck },
+    { name: "Loader", icon: Loader },
+    { name: "Archive", icon: Archive },
+
 ];
 
 export const LUCIDE_ICONS = ICONS.reduce((acc, cur) => {

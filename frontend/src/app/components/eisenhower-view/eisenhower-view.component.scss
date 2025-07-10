@@ -16,6 +16,8 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    border: var(--border);
+    padding: 0.5rem;
 
     header {
         margin-bottom: 1rem;

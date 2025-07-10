@@ -34,34 +34,22 @@
                 </div>
                 <app-button-icon name="plus" (click)="addNote()" title="New note" />
             </div>
-            <input type="search" placeholder="Search notes..." style="width:100%;">
+            <input type="search" placeholder="Search notes..." style="width:100%;" [(ngModel)]="searchValue"
+                (ngModelChange)="onSearchChange($event)">
             <div class="flex gap-4 justify-between">
-                <select name="" id="" style="width: 100%;">
-                    <option value="">Tous</option>
-                    <option value="">Draft</option>
-                    <option value="">Todo</option>
-                    <option value="">In progress</option>
-                    <option value="">Finished</option>
-                    <option value="">Archived</option>
-                    <option value="">Trash</option>
+                <select name="" id="" style="width: 100%;" [(ngModel)]="selectedStatus">
+                    <option [ngValue]="statusDefaultFilter">All</option>
+                    @for(state of status; track state){
+                    <option [ngValue]="state">{{state.title}}</option>
+                    }
                 </select>
                 <app-button-icon name="funnel" title="Filter" />
             </div>
         </div>
         <!-- notelist -->
         <hr>
-        <div id="note-list" class="flex flex-col">
-            @for(note of filteredNotes; track note.id){
-            <app-note-list-item [note]="note" (click)="selectNote(note)" [ngClass]="{active: selectedNote === note}" />
-            }
-            @empty {
-            <div class="flex flex-col justify-center m-auto align-center gap-6">
-                <app-lucide-icon name="file" [size]="42" />
-                <span><strong>No notes found</strong></span>
-            </div>
-            }
-        </div>
-
+        <app-note-list id="note-list" [notes]="filteredNotes" [selectedNote]="selectedNote"
+            (noteSelected)="selectNote($event)" />
     </div>
     }
     <div id="note-view-right" class="flex flex-col w-full gap-4" [ngClass]="{focus: isFocusMode}">
@@ -79,7 +67,6 @@
                 @if(!isFocusMode){
                 <app-button-icon [name]="selectedNote.pinned ? 'pinoff': 'pin'" (click)="togglePinNote()"
                     [title]="selectedNote.pinned ? 'Unpin': 'Pin'" />
-
                 <app-button-icon name="copyplus" (click)="duplicateNote()" title="Duplicate" />
                 <app-button-icon name="trash" (click)="deleteNote()" title="Delete" />
                 }
@@ -99,21 +86,18 @@
             </div>
             <div class="flex flex-col">
                 <label for=""><small>Status</small></label>
-                <select name="" id="">
-                    <option value="">Draft</option>
-                    <option value="">Todo</option>
-                    <option value="">In progress</option>
-                    <option value="">Finished</option>
-                    <option value="">Archived</option>
+                <select name="" id="" [(ngModel)]="changedStatusID" (ngModelChange)="onStatusChange($event)">
+                    @for(state of status; track state){
+                    <option [ngValue]="state.id">{{state.title}}</option>
+                    }
                 </select>
             </div>
             <div class="flex flex-col">
                 <label for=""><small>Priority</small></label>
-                <select name="" id="">
-                    <option value="">Do it</option>
-                    <option value="">Schedule it</option>
-                    <option value="">Delegate it</option>
-                    <option value="">Delete it</option>
+                <select name="" id="" [(ngModel)]="changedPriorityID" (ngModelChange)="onPriorityChange($event)">
+                    @for(priority of priorities; track priority){
+                    <option [ngValue]="priority.id">{{priority.title}}</option>
+                    }
                 </select>
             </div>
             <div class="flex flex-col">

@@ -1,4 +1,24 @@
-article {
+.note-list-item {
     cursor: pointer;
-    box-shadow: none;
+    border: var(--border);
+    padding: 0.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.note-list-item::before {
+    content: "";
+    position: absolute;
+    width: 0px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    background: var(--dark);
+    transition: width 0.2s ease;
+}
+
+.note-list-item.selected::before {
+    width: 4px;
 }
