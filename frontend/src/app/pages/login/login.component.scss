@@ -2,7 +2,7 @@
   padding: 1rem;
 }
 
-form {
+fieldset {
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -12,15 +12,15 @@ form {
   padding: 1rem;
 }
 
-h2 {
-  font-weight: 600;
+.container-field-name {
+  display: flex;
+  flex-direction: column;
 }
 
 span {
   font-weight: 300;
   font-size: smaller;
 }
-
 
 
 button {
@@ -110,4 +110,11 @@ a {
   right: 2px;
   background: var(--dark);
   border: var(--border);
+}
+
+@media screen and (min-width:768px) {
+  .container-field-name {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
