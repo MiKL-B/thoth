@@ -1,214 +1,88 @@
 <app-header />
 <div id="container_form">
+  <form (ngSubmit)="onSubmitForm()" [formGroup]="authForm">
+    <fieldset>
+      <legend>{{isRegisterForm ? 'Register': 'Welcome Back'}}</legend>
+      <span class="mb-8">Sign in to access to your notes!</span>
 
-  <form (ngSubmit)="onSubmit()">
-    <h2>{{isRegister ? 'Register': 'Welcome Back'}}</h2>
-    <span class="mb-2">Sign in to access to your notes!</span>
-    @if (isRegister){
-    <div class="field_col">
-      <label for="name">Name</label>
-      <input id="name" type="text" name="name" [(ngModel)]="name" placeholder="Enter your name">
-      <small class="error">error</small>
-    </div>
-    }@else {
-    <button type="button">Continue with GitHub</button>
-    <div class="separator">
-      <div class="border-dashed"></div>
-      <span>or</span>
-      <div class="border-dashed"></div>
-    </div>
-    }
-    <div class="field_col">
-      <label for="email">Email Address</label>
-      <input id="email" type="email" name="email" [(ngModel)]="email" placeholder="Enter your email">
-      <small>error</small>
-    </div>
-    <div class="field_col">
-      <div style="display:flex;justify-content: space-between;">
-        <label for="password">Password</label>
-        @if(!isRegister){
-        <span>Forgot password?</span>
-        }
-      </div>
-      <div class="field--password">
-        <input [type]="isVisiblePassword ? 'text' : 'password'" name="password" [(ngModel)]="password"
-          placeholder="Enter your password">
-        <div (click)="togglePassword()">
-          @if(isVisiblePassword){
-          <app-lucide-icon name="eye" />
+      @if (isRegisterForm){
+      <div class="container-field-name">
+        <div class="field_col">
+          <label for="firstname">Firstname</label>
+          <input id="firstname" type="text" name="firstname" [formControl]="propFirstname" placeholder="John">
+          @if (propFirstname.hasError("required") && propFirstname.touched){
+          <small>Firstname required</small>
           }
-          @else {
-          <app-lucide-icon name="eyeoff" />
+        </div>
+        <div class="field_col">
+          <label for="lastname">Lastname</label>
+          <input id="lastname" type="text" name="lastname" [formControl]="propLastname" placeholder="Doe">
+          @if (propLastname.hasError("required") && propLastname.touched){
+          <small>Lastname required</small>
           }
         </div>
       </div>
-      <small>error</small>
-    </div>
-    <div class="field_col">
-      <input type="text" style="display: none" autocomplete="off" tabindex="-1" name="website"
-        placeholder="Leave this empty" />
-    </div>
+      }
+      <div class="field_col">
+        <label for="email">Email Address</label>
+        <input id="email" type="email" name="email" [formControl]="propEmail" placeholder="johndoe@example.com">
+        @if(propEmail.hasError('pattern') && propEmail.touched){
+        <small>Email invalid</small>
+        }
+        @else if (propEmail.hasError("required") && propEmail.touched){
+        <small>Email required</small>
+        }
+      </div>
+      <div class="field_col">
+        <div style="display:flex;justify-content: space-between;">
+          <label for="password">Password</label>
+          @if(!isRegisterForm){
+          <span>Forgot password?</span>
+          }
+        </div>
+        <div class="field--password">
+          <input [type]="isVisiblePassword ? 'text' : 'password'" name="password" [formControl]="propPassword"
+            placeholder="****">
 
-    <div class="field_row">
-      @if(isRegister){
-      <label class="checkbox-wrapper">
-        <input type="checkbox" />
-        Accepter les conditions
-      </label>
-      }
-      @else {
-      <label class="checkbox-wrapper">
-        <input type="checkbox" />
-        Remember me
-      </label>
-      }
-    </div>
-    <input type="submit" value="Sign Up" class="primary">
-    <span>{{isRegister ? 'Already have an account?' : "Don't have an account?" }}
-      <a (click)="toggleForm()">Sign {{isRegister ? 'In' : 'Up'}}</a>
-    </span>
+          <div (click)="togglePassword()">
+            @if(isVisiblePassword){
+            <app-lucide-icon name="eye" />
+            }
+            @else {
+            <app-lucide-icon name="eyeoff" />
+            }
+          </div>
+        </div>
+        @if (propPassword.hasError("required") && propPassword.touched){
+        <small>Password required</small>
+        }
+        @else if (propPassword.hasError("pattern") && propPassword.touched){
+        <small>At least 8 characters, 1 uppercase letter, 1 number, and 1 special character required</small>
+        }
+      </div>
+      <div class="field_col">
+        <input type="text" style="display: none" autocomplete="off" tabindex="-1" name="website"
+          [formControl]="propHoneypot" />
+      </div>
+      <div class="field_row">
+        @if(isRegisterForm){
+        <label for="condition" class="checkbox-wrapper">
+          <input id="condition" type="checkbox" name="condition" [formControl]="propCondition" />
+          Accepter les conditions
+        </label>
+        }
+        @else {
+        <label for="remember" class="checkbox-wrapper">
+          <input id="remember" type="checkbox" name="remember" [formControl]="propRemember" />
+          Remember me
+        </label>
+        }
+      </div>
+      <input type="submit" value="Sign Up" class="primary" [disabled]="authForm.invalid || propHoneypot.value !== ''">
+      <span>{{isRegisterForm ? 'Already have an account?' : "Don't have an account?" }}
+        <a (click)="toggleForm()">Sign {{isRegisterForm ? 'In' : 'Up'}}</a>
+      </span>
+    </fieldset>
   </form>
-
 </div>
 <app-footer />
-<!-- <template>
-  <div id=" container">
-      <form @submit.prevent="submitForm">
-        <p style="text-align: center; margin-top: 1rem">{{ isRegister ? 'Register' : 'Login' }}</p>
-
-        <div class="field" v-if="isRegister">
-          <label>Name:</label>
-          <input type="text" v-model="selectedName" placeholder="character name" @input="validateName" />
-          <small class="error" v-if="errors.name">{{ errors.name }}</small>
-        </div>
-
-        <div class="field">
-          <label>Email:</label>
-          <input type="email" v-model="selectedEmail" placeholder="email@example.com" @input="validateEmail" />
-          <small class="error" v-if="errors.email">{{ errors.email }}</small>
-        </div>
-
-        <div class="field">
-          <label>Password:</label>
-          <div style="display: flex; align-items: center; gap: 0.2rem">
-            <input style="flex-grow: 1" :type="isPasswordVisible ? 'text' : 'password'" v-model="selectedPassword"
-              @input="validatePassword" />
-            <button type="button" @click="togglePasswordVisibility" style="height: 30px; width: 30px">
-              <svg v-if="isPasswordVisible" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye">
-                <path
-                  d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-              <svg v-else xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-eye-off-icon lucide-eye-off">
-                <path
-                  d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" />
-                <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" />
-                <path
-                  d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" />
-                <path d="m2 2 20 20" />
-              </svg>
-            </button>
-          </div>
-
-          <small class="error" v-if="errors.password">{{ errors.password }}</small>
-        </div>
-
-   
-        <button class="success" type="submit" :disabled="Object.keys(errors).length > 0 || honeypot !== ''">
-          submit
-        </button>
-      </form>
-
-      <button @click="toggleForm" style="display: flex; margin: auto; margin-top: 0.5rem">
-        {{ isRegister ? 'go login' : 'go register' }}
-      </button>
-      </div>
-      </template>
-
-      <script lang="ts" setup>
-        import { ref } from 'vue'
-
-        const isRegister = ref(false)
-        const isPasswordVisible = ref(false)
-
-        const selectedName = ref('')
-        const selectedEmail = ref('')
-        const selectedPassword = ref('')
-
-        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        const regexPassword = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/
-
-        const honeypot = ref('')
-
-        const errors = ref < Record < string, string>> ({})
-
-        const toggleForm = () => {
-          isRegister.value = !isRegister.value
-          resetFieldValues()
-          resetErrors()
-        }
-
-        const togglePasswordVisibility = () => (isPasswordVisible.value = !isPasswordVisible.value)
-
-        const resetFieldValues = () => {
-          selectedName.value = ''
-          selectedEmail.value = ''
-          selectedPassword.value = ''
-        }
-
-        const resetErrors = () => (errors.value = {})
-
-        const validateName = () => {
-          if (isRegister.value && !selectedName.value.trim()) {
-            errors.value.name = 'Name required'
-          } else {
-            delete errors.value.name
-          }
-        }
-
-        const validateEmail = () => {
-          if (!selectedEmail.value) {
-            errors.value.email = 'Email required'
-          } else if (!regexEmail.test(selectedEmail.value)) {
-            errors.value.email = 'Invalid email format'
-          } else {
-            delete errors.value.email
-          }
-        }
-
-        const validatePassword = () => {
-          const val = selectedPassword.value
-          if (!val) {
-            errors.value.password = 'Password required'
-          } else if (val.length < 8) {
-            errors.value.password = 'Password must be at least 8 characters'
-          } else if (val.length > 20) {
-            errors.value.password = 'Password must be at max 20 characters'
-          } else if (!regexPassword.test(val)) {
-            errors.value.password =
-              'Password must contain at least 1 uppercase letter, 1 number, 1 special character, and be at least 8 characters long.'
-          } else {
-            delete errors.value.password
-          }
-        }
-
-        const submitForm = () => {
-          if (honeypot.value) {
-            return
-          }
-          validateEmail()
-          validatePassword()
-          if (isRegister.value) {
-            validateName()
-          }
-
-          if (Object.keys(errors.value).length === 0) {
-            alert('Formulaire valide, prêt à être envoyé !')
-          }
-        }
-      </script>
- -->
