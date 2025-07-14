@@ -43,14 +43,8 @@
         <div class="field--password">
           <input [type]="isVisiblePassword ? 'text' : 'password'" name="password" [formControl]="propPassword"
             placeholder="****">
-
-          <div (click)="togglePassword()">
-            @if(isVisiblePassword){
-            <app-lucide-icon name="eye" />
-            }
-            @else {
-            <app-lucide-icon name="eyeoff" />
-            }
+          <div>
+            <app-lucide-icon [name]="isVisiblePassword ? 'eye': 'eyeoff'" (click)="togglePassword()" />
           </div>
         </div>
         @if (propPassword.hasError("required") && propPassword.touched){
