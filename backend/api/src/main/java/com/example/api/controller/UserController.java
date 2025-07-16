@@ -26,7 +26,12 @@ public class UserController {
     // public User createUser(@RequestBody User user) {
     //     return userRepository.save(user);
     // }
-    
+    @PostMapping("/auth/register")
+    public User register(@RequestBody User user) {
+        String email = user.getEmail();
+        System.out.println(email);
+        return user;
+    }
     @GetMapping("/hello")
     public String hello() {
         return "Hello from Spring Boot!";
