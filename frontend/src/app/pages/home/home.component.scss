@@ -34,11 +34,13 @@ img {
 
 
 section {
-  padding: min(5rem, 8rem) min(1rem, 1rem);
+  padding: 5rem 1rem;
 }
 
 @media screen and (min-width:768px) {
-
+  section {
+    padding: 10rem 1rem;
+  }
 
   #header {
     flex-direction: row;

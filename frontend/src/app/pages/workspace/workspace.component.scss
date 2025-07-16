@@ -20,13 +20,13 @@ ul {
     position: absolute;
     left: 0;
     right: 0;
-    top: 3rem;
+    top: 4rem;
     border-bottom: var(--border);
     background-color: var(--light);
     z-index: 3;
 
     nav {
-        padding: 0 1rem 0.5rem 1rem;
+        padding: 1rem;
     }
 
     nav,

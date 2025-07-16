@@ -11,6 +11,11 @@
     height: 100dvh;
 }
 
+.my-6 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 .mb-4 {
     margin-bottom: 0.5rem;
 }
