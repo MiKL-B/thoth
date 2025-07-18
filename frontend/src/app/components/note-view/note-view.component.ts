@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { LucideIconComponent } from "../shared/lucide-icon/lucide-icon.component";
-import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Note } from '../../models/note.model';
-import { ButtonIconComponent } from "../button-icon/button-icon.component";
+import { ButtonIconComponent } from "../shared/button-icon/button-icon.component";
 import { NoteListComponent } from "../note-list/note-list.component";
 interface Notebook {
   id: number,
@@ -19,11 +18,11 @@ interface Priority {
 }
 @Component({
   selector: 'app-note-view',
-  imports: [LucideIconComponent, NgClass, FormsModule, ButtonIconComponent, NoteListComponent],
+  imports: [LucideIconComponent, FormsModule, ButtonIconComponent, NoteListComponent],
   templateUrl: './note-view.component.html',
   styleUrl: './note-view.component.scss'
 })
-export class NoteViewComponent {
+export class NoteViewComponent implements OnInit {
   // notebook
   idNotebook = 1;
   defaultNotebook: Notebook = { id: 0, title: "All notes" }
@@ -35,8 +34,21 @@ export class NoteViewComponent {
   // note
   idNote = 0;
   notes: Note[] = []
-  selectedNote!: Note;
-
+  defaultNote: Note = {
+    note_id: -1,
+    title: '',
+    content: '',
+    pinned: false,
+    created_at: new Date(),
+    updated_at: new Date(),
+    due_date: new Date(),
+    priority_id: -1,
+    status_id: -1,
+    notebook_id: -1,
+    created_by: -1,
+    assigned_to: -1
+  }
+  selectedNote: Note = this.defaultNote;
   // search
   searchValue: string = "";
 
@@ -62,9 +74,20 @@ export class NoteViewComponent {
   changedPriorityID!: number;
 
   // mode
-  isEditMode = false;
-  isFocusMode = false;
+  isEditMode: boolean = false;
+  isMobile: boolean = false;
+  isVisibleNoteSettings: boolean = false;
+  ngOnInit(): void {
+    this.checkScreenSize();
+  }
+  @HostListener('window:resize')
+  onResize() {
+    this.checkScreenSize();
+  }
 
+  checkScreenSize() {
+    this.isMobile = window.innerWidth < 896;
+  }
   // notebook
   addNotebook(): void {
     if (!this.notebooks) return;
@@ -111,7 +134,6 @@ export class NoteViewComponent {
       assigned_to: 0,
     };
     this.notes.push(newNote);
-    this.selectNote(newNote);
   }
   duplicateNote(): void {
     const newNote: Note = {
@@ -160,6 +182,16 @@ export class NoteViewComponent {
     this.changedStatusID = note.status_id;
     this.changedNotebookID = note.notebook_id;
   }
+  unselectNote(): void {
+    this.selectedNote = this.defaultNote;
+    this.changedPriorityID = this.defaultNote.priority_id;
+    this.changedStatusID = this.defaultNote.status_id;
+    this.changedNotebookID = this.defaultNote.notebook_id;
+  }
+  isNoteSelected(): boolean {
+    if (!this.selectedNote) return false;
+    return this.selectedNote.note_id !== -1;
+  }
   togglePinNote() {
     this.selectedNote.pinned = !this.selectedNote.pinned;
   }
@@ -191,7 +223,8 @@ export class NoteViewComponent {
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
   }
-  toggleFocusMode() {
-    this.isFocusMode = !this.isFocusMode;
+  toggleNoteSettings() {
+    this.isVisibleNoteSettings = !this.isVisibleNoteSettings;
   }
+
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { LucideIconComponent } from "../shared/lucide-icon/lucide-icon.component";
+import { LucideIconComponent } from "../lucide-icon/lucide-icon.component";
 
 @Component({
   selector: 'app-button-icon',

@@ -1,83 +1,93 @@
-<div id="note-view">
-    @if (!isFocusMode){
-    <div id="note-view-left" class="gap-4">
-        <div class="flex gap-4 mb-6">
-            <div class="flex flex-col w-full">
-                <div class="flex align-center justify-between gap-4" style="margin-bottom: 0.5rem;">
-                    @if(isEditNotebookTitle && selectedNotebook !== defaultNotebook){
-                    <input type="text" style="flex-grow:1" [(ngModel)]="selectedNotebook.title">
-                    }@else {
-                    <span style="font-size: 24px;" class="ellipsis"><strong>{{selectedNotebook.title}}</strong></span>
-                    }
-                    <div class="flex align-center gap-4">
-                        <app-button-icon name="pencil" (click)="toggleEditNotebookTitle()" title="Edit"
-                            [disabled]="selectedNotebook === defaultNotebook" />
-                        <app-button-icon name="trash" (click)="deleteNotebook()" title="Delete"
-                            [disabled]="selectedNotebook === defaultNotebook" />
-                        <app-button-icon name="plus" (click)="addNotebook()" title="New notebook" />
-                    </div>
-                </div>
+<div id="note-view-container">
+    <div id="note-view-left">
+        <div id="notebook">
+            <div id="notebook-header">
+                @if(isEditNotebookTitle && selectedNotebook !== defaultNotebook){
+                <input type="text" style="flex-grow:1" [(ngModel)]="selectedNotebook.title">
+                }@else {
+                <span style="font-size: 24px;" class="ellipsis"><strong>{{selectedNotebook.title}}</strong></span>
+                }
                 <div class="flex align-center gap-4">
-                    <select name="" id="" style="width: 100%;" [(ngModel)]="selectedNotebook">
-                        @for(notebook of notebooks; track notebook){
-                        <option [ngValue]="notebook">{{notebook.title}}</option>
-                        }
-                    </select>
+                    <app-button-icon name="pencil" (click)="toggleEditNotebookTitle()" title="Edit"
+                        [disabled]="selectedNotebook === defaultNotebook" />
+                    <app-button-icon name="plus" (click)="addNotebook()" title="New notebook" />
+                    <app-button-icon name="trash" (click)="deleteNotebook()" title="Delete"
+                        [disabled]="selectedNotebook === defaultNotebook" />
                 </div>
             </div>
-        </div>
-        <div class="flex flex-col gap-4">
-            <div class="flex justify-between align-center">
-                <div class="flex gap-4" style="font-size: 24px;">
-                    <span><strong>Notes</strong></span>
-                    <span><strong>({{countNote}})</strong></span>
-                </div>
-                <app-button-icon name="plus" (click)="addNote()" title="New note" />
-            </div>
-            <input type="search" placeholder="Search notes..." style="width:100%;" [(ngModel)]="searchValue"
-                (ngModelChange)="onSearchChange($event)">
-            <div class="flex gap-4 justify-between">
-                <select name="" id="" style="width: 100%;" [(ngModel)]="selectedStatus">
-                    <option [ngValue]="statusDefaultFilter">All</option>
-                    @for(state of status; track state){
-                    <option [ngValue]="state">{{state.title}}</option>
+            <div id="notebook-change">
+                <select name="" id="" style="width: 100%;" [(ngModel)]="selectedNotebook">
+                    @for(notebook of notebooks; track notebook){
+                    <option [ngValue]="notebook">{{notebook.title}}</option>
                     }
                 </select>
-                <app-button-icon name="funnel" title="Filter" />
             </div>
         </div>
-        <!-- notelist -->
-        <hr>
-        <app-note-list id="note-list" [notes]="filteredNotes" [selectedNote]="selectedNote"
-            (noteSelected)="selectNote($event)" />
+        <div id="note-container">
+            <div class="flex flex-col gap-4">
+                <div class="flex justify-between align-center">
+                    <div class="flex gap-4" style="font-size: 24px;">
+                        <span><strong>Notes</strong></span>
+                        <span><strong>({{countNote}})</strong></span>
+                    </div>
+                    @if(!isNoteSelected() || !isMobile){
+                    <app-button-icon name="plus" (click)="addNote()" title="Add" />
+                    }@else {
+                    <app-button-icon name="chevronleft" (click)="unselectNote()" title="Back" />
+                    }
+                </div>
+                <input type="search" placeholder="Search notes..." style="width:100%;" [(ngModel)]="searchValue"
+                    (ngModelChange)="onSearchChange($event)">
+                <div class="flex gap-4 justify-between">
+                    <select name="" id="" style="width: 100%;" [(ngModel)]="selectedStatus">
+                        <option [ngValue]="statusDefaultFilter">All</option>
+                        @for(state of status; track state){
+                        <option [ngValue]="state">{{state.title}}</option>
+                        }
+                    </select>
+                    <app-button-icon name="funnel" title="Filter" />
+                </div>
+            </div>
+
+            @if(!isMobile || selectedNote === defaultNote){
+            <div id="note-list-mega-container">
+
+                <div id="note-list-container">
+                    <app-note-list id="note-list" [notes]="filteredNotes" [selectedNote]="selectedNote"
+                        (noteSelected)="selectNote($event)" />
+                </div>
+            </div>
+            }
+        </div>
     </div>
+    @if(isMobile && selectedNote !== defaultNote){
+    <hr style="margin: 1rem;">
     }
-    <div id="note-view-right" class="flex flex-col w-full gap-4" [ngClass]="{focus: isFocusMode}">
-        @if(existingNote() && selectedNote){
-        <div class="flex align-center gap-4 justify-between">
+    <div id="note-view-right">
+        @if (existingNote() && selectedNote) {
+        <div class="flex flex-wrap align-center justify-between gap-4">
             @if(isEditMode){
             <input type="text" style="flex-grow:1" [(ngModel)]="selectedNote.title">
             }@else {
             <span style="font-size: 24px;" class="ellipsis-note"><strong>{{selectedNote.title}}</strong></span>
             }
-            <div class="flex align-center gap-4">
+            <div class="flex flex-wrap align-center gap-4">
                 <app-button-icon [name]="isEditMode ? 'bookopen': 'pencil'" (click)="toggleEditMode()"
-                    [title]="isEditMode ? 'Read mode' : 'Edit mode'" />
-
-                @if(!isFocusMode){
+                    [title]="isEditMode ? 'Read' : 'Edit'" />
                 <app-button-icon [name]="selectedNote.pinned ? 'pinoff': 'pin'" (click)="togglePinNote()"
                     [title]="selectedNote.pinned ? 'Unpin': 'Pin'" />
                 <app-button-icon name="copyplus" (click)="duplicateNote()" title="Duplicate" />
-                <app-button-icon name="trash" (click)="deleteNote()" title="Delete" />
-                }
-                <app-button-icon name="target" (click)="toggleFocusMode()" title="Focus mode" />
+                <app-button-icon name="archive" />
+                <app-button-icon name="trash" (click)="deleteNote()" />
+
+                <app-button-icon name="ellipsis" title="Settings" (click)="toggleNoteSettings()" />
+
             </div>
         </div>
-        <!-- info -->
-        @if(isEditMode){
-        <div class="flex flex-wrap align-center gap-6">
+        @if(isVisibleNoteSettings){
+        <div id="note-settings">
             <div class="flex flex-col">
-                <label for=""><small>Change Notebook</small></label>
+                <label for=""><small>Notebook</small></label>
                 <select name="" id="" [(ngModel)]="changedNotebookID" (ngModelChange)="onNotebookChange($event)">
                     @for(notebook of notebooks; track notebook){
                     <option [ngValue]="notebook.id">{{notebook.title}}</option>
@@ -100,24 +110,13 @@
                     }
                 </select>
             </div>
-            <div class="flex flex-col">
-                <label for=""><small>Assign to</small></label>
-                <select name="" id="">
-                    <option value="" selected disabled>Select a user</option>
-                    <option value="">Aucun</option>
-                    <option value="">Alice</option>
-                    <option value="">John</option>
-                </select>
-            </div>
-            <div class="flex flex-col">
-                <label for=""><small>Tag</small></label>
+            <div class="flex flex-col mb-6">
+                <label for=""><small>Tags</small></label>
                 <div class="flex align-center gap-4">
-                    <input type="text">
-                    <app-button-icon name="plus" title="New tag" />
+                    <input type=" text" placeholder="Filter tags">
+                    <app-button-icon name="plus" />
                 </div>
             </div>
-        </div>
-        <div class="flex flex-wrap align-center gap-6">
             <div class="flex flex-col">
                 <label for=""><small>Start date</small></label>
                 <input type="date">
@@ -132,7 +131,6 @@
             </div>
         </div>
         }
-        @else {
         <div class="flex flex-wrap align-center gap-4">
             <div class="flex align-center" style="gap:0.2rem">
                 <app-lucide-icon name="calendar" [size]="16" />
@@ -141,10 +139,6 @@
             <div class="flex align-center" style="gap:0.2rem">
                 <app-lucide-icon name="clock" [size]="16" />
                 <small>Échéance: 25/10/2024</small>
-            </div>
-            <div class="flex align-center" style="gap:0.2rem">
-                <app-lucide-icon name="user" [size]="16" />
-                <small>Assigné à Alice</small>
             </div>
         </div>
         <div class="flex align-center" style="gap:0.2rem">
@@ -155,16 +149,16 @@
             <app-lucide-icon name="link" [size]="16" />
             <small>link</small>
         </div>
-        }
+
         <hr>
-        <!-- content -->
         @if(isEditMode){
-        <textarea [(ngModel)]="selectedNote.content" class="w-full" placeholder="Start writing..."></textarea>
+        <textarea [(ngModel)]="selectedNote.content" class="w-full" style="height: 100%;"
+            placeholder="Start writing..."></textarea>
         }
         @else {
         <div>{{selectedNote.content}}</div>
         }
-        }@else {
+        }@else if(!isMobile){
         <div class="flex flex-col justify-center m-auto align-center gap-6">
             <app-lucide-icon name="file" [size]="42" />
             <span><strong>Select a note to start editing</strong></span>
