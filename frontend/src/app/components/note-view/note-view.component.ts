@@ -25,11 +25,11 @@ interface Priority {
 export class NoteViewComponent implements OnInit {
   // notebook
   idNotebook = 1;
-  defaultNotebook: Notebook = { id: 0, title: "All notes" }
+  defaultNotebook: Notebook = { id: 0, title: "All notes" };
   notebooks: Notebook[] = [this.defaultNotebook];
   selectedNotebook: Notebook = this.notebooks[0];
   changedNotebookID!: number;
-  isEditNotebookTitle: boolean = false;
+  canUserEditNotebookTitle: boolean = false;
 
   // note
   idNote = 0;
@@ -46,9 +46,14 @@ export class NoteViewComponent implements OnInit {
     status_id: -1,
     notebook_id: -1,
     created_by: -1,
-    assigned_to: -1
+    assigned_to: -1,
+    deleted: false,
+    archived: false,
   }
   selectedNote: Note = this.defaultNote;
+  checkTrashNote: boolean = false;
+  checkArchivedNote: boolean = false;
+
   // search
   searchValue: string = "";
 
@@ -59,7 +64,6 @@ export class NoteViewComponent implements OnInit {
     { id: 2, title: "Todo" },
     { id: 3, title: "In progress" },
     { id: 4, title: "Finished" },
-    { id: 5, title: "Archived" },
   ]
   selectedStatus: Status = this.statusDefaultFilter;
   changedStatusID!: number;
@@ -107,7 +111,7 @@ export class NoteViewComponent implements OnInit {
     this.selectedNote.notebook_id = selectedNotebookID;
   }
   toggleEditNotebookTitle() {
-    this.isEditNotebookTitle = !this.isEditNotebookTitle;
+    this.canUserEditNotebookTitle = !this.canUserEditNotebookTitle;
   }
   deleteNotebook() {
     const message = `Are you sure you want to delete this notebook: ${this.selectedNotebook.title}?`
@@ -116,6 +120,9 @@ export class NoteViewComponent implements OnInit {
       this.notebooks = this.notebooks.filter((notebook) => notebook.id !== this.selectedNotebook.id);
       this.selectNotebook(this.defaultNotebook);
     }
+  }
+  canUserEditNotebook(): boolean {
+    return this.selectedNotebook !== this.defaultNotebook;
   }
   // note
   addNote(): void {
@@ -132,6 +139,8 @@ export class NoteViewComponent implements OnInit {
       notebook_id: this.selectedNotebook.id,
       created_by: 0,
       assigned_to: 0,
+      deleted: false,
+      archived: false,
     };
     this.notes.push(newNote);
   }
@@ -148,7 +157,9 @@ export class NoteViewComponent implements OnInit {
       status_id: this.selectedNote.status_id,
       notebook_id: this.selectedNote.notebook_id,
       created_by: this.selectedNote.created_by,
-      assigned_to: this.selectedNote.assigned_to
+      assigned_to: this.selectedNote.assigned_to,
+      deleted: this.selectedNote.deleted,
+      archived: this.selectedNote.archived
     };
     this.notes.push(newNote);
     this.selectNote(newNote);
@@ -156,10 +167,18 @@ export class NoteViewComponent implements OnInit {
   get countNote(): number {
     return this.filteredNotes.length;
   }
+  get countDeletedNote(): number {
+    return this.notes.filter((note) => note.deleted).length;
+  }
+  get countArchivedNote(): number {
+    return this.notes.filter((note) => note.archived).length;
+  }
   get filteredNotes(): Note[] {
     return this.notes.filter(note => {
-      const matchesSearch = this.searchValue.trim() === '' ||
-        note.title.toLowerCase().includes(this.searchValue.toLowerCase());
+      const trimmedSearch = this.searchValue.trim().toLowerCase();
+
+      const matchesSearch =
+        trimmedSearch === '' || note.title.toLowerCase().includes(trimmedSearch);
 
       const matchesStatus = this.selectedStatus.id === 0 ||
         note.status_id === this.selectedStatus.id;
@@ -167,11 +186,22 @@ export class NoteViewComponent implements OnInit {
       const matchesNotebook = this.selectedNotebook.id === 0 ||
         note.notebook_id === this.selectedNotebook.id;
 
-      return matchesSearch && matchesStatus && matchesNotebook;
+      const isDeleted = note.deleted === true;
+      const isArchived = note.archived === true;
+
+      const includeDeleted = this.checkTrashNote;
+      const includeArchived = this.checkArchivedNote;
+
+      const matchesDeletedArchived =
+        (!isDeleted && !isArchived) ||
+        (isDeleted && includeDeleted) ||
+        (isArchived && includeArchived);
+
+      return matchesSearch && matchesStatus && matchesNotebook && matchesDeletedArchived;
     }).sort((a, b) => {
-      // if (a.pinned === b.pinned) {
-      //   return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-      // }
+      if (a.pinned === b.pinned) {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      }
       return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
     });
   }
@@ -196,10 +226,22 @@ export class NoteViewComponent implements OnInit {
     this.selectedNote.pinned = !this.selectedNote.pinned;
   }
   deleteNote() {
+    this.selectedNote.deleted = true;
+  }
+  deleteNotePermanently() {
     const message = `Are you sure you want to delete this note: ${this.selectedNote.title}?`
     if (window.confirm(message)) {
       this.notes = this.notes.filter((note) => note.note_id !== this.selectedNote.note_id);
     }
+  }
+  emptyTrash() {
+    const message = `Are you sure you want to delete all deleted notes?`
+    if (window.confirm(message)) {
+      this.notes = this.notes.filter((note) => !note.deleted)
+    }
+  }
+  archiveNote() {
+    this.selectedNote.archived = true;
   }
   existingNote() {
     return this.notes.find((note) => note.note_id === this.selectedNote.note_id)

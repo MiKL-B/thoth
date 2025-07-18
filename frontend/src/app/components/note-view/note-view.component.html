@@ -2,17 +2,17 @@
     <div id="note-view-left">
         <div id="notebook">
             <div id="notebook-header">
-                @if(isEditNotebookTitle && selectedNotebook !== defaultNotebook){
-                <input type="text" style="flex-grow:1" [(ngModel)]="selectedNotebook.title">
+                @if(canUserEditNotebookTitle && canUserEditNotebook()){
+                <input type="text" style="flex-grow:1; width:150px" [(ngModel)]="selectedNotebook.title">
                 }@else {
                 <span style="font-size: 24px;" class="ellipsis"><strong>{{selectedNotebook.title}}</strong></span>
                 }
                 <div class="flex align-center gap-4">
                     <app-button-icon name="pencil" (click)="toggleEditNotebookTitle()" title="Edit"
-                        [disabled]="selectedNotebook === defaultNotebook" />
+                        [disabled]="!canUserEditNotebook()" />
                     <app-button-icon name="plus" (click)="addNotebook()" title="New notebook" />
                     <app-button-icon name="trash" (click)="deleteNotebook()" title="Delete"
-                        [disabled]="selectedNotebook === defaultNotebook" />
+                        [disabled]="!canUserEditNotebook()" />
                 </div>
             </div>
             <div id="notebook-change">
@@ -38,20 +38,36 @@
                 </div>
                 <input type="search" placeholder="Search notes..." style="width:100%;" [(ngModel)]="searchValue"
                     (ngModelChange)="onSearchChange($event)">
-                <div class="flex gap-4 justify-between">
-                    <select name="" id="" style="width: 100%;" [(ngModel)]="selectedStatus">
-                        <option [ngValue]="statusDefaultFilter">All</option>
-                        @for(state of status; track state){
-                        <option [ngValue]="state">{{state.title}}</option>
-                        }
-                    </select>
-                    <app-button-icon name="funnel" title="Filter" />
+                <select name="" id="" style="width: 100%;" [(ngModel)]="selectedStatus">
+                    <option [ngValue]="statusDefaultFilter">All</option>
+                    @for(state of status; track state){
+                    <option [ngValue]="state">{{state.title}}</option>
+                    }
+                </select>
+                <div class="flex align-center justify-between">
+                    <div class="flex align-center gap-4" style="align-items: flex-end;">
+                        <label for="checktrashnote" class="checkbox-wrapper">
+                            <input id="checktrashnote" type="checkbox" name="checktrashnote"
+                                [(ngModel)]="checkTrashNote" />
+                            Trash
+                            <span><strong>({{countDeletedNote}})</strong></span>
+                        </label>
+                    </div>
+                    <app-button-icon name="trash" (click)="emptyTrash()" title="Empty trash" />
+                </div>
+                <div class="flex align-center justify-between">
+                    <div class="flex align-center gap-4" style="align-items: flex-end;">
+                        <label for="checkarchivednote" class="checkbox-wrapper">
+                            <input id="checkarchivednote" type="checkbox" name="checkarchivednote"
+                                [(ngModel)]="checkArchivedNote" />
+                            Archived
+                            <span><strong>({{countArchivedNote}})</strong></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-
             @if(!isMobile || selectedNote === defaultNote){
             <div id="note-list-mega-container">
-
                 <div id="note-list-container">
                     <app-note-list id="note-list" [notes]="filteredNotes" [selectedNote]="selectedNote"
                         (noteSelected)="selectNote($event)" />
@@ -77,43 +93,55 @@
                 <app-button-icon [name]="selectedNote.pinned ? 'pinoff': 'pin'" (click)="togglePinNote()"
                     [title]="selectedNote.pinned ? 'Unpin': 'Pin'" />
                 <app-button-icon name="copyplus" (click)="duplicateNote()" title="Duplicate" />
-                <app-button-icon name="archive" />
+                <app-button-icon name="archive" (click)="archiveNote()" />
+                @if(selectedNote.deleted){
+                <app-button-icon name="trash" (click)="deleteNotePermanently()" />
+                }@else {
                 <app-button-icon name="trash" (click)="deleteNote()" />
-
+                }
                 <app-button-icon name="ellipsis" title="Settings" (click)="toggleNoteSettings()" />
-
             </div>
         </div>
         @if(isVisibleNoteSettings){
         <div id="note-settings">
             <div class="flex flex-col">
-                <label for=""><small>Notebook</small></label>
-                <select name="" id="" [(ngModel)]="changedNotebookID" (ngModelChange)="onNotebookChange($event)">
+                <label for="selectnotebook"><small>Notebook</small></label>
+                <select name="selectnotebook" id="selectnotebook" [(ngModel)]="changedNotebookID"
+                    (ngModelChange)="onNotebookChange($event)">
                     @for(notebook of notebooks; track notebook){
                     <option [ngValue]="notebook.id">{{notebook.title}}</option>
                     }
                 </select>
             </div>
             <div class="flex flex-col">
-                <label for=""><small>Status</small></label>
-                <select name="" id="" [(ngModel)]="changedStatusID" (ngModelChange)="onStatusChange($event)">
+                <label for="selectstatus"><small>Status</small></label>
+                <select name="selectstatus" id="selectstatus" [(ngModel)]="changedStatusID"
+                    (ngModelChange)="onStatusChange($event)">
                     @for(state of status; track state){
                     <option [ngValue]="state.id">{{state.title}}</option>
                     }
                 </select>
             </div>
             <div class="flex flex-col">
-                <label for=""><small>Priority</small></label>
-                <select name="" id="" [(ngModel)]="changedPriorityID" (ngModelChange)="onPriorityChange($event)">
+                <label for="selectpriority"><small>Priority</small></label>
+                <select name="selectpriority" id="selectpriority" [(ngModel)]="changedPriorityID"
+                    (ngModelChange)="onPriorityChange($event)">
                     @for(priority of priorities; track priority){
                     <option [ngValue]="priority.id">{{priority.title}}</option>
                     }
                 </select>
             </div>
+            <div class="flex flex-col">
+                <label for="selectuser"><small>Assign</small></label>
+                <select name="selectuser" id="selectuser">
+                    <option>Alice</option>
+                    <option>John</option>
+                </select>
+            </div>
             <div class="flex flex-col mb-6">
                 <label for=""><small>Tags</small></label>
                 <div class="flex align-center gap-4">
-                    <input type=" text" placeholder="Filter tags">
+                    <input type="text" placeholder="Filter tags">
                     <app-button-icon name="plus" />
                 </div>
             </div>
@@ -143,11 +171,11 @@
         </div>
         <div class="flex align-center" style="gap:0.2rem">
             <app-lucide-icon name="tags" [size]="16" />
-            <small>#tag</small>
+            <small style="border:var(--border);padding:0.1rem 0.2rem;">tag</small>
         </div>
         <div class="flex align-center" style="gap:0.2rem">
             <app-lucide-icon name="link" [size]="16" />
-            <small>link</small>
+            <small style="text-decoration: underline;cursor: pointer;">link</small>
         </div>
 
         <hr>

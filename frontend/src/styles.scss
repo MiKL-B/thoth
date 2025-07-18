@@ -411,3 +411,31 @@ hr.vertical {
   border-left: var(--border-dashed);
   height: 100%;
 }
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: 0.5rem;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: var(--border);
+  position: relative;
+}
+
+
+.checkbox-wrapper input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+  background: var(--dark);
+  border: var(--border);
+}
