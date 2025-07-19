@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { LucideIconComponent } from "../shared/lucide-icon/lucide-icon.component";
 import { FormsModule } from '@angular/forms';
 import { Note } from '../../models/note.model';
@@ -81,6 +81,8 @@ export class NoteViewComponent implements OnInit {
   isEditMode: boolean = false;
   isMobile: boolean = false;
   isVisibleNoteSettings: boolean = false;
+  isVisibleNoteFilters: boolean = false;
+
   ngOnInit(): void {
     this.checkScreenSize();
   }
@@ -92,6 +94,22 @@ export class NoteViewComponent implements OnInit {
   checkScreenSize() {
     this.isMobile = window.innerWidth < 896;
   }
+  @ViewChild('noteFiltersRef') noteFiltersRef!: ElementRef;
+  @ViewChild('noteSettingsRef') noteSettingsRef!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const clickedInsideFilters = this.noteFiltersRef?.nativeElement.contains(event.target);
+    const clickedInsideSettings = this.noteSettingsRef?.nativeElement.contains(event.target);
+
+    if (!clickedInsideFilters) {
+      this.isVisibleNoteFilters = false;
+    }
+
+    if (!clickedInsideSettings) {
+      this.isVisibleNoteSettings = false;
+    }
+  }
   // notebook
   addNotebook(): void {
     if (!this.notebooks) return;
@@ -101,7 +119,8 @@ export class NoteViewComponent implements OnInit {
     }
     this.notebooks.push(newNotebook);
     this.idNotebook++;
-    this.selectNotebook(newNotebook)
+    this.selectNotebook(newNotebook);
+    this.canUserEditNotebookTitle = false;
   }
   selectNotebook(notebook: Notebook) {
     this.selectedNotebook = notebook
@@ -174,38 +193,101 @@ export class NoteViewComponent implements OnInit {
     return this.notes.filter((note) => note.archived).length;
   }
   get filteredNotes(): Note[] {
-    return this.notes.filter(note => {
-      const trimmedSearch = this.searchValue.trim().toLowerCase();
+    const search = this.searchValue.trim().toLowerCase();
+    const statusId = this.selectedStatus.id;
+    const notebookId = this.selectedNotebook.id;
+    const includeDeleted = this.checkTrashNote;
+    const includeArchived = this.checkArchivedNote;
 
-      const matchesSearch =
-        trimmedSearch === '' || note.title.toLowerCase().includes(trimmedSearch);
-
-      const matchesStatus = this.selectedStatus.id === 0 ||
-        note.status_id === this.selectedStatus.id;
-
-      const matchesNotebook = this.selectedNotebook.id === 0 ||
-        note.notebook_id === this.selectedNotebook.id;
-
-      const isDeleted = note.deleted === true;
-      const isArchived = note.archived === true;
-
-      const includeDeleted = this.checkTrashNote;
-      const includeArchived = this.checkArchivedNote;
-
-      const matchesDeletedArchived =
-        (!isDeleted && !isArchived) ||
-        (isDeleted && includeDeleted) ||
-        (isArchived && includeArchived);
-
-      return matchesSearch && matchesStatus && matchesNotebook && matchesDeletedArchived;
-    }).sort((a, b) => {
-      if (a.pinned === b.pinned) {
-        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-      }
-      return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
-    });
+    return this.notes
+      .filter(note =>
+        this.matchesSearch(note, search) &&
+        this.matchesStatus(note, statusId) &&
+        this.matchesNotebook(note, notebookId) &&
+        this.matchesDeletedArchived(note, includeDeleted, includeArchived)
+      )
+      .sort((a, b) => {
+        // if (a.pinned === b.pinned) {
+        //   return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+        // }
+        return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
+      });
   }
+  get activeFiltersDescription(): string {
+    const filters: string[] = [];
 
+    const search = this.searchValue.trim();
+    if (search) {
+      filters.push(`Mot-clé "${search}"`);
+    }
+
+    if (this.selectedStatus.id !== 0) {
+      filters.push(`Statut "${this.selectedStatus.title}"`);
+    }
+
+    if (this.selectedNotebook.id !== 0) {
+      filters.push(`Carnet "${this.selectedNotebook.title}"`);
+    }
+
+    if (this.checkTrashNote) {
+      filters.push("Notes supprimées incluses");
+    }
+
+    if (this.checkArchivedNote) {
+      filters.push("Notes archivées incluses");
+    }
+
+    return filters.length > 0
+      ? `Filtres appliqués : ${filters.join(', ')}`
+      : "Aucun filtre appliqué";
+  }
+  get activeFilters(): string[] {
+    const filters: string[] = [];
+
+    const search = this.searchValue.trim();
+    if (search) {
+      filters.push(`Mot-clé : "${search}"`);
+    }
+
+    if (this.selectedStatus.id !== 0) {
+      filters.push(`Statut : ${this.selectedStatus.title}`);
+    }
+
+    if (this.selectedNotebook.id !== 0) {
+      filters.push(`Carnet : ${this.selectedNotebook.title}`);
+    }
+
+    if (this.checkTrashNote) {
+      filters.push("Supprimées incluses");
+    }
+
+    if (this.checkArchivedNote) {
+      filters.push("Archivées incluses");
+    }
+
+    return filters;
+  }
+  matchesSearch(note: Note, search: string): boolean {
+    return !search || note.title.toLowerCase().includes(search);
+  }
+  matchesStatus(note: Note, statusId: number): boolean {
+    return statusId === 0 || note.status_id === statusId;
+  }
+  matchesNotebook(note: Note, notebookId: number): boolean {
+    return notebookId === 0 || note.notebook_id === notebookId;
+  }
+  matchesDeletedArchived(note: Note, includeDeleted: boolean, includeArchived: boolean): boolean {
+    if (note.deleted) return includeDeleted;
+    if (note.archived) return includeArchived;
+    return true;
+  }
+  resetFilters() {
+    this.searchValue = '';
+    this.selectedStatus = this.statusDefaultFilter;
+    this.selectedNotebook = this.defaultNotebook;
+    this.checkTrashNote = false;
+    this.checkArchivedNote = false;
+  }
   selectNote(note: Note) {
     this.selectedNote = note;
     this.changedPriorityID = note.priority_id;
@@ -267,6 +349,9 @@ export class NoteViewComponent implements OnInit {
   }
   toggleNoteSettings() {
     this.isVisibleNoteSettings = !this.isVisibleNoteSettings;
+  }
+  toggleNoteFilters() {
+    this.isVisibleNoteFilters = !this.isVisibleNoteFilters;
   }
 
 }

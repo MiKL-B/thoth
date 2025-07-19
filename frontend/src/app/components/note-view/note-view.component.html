@@ -8,9 +8,9 @@
                 <span style="font-size: 24px;" class="ellipsis"><strong>{{selectedNotebook.title}}</strong></span>
                 }
                 <div class="flex align-center gap-4">
+                    <app-button-icon name="plus" (click)="addNotebook()" title="New notebook" />
                     <app-button-icon name="pencil" (click)="toggleEditNotebookTitle()" title="Edit"
                         [disabled]="!canUserEditNotebook()" />
-                    <app-button-icon name="plus" (click)="addNotebook()" title="New notebook" />
                     <app-button-icon name="trash" (click)="deleteNotebook()" title="Delete"
                         [disabled]="!canUserEditNotebook()" />
                 </div>
@@ -23,6 +23,7 @@
                 </select>
             </div>
         </div>
+
         <div id="note-container">
             <div class="flex flex-col gap-4">
                 <div class="flex justify-between align-center">
@@ -30,41 +31,55 @@
                         <span><strong>Notes</strong></span>
                         <span><strong>({{countNote}})</strong></span>
                     </div>
-                    @if(!isNoteSelected() || !isMobile){
-                    <app-button-icon name="plus" (click)="addNote()" title="Add" />
-                    }@else {
-                    <app-button-icon name="chevronleft" (click)="unselectNote()" title="Back" />
-                    }
-                </div>
-                <input type="search" placeholder="Search notes..." style="width:100%;" [(ngModel)]="searchValue"
-                    (ngModelChange)="onSearchChange($event)">
-                <select name="" id="" style="width: 100%;" [(ngModel)]="selectedStatus">
-                    <option [ngValue]="statusDefaultFilter">All</option>
-                    @for(state of status; track state){
-                    <option [ngValue]="state">{{state.title}}</option>
-                    }
-                </select>
-                <div class="flex align-center justify-between">
-                    <div class="flex align-center gap-4" style="align-items: flex-end;">
-                        <label for="checktrashnote" class="checkbox-wrapper">
-                            <input id="checktrashnote" type="checkbox" name="checktrashnote"
-                                [(ngModel)]="checkTrashNote" />
-                            Trash
-                            <span><strong>({{countDeletedNote}})</strong></span>
-                        </label>
+                    <div class="flex gap-4">
+                        @if(!isNoteSelected() || !isMobile){
+                        <app-button-icon name="plus" (click)="addNote()" title="Add" />
+                        }@else {
+                        <app-button-icon name="chevronleft" (click)="unselectNote()" title="Back" />
+                        }
+                        <div #noteFiltersRef id="note-filters-container">
+                            <app-button-icon name="funnel" title="Filter" (click)="toggleNoteFilters()" />
+                            @if(isVisibleNoteFilters){
+                            <div id="note-filters">
+                                <input type="search" placeholder="Search notes..." style="width:100%;"
+                                    [(ngModel)]="searchValue" (ngModelChange)="onSearchChange($event)">
+                                <select name="" id="" style="width: 100%;" [(ngModel)]="selectedStatus">
+                                    <option [ngValue]="statusDefaultFilter">All</option>
+                                    @for(state of status; track state){
+                                    <option [ngValue]="state">{{state.title}}</option>
+                                    }
+                                </select>
+                                <div class="flex align-center justify-between">
+                                    <div class="flex align-center gap-4" style="align-items: flex-end;">
+                                        <label for="checktrashnote" class="checkbox-wrapper">
+                                            <input id="checktrashnote" type="checkbox" name="checktrashnote"
+                                                [(ngModel)]="checkTrashNote" />
+                                            Trash
+                                        </label>
+                                    </div>
+                                    <span><strong>({{countDeletedNote}})</strong></span>
+                                </div>
+                                <div class="flex align-center justify-between">
+                                    <div class="flex align-center gap-4" style="align-items: flex-end;">
+                                        <label for="checkarchivednote" class="checkbox-wrapper">
+                                            <input id="checkarchivednote" type="checkbox" name="checkarchivednote"
+                                                [(ngModel)]="checkArchivedNote" />
+                                            Archived
+                                        </label>
+                                    </div>
+                                    <span><strong>({{countArchivedNote}})</strong></span>
+                                </div>
+                                <div>
+                                    <button (click)="resetFilters()">Reset filters</button>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                        <app-button-icon name="trash" [disabled]="countDeletedNote === 0" (click)="emptyTrash()"
+                            title="Empty trash" />
                     </div>
-                    <app-button-icon name="trash" (click)="emptyTrash()" title="Empty trash" />
                 </div>
-                <div class="flex align-center justify-between">
-                    <div class="flex align-center gap-4" style="align-items: flex-end;">
-                        <label for="checkarchivednote" class="checkbox-wrapper">
-                            <input id="checkarchivednote" type="checkbox" name="checkarchivednote"
-                                [(ngModel)]="checkArchivedNote" />
-                            Archived
-                            <span><strong>({{countArchivedNote}})</strong></span>
-                        </label>
-                    </div>
-                </div>
+                <hr class="w-full">
             </div>
             @if(!isMobile || selectedNote === defaultNote){
             <div id="note-list-mega-container">
@@ -76,9 +91,6 @@
             }
         </div>
     </div>
-    @if(isMobile && selectedNote !== defaultNote){
-    <hr style="margin: 1rem;">
-    }
     <div id="note-view-right">
         @if (existingNote() && selectedNote) {
         <div class="flex flex-wrap align-center justify-between gap-4">
@@ -99,66 +111,68 @@
                 }@else {
                 <app-button-icon name="trash" (click)="deleteNote()" />
                 }
-                <app-button-icon name="ellipsis" title="Settings" (click)="toggleNoteSettings()" />
-            </div>
-        </div>
-        @if(isVisibleNoteSettings){
-        <div id="note-settings">
-            <div class="flex flex-col">
-                <label for="selectnotebook"><small>Notebook</small></label>
-                <select name="selectnotebook" id="selectnotebook" [(ngModel)]="changedNotebookID"
-                    (ngModelChange)="onNotebookChange($event)">
-                    @for(notebook of notebooks; track notebook){
-                    <option [ngValue]="notebook.id">{{notebook.title}}</option>
+                <div #noteSettingsRef id="note-settings-container">
+                    <app-button-icon name="ellipsis" title="Settings" (click)="toggleNoteSettings()" />
+                    @if(isVisibleNoteSettings){
+                    <div id="note-settings">
+                        <div class="flex flex-col">
+                            <label for="selectnotebook"><small>Notebook</small></label>
+                            <select name="selectnotebook" id="selectnotebook" [(ngModel)]="changedNotebookID"
+                                (ngModelChange)="onNotebookChange($event)">
+                                @for(notebook of notebooks; track notebook){
+                                <option [ngValue]="notebook.id">{{notebook.title}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="selectstatus"><small>Status</small></label>
+                            <select name="selectstatus" id="selectstatus" [(ngModel)]="changedStatusID"
+                                (ngModelChange)="onStatusChange($event)">
+                                @for(state of status; track state){
+                                <option [ngValue]="state.id">{{state.title}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="selectpriority"><small>Priority</small></label>
+                            <select name="selectpriority" id="selectpriority" [(ngModel)]="changedPriorityID"
+                                (ngModelChange)="onPriorityChange($event)">
+                                @for(priority of priorities; track priority){
+                                <option [ngValue]="priority.id">{{priority.title}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="selectuser"><small>Assign</small></label>
+                            <select name="selectuser" id="selectuser">
+                                <option>Alice</option>
+                                <option>John</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col mb-6">
+                            <label for=""><small>Tags</small></label>
+                            <div class="flex flex-wrap align-center gap-4">
+                                <input type="text" placeholder="Add tags">
+                                <app-button-icon name="plus" />
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for=""><small>Start date</small></label>
+                            <input type="date">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for=""><small>Due date</small></label>
+                            <input type="date">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for=""><small>Duration (days)</small></label>
+                            <input type="number">
+                        </div>
+                    </div>
                     }
-                </select>
-            </div>
-            <div class="flex flex-col">
-                <label for="selectstatus"><small>Status</small></label>
-                <select name="selectstatus" id="selectstatus" [(ngModel)]="changedStatusID"
-                    (ngModelChange)="onStatusChange($event)">
-                    @for(state of status; track state){
-                    <option [ngValue]="state.id">{{state.title}}</option>
-                    }
-                </select>
-            </div>
-            <div class="flex flex-col">
-                <label for="selectpriority"><small>Priority</small></label>
-                <select name="selectpriority" id="selectpriority" [(ngModel)]="changedPriorityID"
-                    (ngModelChange)="onPriorityChange($event)">
-                    @for(priority of priorities; track priority){
-                    <option [ngValue]="priority.id">{{priority.title}}</option>
-                    }
-                </select>
-            </div>
-            <div class="flex flex-col">
-                <label for="selectuser"><small>Assign</small></label>
-                <select name="selectuser" id="selectuser">
-                    <option>Alice</option>
-                    <option>John</option>
-                </select>
-            </div>
-            <div class="flex flex-col mb-6">
-                <label for=""><small>Tags</small></label>
-                <div class="flex align-center gap-4">
-                    <input type="text" placeholder="Filter tags">
-                    <app-button-icon name="plus" />
                 </div>
             </div>
-            <div class="flex flex-col">
-                <label for=""><small>Start date</small></label>
-                <input type="date">
-            </div>
-            <div class="flex flex-col">
-                <label for=""><small>Due date</small></label>
-                <input type="date">
-            </div>
-            <div class="flex flex-col">
-                <label for=""><small>Duration (days)</small></label>
-                <input type="number">
-            </div>
         </div>
-        }
         <div class="flex flex-wrap align-center gap-4">
             <div class="flex align-center" style="gap:0.2rem">
                 <app-lucide-icon name="calendar" [size]="16" />

@@ -45,17 +45,39 @@ ul {
     gap: 0.5rem;
 }
 
+
+
 #note-settings {
     border: var(--border);
     background: var(--light);
     position: absolute;
     right: 1rem;
-    top: 5rem;
+    top: 4.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
+    z-index: 3;
 }
+
+#note-filters-container {
+    position: relative;
+}
+
+#note-filters {
+    border: var(--border);
+    background: var(--light);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    right: 0;
+    top: 2.5rem;
+    z-index: 3;
+    min-width: 250px;
+}
+
 
 @media screen and (min-width:896px) {
     #note-view-container {
@@ -105,8 +127,13 @@ ul {
         overflow-y: auto;
     }
 
+    #note-settings-container {
+        position: relative;
+    }
+
     #note-settings {
-        top: 3.5rem;
+        right: 0;
+        top: 2.5rem;
     }
 
 }
