@@ -213,60 +213,6 @@ export class NoteViewComponent implements OnInit {
         return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
       });
   }
-  get activeFiltersDescription(): string {
-    const filters: string[] = [];
-
-    const search = this.searchValue.trim();
-    if (search) {
-      filters.push(`Mot-clé "${search}"`);
-    }
-
-    if (this.selectedStatus.id !== 0) {
-      filters.push(`Statut "${this.selectedStatus.title}"`);
-    }
-
-    if (this.selectedNotebook.id !== 0) {
-      filters.push(`Carnet "${this.selectedNotebook.title}"`);
-    }
-
-    if (this.checkTrashNote) {
-      filters.push("Notes supprimées incluses");
-    }
-
-    if (this.checkArchivedNote) {
-      filters.push("Notes archivées incluses");
-    }
-
-    return filters.length > 0
-      ? `Filtres appliqués : ${filters.join(', ')}`
-      : "Aucun filtre appliqué";
-  }
-  get activeFilters(): string[] {
-    const filters: string[] = [];
-
-    const search = this.searchValue.trim();
-    if (search) {
-      filters.push(`Mot-clé : "${search}"`);
-    }
-
-    if (this.selectedStatus.id !== 0) {
-      filters.push(`Statut : ${this.selectedStatus.title}`);
-    }
-
-    if (this.selectedNotebook.id !== 0) {
-      filters.push(`Carnet : ${this.selectedNotebook.title}`);
-    }
-
-    if (this.checkTrashNote) {
-      filters.push("Supprimées incluses");
-    }
-
-    if (this.checkArchivedNote) {
-      filters.push("Archivées incluses");
-    }
-
-    return filters;
-  }
   matchesSearch(note: Note, search: string): boolean {
     return !search || note.title.toLowerCase().includes(search);
   }

@@ -45,25 +45,11 @@ ul {
     gap: 0.5rem;
 }
 
-
-
-#note-settings {
-    border: var(--border);
-    background: var(--light);
-    position: absolute;
-    right: 1rem;
-    top: 4.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem;
-    z-index: 3;
-}
-
 #note-filters-container {
     position: relative;
 }
 
+#note-settings,
 #note-filters {
     border: var(--border);
     background: var(--light);
@@ -72,9 +58,17 @@ ul {
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
+    z-index: 3;
+}
+
+#note-settings {
+    right: 1rem;
+    top: 4.5rem;
+}
+
+#note-filters {
     right: 0;
     top: 2.5rem;
-    z-index: 3;
     min-width: 250px;
 }
 
@@ -135,5 +129,4 @@ ul {
         right: 0;
         top: 2.5rem;
     }
-
 }

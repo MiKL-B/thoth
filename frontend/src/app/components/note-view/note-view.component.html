@@ -9,7 +9,8 @@
                 }
                 <div class="flex align-center gap-4">
                     <app-button-icon name="plus" (click)="addNotebook()" title="New notebook" />
-                    <app-button-icon name="pencil" (click)="toggleEditNotebookTitle()" title="Edit"
+                    <app-button-icon [name]="canUserEditNotebookTitle ? 'bookopen':'pencil'"
+                        (click)="toggleEditNotebookTitle()" [title]="canUserEditNotebookTitle ? 'Read' : 'Edit'"
                         [disabled]="!canUserEditNotebook()" />
                     <app-button-icon name="trash" (click)="deleteNotebook()" title="Delete"
                         [disabled]="!canUserEditNotebook()" />
@@ -41,14 +42,38 @@
                             <app-button-icon name="funnel" title="Filter" (click)="toggleNoteFilters()" />
                             @if(isVisibleNoteFilters){
                             <div id="note-filters">
-                                <input type="search" placeholder="Search notes..." style="width:100%;"
-                                    [(ngModel)]="searchValue" (ngModelChange)="onSearchChange($event)">
-                                <select name="" id="" style="width: 100%;" [(ngModel)]="selectedStatus">
-                                    <option [ngValue]="statusDefaultFilter">All</option>
-                                    @for(state of status; track state){
-                                    <option [ngValue]="state">{{state.title}}</option>
-                                    }
-                                </select>
+                                <div class="flex flex-col">
+                                    <label for="changeword"><small>Search</small></label>
+                                    <input id="changeword" name="changeword" type="search" placeholder="Title note..."
+                                        style="width:100%;" [(ngModel)]="searchValue"
+                                        (ngModelChange)="onSearchChange($event)">
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="changestatus"><small>Status</small></label>
+                                    <select name="changestatus" id="changestatus" style="width: 100%;"
+                                        [(ngModel)]="selectedStatus">
+                                        <option [ngValue]="statusDefaultFilter">All</option>
+                                        @for(state of status; track state){
+                                        <option [ngValue]="state">{{state.title}}</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="changepriority"><small>Priority</small></label>
+                                    <select name="changepriority" id="changepriority" style="width: 100%;">
+                                        <option>Do it</option>
+                                        <option>Schedule it</option>
+                                        <option>Delegate it</option>
+                                        <option>Delete it</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col">
+                                    <label for="changeuser"><small>User</small></label>
+                                    <select name="changeuser" id="changeuser" style="width: 100%;">
+                                        <option>Alice</option>
+                                        <option>John</option>
+                                    </select>
+                                </div>
                                 <div class="flex align-center justify-between">
                                     <div class="flex align-center gap-4" style="align-items: flex-end;">
                                         <label for="checktrashnote" class="checkbox-wrapper">
@@ -69,9 +94,8 @@
                                     </div>
                                     <span><strong>({{countArchivedNote}})</strong></span>
                                 </div>
-                                <div>
-                                    <button (click)="resetFilters()">Reset filters</button>
-                                </div>
+                                <button class="flex flex-col justify-center align-center m-auto w-full"
+                                    (click)="resetFilters()">Reset filters</button>
                             </div>
                             }
                         </div>
@@ -151,10 +175,8 @@
                         </div>
                         <div class="flex flex-col mb-6">
                             <label for=""><small>Tags</small></label>
-                            <div class="flex flex-wrap align-center gap-4">
-                                <input type="text" placeholder="Add tags">
-                                <app-button-icon name="plus" />
-                            </div>
+                            <input type="text" placeholder="My tag..." class="mb-4">
+                            <button class="flex flex-col justify-center align-center m-auto w-full">Add</button>
                         </div>
                         <div class="flex flex-col">
                             <label for=""><small>Start date</small></label>
