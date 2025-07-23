@@ -3,6 +3,12 @@
         <div class="flex align-center justify-between">
             <div class="flex align-center gap-4">
                 <app-lucide-icon [name]="iconStatus" [size]="20" />
+                @if(note.deleted){
+                <app-lucide-icon name="trash" [size]="20" />
+                }
+                @if(note.archived){
+                <app-lucide-icon name="archive" [size]="20" />
+                }
                 <strong class="ellipsis">{{note.title}}</strong>
             </div>
             @if(note.pinned){
@@ -18,9 +24,9 @@
     <div class="flex align-center gap-4 mb-4">
         <app-lucide-icon name="tags" [size]="16" />
         <div class="flex align-center gap-4">
-            <kbd>tag</kbd>
-            <kbd>tag</kbd>
-            <kbd>+1</kbd>
+            <small style="border:var(--border);padding:0.1rem 0.2rem;">tag</small>
+            <small style="border:var(--border);padding:0.1rem 0.2rem;">tag</small>
+            <small style="border:var(--border);padding:0.1rem 0.2rem;">+1</small>
         </div>
     </div>
     <div class="flex align-center gap-4 mb-4">

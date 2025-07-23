@@ -10,7 +10,7 @@ ul {
 
 
 #buttons_mobile {
-    margin: 1rem;
+    padding: 1rem;
     display: flex;
     justify-content: space-between;
 }
@@ -63,7 +63,7 @@ li {
     }
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width:896px) {
     #container_workspace {
         display: flex;
         flex-direction: row;

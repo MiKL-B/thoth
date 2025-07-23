@@ -42,7 +42,9 @@ import {
     Circle,
     CircleCheck,
     Loader,
-    Archive
+    Archive,
+    ChevronLeft,
+    Zap
 } from 'lucide-angular';
 
 export const ICONS = [
@@ -89,6 +91,8 @@ export const ICONS = [
     { name: "CircleCheck", icon: CircleCheck },
     { name: "Loader", icon: Loader },
     { name: "Archive", icon: Archive },
+    { name: "ChevronLeft", icon: ChevronLeft },
+    { name: "Zap", icon: Zap }
 
 ];
 

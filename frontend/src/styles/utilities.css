@@ -28,6 +28,10 @@
     margin-bottom: 2rem;
 }
 
+.ml-6 {
+    margin-left: 1rem;
+}
+
 .ml-auto {
     margin-left: auto;
 }

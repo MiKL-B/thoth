@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { LucideIconComponent } from "../../components/shared/lucide-icon/lucide-icon.component";
 import { Router } from '@angular/router';
-import { ButtonIconComponent } from "../../components/button-icon/button-icon.component";
+import { ButtonIconComponent } from "../../components/shared/button-icon/button-icon.component";
 
 @Component({
   selector: 'app-home',
