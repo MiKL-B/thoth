@@ -24,9 +24,11 @@ interface Priority {
 })
 export class NoteViewComponent implements OnInit {
   // notebook
-  idNotebook = 1;
+  idNotebook = 3;
   defaultNotebook: Notebook = { id: 0, title: "All notes" };
-  notebooks: Notebook[] = [this.defaultNotebook];
+  archiveNotebook: Notebook = { id: 1, title: "Archived" };
+  trashNotebook: Notebook = { id: 2, title: "Trash" };
+  notebooks: Notebook[] = [this.defaultNotebook, this.archiveNotebook, this.trashNotebook];
   selectedNotebook: Notebook = this.notebooks[0];
   changedNotebookID!: number;
   canUserEditNotebookTitle: boolean = false;
@@ -51,8 +53,6 @@ export class NoteViewComponent implements OnInit {
     archived: false,
   }
   selectedNote: Note = this.defaultNote;
-  checkTrashNote: boolean = false;
-  checkArchivedNote: boolean = false;
 
   // search
   searchValue: string = "";
@@ -69,12 +69,14 @@ export class NoteViewComponent implements OnInit {
   changedStatusID!: number;
 
   // priority
+  priorityDefaultFilter: Priority = { id: 0, title: "All" }
   priorities: Priority[] = [
-    { id: 0, title: "Do it" },
-    { id: 1, title: "Schedule it" },
-    { id: 2, title: "Delegate it" },
-    { id: 3, title: "Delete it" },
+    { id: 1, title: "Do it" },
+    { id: 2, title: "Schedule it" },
+    { id: 3, title: "Delegate it" },
+    { id: 4, title: "Delete it" },
   ]
+  selectedPriority: Priority = this.priorityDefaultFilter;
   changedPriorityID!: number;
 
   // mode
@@ -141,7 +143,9 @@ export class NoteViewComponent implements OnInit {
     }
   }
   canUserEditNotebook(): boolean {
-    return this.selectedNotebook !== this.defaultNotebook;
+    return this.selectedNotebook !== this.defaultNotebook
+      && this.selectedNotebook !== this.archiveNotebook
+      && this.selectedNotebook !== this.trashNotebook;
   }
   // note
   addNote(): void {
@@ -194,45 +198,53 @@ export class NoteViewComponent implements OnInit {
   }
   get filteredNotes(): Note[] {
     const search = this.searchValue.trim().toLowerCase();
-    const statusId = this.selectedStatus.id;
-    const notebookId = this.selectedNotebook.id;
-    const includeDeleted = this.checkTrashNote;
-    const includeArchived = this.checkArchivedNote;
 
-    return this.notes
-      .filter(note =>
-        this.matchesSearch(note, search) &&
-        this.matchesStatus(note, statusId) &&
-        this.matchesNotebook(note, notebookId) &&
-        this.matchesDeletedArchived(note, includeDeleted, includeArchived)
-      )
-      .sort((a, b) => {
-        // if (a.pinned === b.pinned) {
-        //   return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-        // }
-        return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
-      });
+    return this.notes.filter(note =>
+      this.matchesSearch(note, search)
+      && this.matchesStatus(note)
+      && this.matchesPriority(note)
+      && this.matchesNotebook(note)
+
+    ).sort((a, b) => {
+      if (a.pinned === b.pinned) {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      }
+      return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
+
+    })
   }
   matchesSearch(note: Note, search: string): boolean {
     return !search || note.title.toLowerCase().includes(search);
   }
-  matchesStatus(note: Note, statusId: number): boolean {
-    return statusId === 0 || note.status_id === statusId;
+  matchesStatus(note: Note): boolean {
+    if (this.selectedStatus.id === this.statusDefaultFilter.id) {
+      return true;
+    }
+    return note.status_id === this.selectedStatus.id;
   }
-  matchesNotebook(note: Note, notebookId: number): boolean {
-    return notebookId === 0 || note.notebook_id === notebookId;
+  matchesPriority(note: Note): boolean {
+    if (this.selectedPriority.id === this.priorityDefaultFilter.id) {
+      return true;
+    }
+    return note.priority_id === this.selectedPriority.id;
   }
-  matchesDeletedArchived(note: Note, includeDeleted: boolean, includeArchived: boolean): boolean {
-    if (note.deleted) return includeDeleted;
-    if (note.archived) return includeArchived;
-    return true;
+  matchesNotebook(note: Note): boolean {
+    if (note.deleted) {
+      return this.selectedNotebook.id === this.trashNotebook.id;
+    }
+
+    if (note.archived) {
+      return this.selectedNotebook.id === this.archiveNotebook.id;
+    }
+
+    return this.selectedNotebook.id === this.defaultNotebook.id
+      || note.notebook_id === this.selectedNotebook.id;
   }
+
   resetFilters() {
     this.searchValue = '';
     this.selectedStatus = this.statusDefaultFilter;
     this.selectedNotebook = this.defaultNotebook;
-    this.checkTrashNote = false;
-    this.checkArchivedNote = false;
   }
   selectNote(note: Note) {
     this.selectedNote = note;
@@ -262,14 +274,17 @@ export class NoteViewComponent implements OnInit {
       this.notes = this.notes.filter((note) => note.note_id !== this.selectedNote.note_id);
     }
   }
+  restoreNote() {
+    this.selectedNote.deleted = false;
+  }
   emptyTrash() {
     const message = `Are you sure you want to delete all deleted notes?`
     if (window.confirm(message)) {
       this.notes = this.notes.filter((note) => !note.deleted)
     }
   }
-  archiveNote() {
-    this.selectedNote.archived = true;
+  toggleArchiveNote() {
+    this.selectedNote.archived = !this.selectedNote.archived;
   }
   existingNote() {
     return this.notes.find((note) => note.note_id === this.selectedNote.note_id)

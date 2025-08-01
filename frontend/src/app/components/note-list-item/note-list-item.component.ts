@@ -22,10 +22,10 @@ export class NoteListItemComponent {
     { id: 5, name: "archive" }
   ]
   priorities = [
-    { id: 0, title: "Do it" },
-    { id: 1, title: "Schedule it" },
-    { id: 2, title: "Delegate it" },
-    { id: 3, title: "Delete it" },
+    { id: 1, title: "Do it" },
+    { id: 2, title: "Schedule it" },
+    { id: 3, title: "Delegate it" },
+    { id: 4, title: "Delete it" },
   ]
   get iconStatus(): string {
     const existing = this.icons.find((item) => item.id === this.note.status_id);
