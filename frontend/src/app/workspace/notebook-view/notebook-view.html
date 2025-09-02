@@ -1,0 +1,115 @@
+<div class="notebook-container">
+  <div class="notebook-list" [ngClass]="{ 'hidden-mobile': isNoteSelected }">
+    <div
+      class="flex align-center gap-4 p-6"
+      style="border-bottom: var(--border)"
+    >
+      <input type="text" class="w-full" />
+      <div class="flex align-center gap-4">
+        <button
+          data-tooltip="Add"
+          data-position="bottom"
+          class="outline bt-icon"
+        >
+          <app-lucide-icon name="plus" />
+        </button>
+        <button
+          data-tooltip="Filter"
+          data-position="bottom"
+          class="outline bt-icon"
+        >
+          <app-lucide-icon name="funnel" />
+        </button>
+      </div>
+    </div>
+    @for(i of [1,2,3,4]; track i){
+    <div
+      (click)="selectNote()"
+      class="notebook-list-contact flex justify-between p-6"
+      style="border-bottom: var(--border)"
+    >
+      <div class="note flex flex-col">
+        <strong class="mb-4">Untitled note</strong>
+        <small>8:41 PM</small>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div
+    class="notebook-container-messages"
+    [ngClass]="{ 'hidden-mobile': !isNoteSelected }"
+  >
+    <div class="flex flex-col gap-6">
+      <!-- header -->
+      <div class="note-header" style="border-bottom: var(--border)">
+        <div class="flex align-center gap-4">
+          <div class="hide-desktop">
+            <button (click)="unselectNote()" class="ghost bt-icon">
+              <app-lucide-icon name="arrowleft" />
+            </button>
+          </div>
+          @if(!isEditableNote){
+          <strong>{{ noteTitle }}</strong>
+          }@else {
+          <input type="text" [value]="noteTitle" />
+          }
+        </div>
+        <div class="flex gap-4">
+          <button
+            (click)="toggleEditNote()"
+            [attr.data-tooltip]="isEditableNote ? 'Read' : 'Edit'"
+            data-position="bottom"
+            class="outline bt-icon"
+          >
+            @if(!isEditableNote){
+            <app-lucide-icon name="pencil" />
+
+            } @else {
+            <app-lucide-icon name="bookopen" />
+            }
+          </button>
+          <button
+            data-tooltip="Pin"
+            data-position="bottom"
+            class="outline bt-icon"
+          >
+            <app-lucide-icon name="pin" />
+          </button>
+          <button
+            data-tooltip="Duplicate"
+            data-position="bottom"
+            class="outline bt-icon"
+          >
+            <app-lucide-icon name="copyplus" />
+          </button>
+          <button
+            data-tooltip="Archive"
+            data-position="bottom"
+            class="outline bt-icon"
+          >
+            <app-lucide-icon name="archive" />
+          </button>
+          <button
+            data-tooltip="Trash"
+            data-position="bottom"
+            class="outline bt-icon"
+          >
+            <app-lucide-icon name="trash" />
+          </button>
+          <button
+            data-tooltip="More"
+            data-position="bottom"
+            class="outline bt-icon"
+          >
+            <app-lucide-icon name="ellipsis" />
+          </button>
+        </div>
+      </div>
+      <!-- content -->
+      <div class="h-full p-6">
+        <small>Content here...</small>
+      </div>
+    </div>
+  </div>
+</div>

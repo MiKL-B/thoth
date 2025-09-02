@@ -1,0 +1,31 @@
+.user-container {
+  display: grid;
+  grid-template-rows: auto 40px 1fr;
+  gap: var(--space-16);
+  height: 100%;
+}
+.user-content {
+  padding: 0 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  height: 100%;
+  flex: 1;
+}
+.user-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+.personal,
+.account {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+@media screen and (min-width: 960px) {
+  .user-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

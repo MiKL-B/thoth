@@ -1,0 +1,50 @@
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+.messages li {
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  max-width: 60%;
+  position: relative;
+}
+.messages .received {
+  background: rgba(0, 0, 0, 0.04);
+  background: var(--grey);
+  color: var(--dark);
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+.messages .sent {
+  background: var(--dark);
+  color: var(--white);
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+/*  */
+.messages .received::before,
+.messages .sent::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* Flèche à gauche pour les messages reçus */
+.messages .received::before {
+  border-width: 5px 10px 5px 0;
+  border-color: transparent var(--grey) transparent transparent;
+  left: -10px;
+  bottom: 0;
+}
+
+/* Flèche à droite pour les messages envoyés */
+.messages .sent::before {
+  border-width: 5px 0 5px 10px;
+  border-color: transparent transparent transparent var(--dark);
+  right: -10px;
+  bottom: 0;
+}

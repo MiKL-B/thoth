@@ -1,0 +1,18 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-16);
+  height: 100%;
+}
+.dashboard-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+@media screen and (min-width: 960px) {
+  .dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

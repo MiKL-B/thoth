@@ -1,0 +1,27 @@
+section {
+  padding: 3rem 1rem;
+}
+
+/* Wrapper flex */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Texte */
+.text-content {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.section-description {
+  margin-bottom: 1.5rem;
+}

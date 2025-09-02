@@ -1,0 +1,106 @@
+[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Tooltip container */
+[data-tooltip]::after,
+[data-tooltip]::before {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 1000;
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:hover::before {
+  opacity: 1;
+}
+
+/* Texte du tooltip */
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  background: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* Flèche du tooltip */
+[data-tooltip]::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+/* TOP */
+[data-position="top"]::after {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+}
+
+[data-position="top"]::before {
+  border-width: 6px 6px 0 6px;
+  border-color: #333 transparent transparent transparent;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 2px;
+}
+
+/* BOTTOM */
+[data-position="bottom"]::after {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+}
+
+[data-position="bottom"]::before {
+  border-width: 0 6px 6px 6px;
+  border-color: transparent transparent #333 transparent;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 2px;
+}
+
+/* LEFT */
+[data-position="left"]::after {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 8px;
+}
+
+[data-position="left"]::before {
+  border-width: 6px 0 6px 6px;
+  border-color: transparent transparent transparent #333;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 2px;
+}
+
+/* RIGHT */
+[data-position="right"]::after {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 8px;
+}
+
+[data-position="right"]::before {
+  border-width: 6px 6px 6px 0;
+  border-color: transparent #333 transparent transparent;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 2px;
+}

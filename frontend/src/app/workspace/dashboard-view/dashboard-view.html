@@ -1,0 +1,27 @@
+<div class="dashboard-container">
+  <div class="flex flex-wrap align-center justify-between">
+    <div class="tabs mb-8">
+      <button class="tab active">Overview</button>
+      <button class="tab">Analytics</button>
+      <button class="tab">Reports</button>
+      <button class="tab">Notifications</button>
+    </div>
+
+    <button>Download</button>
+  </div>
+  <div class="dashboard-cards">
+    @for(i of [1,2,3,4]; track i){
+    <div class="card flex-col">
+      <div class="flex flex-wrap align-center justify-between">
+        <small>Total Revenue</small>
+        <button class="ghost">View more</button>
+      </div>
+      <h3>15,231.89 €</h3>
+      <p>Trending up this month</p>
+    </div>
+    }
+  </div>
+  <div class="card h-full" style="flex: 1">
+    <small>Content here...</small>
+  </div>
+</div>

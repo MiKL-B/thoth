@@ -1,0 +1,48 @@
+.separator-y {
+  border-right: var(--border);
+  height: 1rem;
+  margin: auto 0.5rem;
+}
+.separator-x {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: var(--border);
+  margin: 0 0.2rem;
+}
+
+.separator {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-size: 0.875rem;
+  color: dimgray;
+  margin: 0.5rem 0;
+}
+.separator span {
+  padding: 0 1rem;
+  background: var(--white);
+  z-index: 3;
+}
+.separator::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 50%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: var(--border);
+  margin: 0.5rem 0;
+}
+.separator::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 50%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: var(--border);
+  margin: 0.5rem 0;
+}

@@ -1,0 +1,103 @@
+<div class="user-container">
+  <div
+    class="flex align-center justify-between p-6"
+    style="border-bottom: var(--border)"
+  >
+    <div class="flex align-center gap-4">
+      <div class="avatar" style="width: 48px; height: 48px">JD</div>
+      <span>John Doudou</span>
+    </div>
+    <a routerLink=""><button>Log out</button></a>
+  </div>
+
+  <div class="tabs" style="margin: 0 1rem">
+    @for(view of views; track view){
+    <button
+      class="tab"
+      (click)="selectView(view)"
+      [ngClass]="{ active: selectedView === view }"
+    >
+      {{ view | titlecase }}
+    </button>
+    }
+  </div>
+
+  <div class="user-content">
+    @if(selectedView === 'personal'){
+    <div class="personal">
+      <div>
+        <h2 class="mb-4">Personal information</h2>
+        <small>Update your personal details and profile information.</small>
+      </div>
+      <div class="separator"></div>
+
+      <div class="user-fields">
+        <div class="field-col">
+          <label for="firstname">Firstname</label>
+          <input type="text" value="John" />
+        </div>
+        <div class="field-col">
+          <label for="firstname">Lastname</label>
+          <input type="text" value="Doudou" />
+        </div>
+        <div class="field-col">
+          <label for="firstname">Email</label>
+          <input type="text" value="john.doudou@example.com" />
+        </div>
+        <div class="field-col">
+          <label for="firstname">Phone</label>
+          <input type="text" value="+1 (555) 123-4567" />
+        </div>
+        <div class="field-col">
+          <label for="firstname">Job Title</label>
+          <input type="text" value="Senior Product Designer" />
+        </div>
+        <div class="field-col">
+          <label for="firstname">Company</label>
+          <input type="text" value="Acme Inc." />
+        </div>
+      </div>
+      <div class="field-col">
+        <label for="bio">Bio</label>
+        <textarea name="" id="" rows="10">
+      Passionate product designer with 8+ years of experience creating user-centered digital experiences. I love solving complex problems and turning ideas into beautiful, functional products.
+          </textarea
+        >
+      </div>
+      <div class="field-col">
+        <label for="location">Location</label>
+        <input type="text" value="San Francisco" />
+      </div>
+      <div style="margin-left: auto">
+        <button>Update profile</button>
+      </div>
+    </div>
+    }@else if (selectedView === 'account'){
+    <div class="account">
+      <div>
+        <h2 class="mb-4">Account Settings</h2>
+        <small>Manage your account preferences and subscription.</small>
+      </div>
+      <div class="separator"></div>
+      <div class="flex align-center justify-between">
+        <div class="flex flex-col gap-4">
+          <h3>Data Export</h3>
+          <small>Download a copy of your data.</small>
+        </div>
+        <button class="outline">Export Data</button>
+      </div>
+      <div class="separator"></div>
+      <div class="flex align-center justify-between">
+        <div class="flex flex-col gap-4">
+          <h3>Delete Account</h3>
+          <small>Permanently delete your account and all data.</small>
+        </div>
+        <button class="danger">
+          <app-lucide-icon name="trash" />
+          Delete Account
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>

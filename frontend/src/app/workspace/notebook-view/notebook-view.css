@@ -1,0 +1,50 @@
+.notebook-container {
+  height: 100%;
+}
+
+.notebook-container-messages {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.notebook-list-contact:hover {
+  background: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+.hidden-mobile {
+  display: none;
+}
+.hide-desktop {
+  display: inline-block;
+}
+.note-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-16);
+}
+.note-header input {
+  width: 100%;
+}
+@media screen and (min-width: 960px) {
+  .notebook-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+  .note-header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .notebook-list {
+    border-right: var(--border);
+  }
+  .hidden-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+  .hide-desktop {
+    display: none !important;
+  }
+}

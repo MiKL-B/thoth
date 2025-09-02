@@ -1,0 +1,47 @@
+.automatisation-container {
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  height: 100%;
+}
+.table-container {
+  overflow-x: auto;
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+}
+
+/* Table */
+.shadcn-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--dark);
+}
+
+.shadcn-table thead th {
+  text-align: left;
+  padding: var(--space-8);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-bottom: var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--white);
+}
+
+.shadcn-table tbody tr:hover {
+  background-color: #f3f4f6;
+}
+
+/* Cells */
+.shadcn-table td {
+  padding: var(--space-8);
+  border-bottom: var(--border);
+}
+.pagination {
+  margin-top: auto;
+}

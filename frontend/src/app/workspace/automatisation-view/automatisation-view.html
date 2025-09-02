@@ -1,0 +1,105 @@
+<div class="automatisation-container">
+  <div class="flex flex-wrap align-center justify-between">
+    <div class="tabs mb-8">
+      <button class="tab active">Déclencheurs</button>
+      <button class="tab">Routines</button>
+    </div>
+
+    <button>
+      <app-lucide-icon name="plus" />
+      Add
+    </button>
+  </div>
+  <div class="flex flex-wrap align-center justify-between">
+    <div class="flex flex-wrap align-center gap-4">
+      <input type="text" placeholder="Filter by title or ID..." />
+      <select name="" id="">
+        <option value="">Status</option>
+      </select>
+      <select name="" id="">
+        <option value="">Priority</option>
+      </select>
+    </div>
+    <div>
+      <button class="outline">View</button>
+    </div>
+  </div>
+  <div class="table-container">
+    <table class="shadcn-table">
+      <thead>
+        <tr>
+          <th style="width: 32px">
+            <input type="checkbox" />
+          </th>
+          <th>ID</th>
+          <th>Condition</th>
+          <th>Action</th>
+          <th>Remarques</th>
+          <th>Priorité</th>
+          <th style="width: 32px"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(i of [1,2,3,4,5,6,7,8,9,10]; track i){
+        <tr>
+          <td>
+            <input type="checkbox" />
+          </td>
+          <td>TRIG-00{{ i }}</td>
+          <td>Si note contient "RDV"</td>
+          <td>Ajouter tag "Agenda"</td>
+          <td>Classer automatiquement les notes</td>
+          <td>
+            @if(i % 2 == 0){
+            <app-lucide-icon name="arrowdown" [size]="16" />
+            Low }@else {
+            <app-lucide-icon name="arrowup" [size]="16" />
+            High }
+          </td>
+          <td>
+            <button class="ghost bt-icon">
+              <app-lucide-icon name="ellipsis" />
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <!-- pagination -->
+  <div class="pagination flex flex-wrap align-center justify-between">
+    <!-- rows per page -->
+    <div class="flex align-center gap-4">
+      <select name="" id="">
+        @for(i of [1,2,3,4,5]; track i){
+        <option value="">{{ i * 10 }}</option>
+        }
+      </select>
+      <span>Rows per page</span>
+    </div>
+    <!--  -->
+    <div class="flex flex-wrap align-center gap-6">
+      <span>Page 1 of 10</span>
+      <div class="flex flex-wrap align-center gap-4">
+        <button class="outline bt-icon">
+          <app-lucide-icon name="chevronsleft" />
+        </button>
+        <button class="outline bt-icon">
+          <app-lucide-icon name="chevronleft" />
+        </button>
+        <button class="bt-icon">1</button>
+        <button class="outline bt-icon">2</button>
+        <button class="outline bt-icon">3</button>
+        <button class="outline bt-icon">4</button>
+        <span>...</span>
+        <button class="outline bt-icon">10</button>
+        <button class="outline bt-icon">
+          <app-lucide-icon name="chevronright" />
+        </button>
+        <button class="outline bt-icon">
+          <app-lucide-icon name="chevronsright" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

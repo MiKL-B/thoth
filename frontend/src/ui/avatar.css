@@ -1,0 +1,21 @@
+.avatar {
+  border-radius: 50%;
+  background: var(--grey);
+  width: var(--space-32);
+  height: var(--space-32);
+  font-size: var(--space-16);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar.danger {
+  background: var(--red);
+  color: var(--white);
+}
+.avatar.success {
+  background: var(--green);
+}
+.avatar svg {
+  width: 1rem;
+  height: 1rem;
+}

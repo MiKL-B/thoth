@@ -1,0 +1,39 @@
+@import "variable.css";
+@import "font.css";
+@import "utilities.css";
+@import "button.css";
+@import "link.css";
+@import "input.css";
+@import "scrollbar.css";
+@import "separator.css";
+@import "card.css";
+@import "form.css";
+@import "typography.css";
+@import "tooltip.css";
+@import "avatar.css";
+@import "list.css";
+@import "message.css";
+@import "svg.css";
+@import "tabs.css";
+@import "accordion.css";
+@import "dialog.css";
+@import "section.css";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1;
+}
+html,
+body {
+  height: 100%;
+}
+.overlay {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+}

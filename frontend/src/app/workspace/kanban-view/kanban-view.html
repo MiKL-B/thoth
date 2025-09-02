@@ -1,0 +1,28 @@
+<div class="kanban-container">
+  <div class="kanban-columns">
+    <!-- column -->
+    @for(column of columns; track column){
+    <div class="kanban-column">
+      <!-- header -->
+      <div class="flex align-center justify-between">
+        <div class="flex align-center gap-4">
+          <div
+            class="avatar"
+            [ngStyle]="{ 'background-color': 'var(--' + column.color + ')' }"
+            style="width: 8px; height: 8px"
+          ></div>
+          <span>{{ column.label }}</span>
+        </div>
+        <button class="ghost bt-icon">
+          <app-lucide-icon name="ellipsis" />
+        </button>
+      </div>
+      <div class="card">Content</div>
+      <button class="outline">
+        <app-lucide-icon name="plus" />
+        New card
+      </button>
+    </div>
+    }
+  </div>
+</div>

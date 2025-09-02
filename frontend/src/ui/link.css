@@ -1,0 +1,12 @@
+a {
+  color: var(--dark);
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--blue-bright);
+}

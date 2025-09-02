@@ -1,0 +1,49 @@
+<div class="calendar-container">
+  <div class="calendar-header">
+    <div class="flex align-center gap-4">
+      <button
+        data-tooltip="Previous"
+        data-position="top"
+        class="outline bt-icon"
+      >
+        <app-lucide-icon name="chevronleft" />
+      </button>
+      <span>Aug 28, 2025</span>
+      <button data-tooltip="Next" data-position="top" class="outline bt-icon">
+        <app-lucide-icon name="chevronright" />
+      </button>
+    </div>
+    <div class="flex flex-wrap align-center gap-4">
+      <div class="btn-group flex align-center">
+        @for(btn of buttons; track btn){
+        <button
+          [attr.data-tooltip]="btn.tooltip"
+          (click)="selectButton(btn)"
+          data-position="top"
+          class="outline bt-icon"
+          [ngClass]="{ 'btn-group-active': selectedButton === btn }"
+        >
+          <app-lucide-icon [name]="btn.icon" />
+        </button>
+        }
+      </div>
+
+      <select name="" id="">
+        <option value="">John Doudou</option>
+      </select>
+      <button>
+        <app-lucide-icon name="plus" />
+        Add Event
+      </button>
+    </div>
+  </div>
+  <!-- view calendar -->
+  <div class="p-6">
+    @if(selectedButton.tooltip === 'Day') {
+    <p>Day</p>
+    }@else if (selectedButton.tooltip === 'Week'){
+    <p>Week</p>
+    }
+    <!-- ... -->
+  </div>
+</div>

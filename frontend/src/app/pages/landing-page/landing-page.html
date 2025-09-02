@@ -1,0 +1,171 @@
+<section>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="text-content">
+        <h2 class="section-title">Start taking notes</h2>
+        <p class="section-description">
+          Voici un paragraphe descriptif pour ta section. Il s’adapte à toutes
+          les tailles d’écran.
+        </p>
+        <button>En savoir plus</button>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="flex align-center gap-4 justify-between">
+  <div class="flex flex-col align-center text-center">
+    <p class="text-xl"><strong>10K+</strong></p>
+    <span>Active user</span>
+  </div>
+  <div class="flex flex-col align-center text-center">
+    <p class="text-xl"><strong>500K+</strong></p>
+    <span>Created note</span>
+  </div>
+  <div class="flex flex-col align-center text-center">
+    <p class="text-xl"><strong>99.9%</strong></p>
+    <span>Uptime</span>
+  </div>
+  <div class="flex flex-col align-center text-center">
+    <p class="text-xl"><strong>4.9/5</strong></p>
+    <span>Satisfaction</span>
+  </div>
+</section>
+
+<!--  -->
+<button id="bt-top" class="bt-icon" (click)="scrollTop()">
+  <app-lucide-icon name="chevronup" />
+</button>
+
+<section id="features" class="flex flex-col gap-6 border-bottom">
+  <div class="text-center">
+    <span><strong>FEATURES</strong></span>
+    <p>Everything you need in one place</p>
+  </div>
+  <div id="features-bottom" class="flex flex-col gap-6">
+    @for(feature of features; track feature){
+    <div class="card">
+      <article>
+        <header class="text-center">
+          <app-lucide-icon [name]="feature.icon" />
+        </header>
+        <p class="text-center">
+          <strong>{{ feature.title }}</strong>
+        </p>
+        <p>{{ feature.description }}</p>
+      </article>
+    </div>
+    }
+  </div>
+</section>
+<section id="pricing" class="flex flex-col gap-6">
+  <div class="text-center">
+    <span><strong>PRICING</strong></span>
+    <p>Choose the plan that's right for you</p>
+  </div>
+  <div class="flex gap-6">
+    <div class="card">
+      <article>
+        <header>
+          <p class="text-center">Free</p>
+          <p class="text-center"><span class="text-xl">0€</span>/month</p>
+        </header>
+        <ul>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+        </ul>
+        <footer>
+          <button class="w-full">Get started free</button>
+        </footer>
+      </article>
+    </div>
+    <div class="card">
+      <article>
+        <header>
+          <p class="text-center"><strong>Pro</strong></p>
+          <p class="text-center"><span class="text-xl">9€</span>/month</p>
+        </header>
+        <ul>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+        </ul>
+        <footer>
+          <button class="primary w-full">Get started free</button>
+        </footer>
+      </article>
+    </div>
+    <div class="card">
+      <article>
+        <header>
+          <p class="text-center">Team</p>
+          <p class="text-center"><span class="text-xl">19€</span>/month</p>
+        </header>
+        <ul>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+          <li>
+            <app-lucide-icon name="check" />
+            Feature 1
+          </li>
+        </ul>
+        <footer>
+          <button class="w-full">Get started free</button>
+        </footer>
+      </article>
+    </div>
+  </div>
+  <p style="text-align: center">All plans include a 14-day free trial</p>
+</section>
+<section>
+  @for(question of [1,2,3,4,5,6]; track question){
+  <details name="details">
+    <summary><strong>Product information</strong></summary>
+    <p>
+      Our flagship product combines cutting-edge technology with sleek design.
+      Built with premium materials, it offers unparalleled performance and
+      reliability. Key features include advanced processing capabilities, and an
+      intuitive user interface designed for both beginners and experts.
+    </p>
+  </details>
+  }
+</section>
+
+<section id="ready" class="flex flex-col gap-8">
+  <div class="text-center">
+    <span><strong>READY TO GET STARTED?</strong></span>
+    <p>Start your free trial today</p>
+  </div>
+  <div class="buttons" style="margin: auto">
+    <button class="primary">Start free trial</button>
+    <button>Sign In</button>
+  </div>
+</section>

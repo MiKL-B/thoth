@@ -1,0 +1,22 @@
+.kanban-container {
+  padding: var(--space-16);
+}
+.kanban-columns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+.kanban-column {
+  display: flex;
+  flex-direction: column;
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-16);
+  gap: var(--space-16);
+}
+@media screen and (min-width: 960px) {
+  .kanban-columns {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

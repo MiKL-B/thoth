@@ -1,18 +1,12 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './pages/login/login.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-// import { authGuard } from './guards/auth.guard';
+import { LandingPage } from './pages/landing-page/landing-page';
+import { WorkspacePage } from './pages/workspace-page/workspace-page';
+import { AuthPage } from './pages/auth-page/auth-page';
+import { NotfoundPage } from './pages/notfound-page/notfound-page';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  {
-    path: "workspace",
-    loadComponent: () => import("./pages/workspace/workspace.component").then((c) => c.WorkspaceComponent),
-    // canActivate: [authGuard],
-  },
-  {
-    path: "**", component: NotFoundComponent
-  }
+  { path: '', component: LandingPage },
+  { path: 'workspace', component: WorkspacePage },
+  { path: 'auth', component: AuthPage },
+  { path: '**', component: NotfoundPage },
 ];

@@ -1,0 +1,88 @@
+<div class="chat-container">
+  <div class="chat-list" [ngClass]="{ 'hidden-mobile': isChatSelected }">
+    <div
+      class="flex align-center gap-4 p-6"
+      style="border-bottom: var(--border)"
+    >
+      <input type="text" class="w-full" />
+      <div class="flex align-center gap-4">
+        <button
+          data-tooltip="Add"
+          data-position="bottom"
+          class="outline bt-icon"
+        >
+          <app-lucide-icon name="plus" />
+        </button>
+        <button
+          data-tooltip="Filter"
+          data-position="bottom"
+          class="outline bt-icon"
+        >
+          <app-lucide-icon name="funnel" />
+        </button>
+      </div>
+    </div>
+    @for(i of [1,2,3,4]; track i){
+    <div
+      (click)="openChat()"
+      class="chat-list-contact flex justify-between p-6"
+      style="border-bottom: var(--border)"
+    >
+      <div class="flex align-center gap-4">
+        <div class="avatar">JD</div>
+        <div class="flex flex-col">
+          <strong class="mb-4">Jeanne Dark</strong>
+          <small>You:Je joue à Woulouwacwaft</small>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div
+    class="chat-container-messages"
+    [ngClass]="{ 'hidden-mobile': !isChatSelected }"
+  >
+    <div
+      class="flex align-center justify-between p-6"
+      style="border-bottom: var(--border)"
+    >
+      <div class="flex align-center gap-4">
+        <button (click)="closeChat()" class="ghost bt-icon hide-desktop">
+          <app-lucide-icon name="arrowleft" />
+        </button>
+        <div class="flex gap-4 align-center">
+          <div class="avatar">JD</div>
+          <div class="flex flex-col">
+            <strong>Jeanne Dark</strong>
+            <div class="flex align-center gap-4">
+              <div class="avatar success" style="width: 8px; height: 8px"></div>
+              <small>Active Now</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        data-tooltip="More"
+        data-position="bottom"
+        class="outline bt-icon"
+      >
+        <app-lucide-icon name="ellipsis" />
+      </button>
+    </div>
+    <div class="chat-messages p-6">
+      <ul class="messages">
+        <li class="sent">Coucou</li>
+        <li class="received">Salut !</li>
+        <li class="sent">Hey, ça va ?</li>
+        <li class="received">Oui, et toi ?</li>
+        <li class="received">Qu'est ce que tu fais de beau ?</li>
+        <li class="sent">Je joue à Woulouwacwaft !</li>
+      </ul>
+      <div class="flex gap-4">
+        <input type="text" placeholder="Type your message..." class="w-full" />
+        <button class="outline">Send</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+.chat-container {
+  height: 100%;
+}
+
+.chat-container-messages {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.chat-messages {
+  margin-top: auto;
+}
+.messages {
+  margin-bottom: 1rem;
+}
+.chat-list-contact:hover {
+  background: rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+}
+.hidden-mobile {
+  display: none;
+}
+.hide-desktop {
+  display: inline-block;
+}
+@media screen and (min-width: 960px) {
+  .chat-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+  .chat-list {
+    border-right: var(--border);
+  }
+  .hidden-mobile {
+    display: flex;
+    flex-direction: column;
+  }
+  .hide-desktop {
+    display: none !important;
+  }
+}

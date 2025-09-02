@@ -1,0 +1,105 @@
+<div class="container">
+  @if(isSidebarOpened){
+  <div class="overlay"></div>
+  }
+  <div
+    class="sidebar"
+    [ngStyle]="{ width: sidebarWidth }"
+    [ngClass]="{ visible: isSidebarOpened }"
+  >
+    <div style="padding: 1rem 0 0 1rem" class="display-mobile">
+      <button (click)="closeSidebar()" class="outline bt-icon mb-8">
+        <app-lucide-icon name="X" />
+      </button>
+    </div>
+
+    <div
+      class="flex align-center gap-4 p-6"
+      style="border-bottom: var(--border)"
+    >
+      <button class="outline bt-icon">
+        <app-lucide-icon name="Building2" />
+      </button>
+      @if(listItemWidth === '100%'){
+      <h2>Company</h2>
+      }
+    </div>
+    <ul class="sidebar-list flex flex-col gap-4">
+      @for(view of views; track view.title){
+      <div class="flex gap-4">
+        <li
+          [ngStyle]="{ width: listItemWidth }"
+          style="height: 32px"
+          [attr.data-tooltip]="
+            (isMobile ? !isSidebarOpened : !isPanelOpened)
+              ? (view.title | titlecase)
+              : null
+          "
+          data-position="right"
+          (click)="selectView(view.title)"
+          [ngClass]="{ active: selectedView === view.title }"
+        >
+          <app-lucide-icon [name]="view.icon" [size]="16" />
+          @if (!isMobile && isPanelOpened || isMobile && isSidebarOpened) {
+          <span>{{ view.title | titlecase }}</span>
+          }
+        </li>
+      </div>
+      }
+    </ul>
+    <footer>
+      <ul class="sidebar-list flex flex-col gap-4">
+        @for(view of bottomView; track view.title){
+        <div class="flex gap-4">
+          <li
+            [ngStyle]="{ width: listItemWidth }"
+            style="height: 32px"
+            [attr.data-tooltip]="
+              (isMobile ? !isSidebarOpened : !isPanelOpened) ? view.title : null
+            "
+            data-position="right"
+            (click)="selectView(view.title)"
+            [ngClass]="{ active: selectedView === view.title }"
+          >
+            <app-lucide-icon [name]="view.icon" [size]="16" />
+            @if (!isMobile && isPanelOpened || isMobile && isSidebarOpened) {
+            <span>{{ view.title | titlecase }}</span>
+            }
+          </li>
+        </div>
+        }
+      </ul>
+    </footer>
+  </div>
+  <!--  -->
+  <div class="panel-right">
+    <div
+      class="flex align-center gap-16"
+      style="padding: 1rem; border-bottom: var(--border)"
+    >
+      <div class="flex align-center gap-4">
+        <button (click)="openSidebar()" class="outline bt-icon display-mobile">
+          <app-lucide-icon name="menu" />
+        </button>
+
+        <button (click)="togglePanel()" class="outline bt-icon display-desktop">
+          <app-lucide-icon
+            [name]="isPanelOpened ? 'panelleftclose' : 'panelleftopen'"
+          />
+        </button>
+        <button class="outline bt-icon">
+          <app-lucide-icon name="chevronleft" />
+        </button>
+        <button class="outline bt-icon">
+          <app-lucide-icon name="chevronright" />
+        </button>
+      </div>
+      <input type="text" placeholder="Search" class="global-search" />
+    </div>
+    <div class="h-full">
+      <ng-container
+        [ngComponentOutlet]="viewComponents[selectedView]"
+      ></ng-container>
+    </div>
+  </div>
+</div>

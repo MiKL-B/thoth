@@ -1,0 +1,11 @@
+#bt-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+}
+@media screen and (min-width: 960px) {
+  section {
+    max-width: 960px;
+    margin: auto;
+  }
+}

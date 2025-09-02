@@ -1,0 +1,37 @@
+details {
+  color: var(--dark);
+  transition: ease 0.3s;
+}
+details p {
+  padding-bottom: 1rem;
+}
+details:not(:last-of-type) {
+  border-bottom: 1px solid var(--grey);
+}
+summary {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::after {
+  content: "↓";
+  display: inline-block;
+}
+
+details[open] summary::after {
+  content: "↑";
+}
+summary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--blue-bright);
+}
