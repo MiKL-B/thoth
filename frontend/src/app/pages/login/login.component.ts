@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideIconComponent } from "../../components/shared/lucide-icon/lucide-icon.component";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,7 @@ import { LucideIconComponent } from "../../components/shared/lucide-icon/lucide-
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
+  constructor(private authService: AuthService) { }
   authForm!: FormGroup;
 
   regexEmail: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -66,7 +68,30 @@ export class LoginComponent implements OnInit {
     if (this.propHoneypot.value !== "" || this.authForm.invalid) {
       return
     }
-    console.log(this.authForm.value)
+    const formData = this.authForm.value;
+    console.log(formData)
+    if (this.isRegisterForm) {
+      this.authService.register(formData).subscribe({
+        next: (res) => {
+          console.log("Inscription réussie", res)
+          // rediriger ou afficher un message
+        },
+        error: (err) => {
+          console.log('Erreur inscription', err)
+        }
+      })
+    }
+    else {
+      this.authService.login(formData).subscribe({
+        next: (res) => {
+          console.log('Connexion réussie', res);
+          // stocker token, rediriger, etc.
+        },
+        error: (err) => {
+          console.error('Erreur connexion', err);
+        }
+      });
+    }
   }
 
   toggleForm() {
