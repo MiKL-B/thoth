@@ -1,41 +1,57 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { LucideIconComponent } from "../shared/lucide-icon/lucide-icon.component";
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { LucideIconComponent } from '../shared/lucide-icon/lucide-icon.component';
 import { FormsModule } from '@angular/forms';
 import { Note } from '../../models/note.model';
-import { ButtonIconComponent } from "../shared/button-icon/button-icon.component";
-import { NoteListComponent } from "../note-list/note-list.component";
+import { ButtonIconComponent } from '../shared/button-icon/button-icon.component';
+import { NoteListComponent } from '../note-list/note-list.component';
+import { NoteService } from '../../services/note.service';
 interface Notebook {
-  id: number,
-  title: string,
+  id: number;
+  title: string;
 }
 interface Status {
-  id: number,
-  title: string
+  id: number;
+  title: string;
 }
 interface Priority {
-  id: number,
-  title: string
+  id: number;
+  title: string;
 }
 @Component({
   selector: 'app-note-view',
-  imports: [LucideIconComponent, FormsModule, ButtonIconComponent, NoteListComponent],
+  imports: [
+    LucideIconComponent,
+    FormsModule,
+    ButtonIconComponent,
+    NoteListComponent,
+  ],
   templateUrl: './note-view.component.html',
-  styleUrl: './note-view.component.scss'
+  styleUrl: './note-view.component.scss',
 })
 export class NoteViewComponent implements OnInit {
   // notebook
   idNotebook = 3;
-  defaultNotebook: Notebook = { id: 0, title: "All notes" };
-  archiveNotebook: Notebook = { id: 1, title: "Archived" };
-  trashNotebook: Notebook = { id: 2, title: "Trash" };
-  notebooks: Notebook[] = [this.defaultNotebook, this.archiveNotebook, this.trashNotebook];
+  defaultNotebook: Notebook = { id: 0, title: 'All notes' };
+  archiveNotebook: Notebook = { id: 1, title: 'Archived' };
+  trashNotebook: Notebook = { id: 2, title: 'Trash' };
+  notebooks: Notebook[] = [
+    this.defaultNotebook,
+    this.archiveNotebook,
+    this.trashNotebook,
+  ];
   selectedNotebook: Notebook = this.notebooks[0];
   changedNotebookID!: number;
   canUserEditNotebookTitle: boolean = false;
 
   // note
   idNote = 0;
-  notes: Note[] = []
+  notes: Note[] = [];
   defaultNote: Note = {
     note_id: -1,
     title: '',
@@ -51,31 +67,31 @@ export class NoteViewComponent implements OnInit {
     assigned_to: -1,
     deleted: false,
     archived: false,
-  }
+  };
   selectedNote: Note = this.defaultNote;
 
   // search
-  searchValue: string = "";
+  searchValue: string = '';
 
   // status
-  statusDefaultFilter: Status = { id: 0, title: "All" }
+  statusDefaultFilter: Status = { id: 0, title: 'All' };
   status: Status[] = [
-    { id: 1, title: "Draft" },
-    { id: 2, title: "Todo" },
-    { id: 3, title: "In progress" },
-    { id: 4, title: "Finished" },
-  ]
+    { id: 1, title: 'Draft' },
+    { id: 2, title: 'Todo' },
+    { id: 3, title: 'In progress' },
+    { id: 4, title: 'Finished' },
+  ];
   selectedStatus: Status = this.statusDefaultFilter;
   changedStatusID!: number;
 
   // priority
-  priorityDefaultFilter: Priority = { id: 0, title: "All" }
+  priorityDefaultFilter: Priority = { id: 0, title: 'All' };
   priorities: Priority[] = [
-    { id: 1, title: "Do it" },
-    { id: 2, title: "Schedule it" },
-    { id: 3, title: "Delegate it" },
-    { id: 4, title: "Delete it" },
-  ]
+    { id: 1, title: 'Do it' },
+    { id: 2, title: 'Schedule it' },
+    { id: 3, title: 'Delegate it' },
+    { id: 4, title: 'Delete it' },
+  ];
   selectedPriority: Priority = this.priorityDefaultFilter;
   changedPriorityID!: number;
 
@@ -84,10 +100,14 @@ export class NoteViewComponent implements OnInit {
   isMobile: boolean = false;
   isVisibleNoteSettings: boolean = false;
   isVisibleNoteFilters: boolean = false;
+  constructor(private noteService: NoteService) {}
 
   ngOnInit(): void {
     this.checkScreenSize();
+    // this.loadNotes();
   }
+
+  // Responsive design
   @HostListener('window:resize')
   onResize() {
     this.checkScreenSize();
@@ -101,8 +121,12 @@ export class NoteViewComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
-    const clickedInsideFilters = this.noteFiltersRef?.nativeElement.contains(event.target);
-    const clickedInsideSettings = this.noteSettingsRef?.nativeElement.contains(event.target);
+    const clickedInsideFilters = this.noteFiltersRef?.nativeElement.contains(
+      event.target
+    );
+    const clickedInsideSettings = this.noteSettingsRef?.nativeElement.contains(
+      event.target
+    );
 
     if (!clickedInsideFilters) {
       this.isVisibleNoteFilters = false;
@@ -117,15 +141,15 @@ export class NoteViewComponent implements OnInit {
     if (!this.notebooks) return;
     const newNotebook: Notebook = {
       id: this.idNotebook,
-      title: "Notebook " + this.idNotebook,
-    }
+      title: 'Notebook ' + this.idNotebook,
+    };
     this.notebooks.push(newNotebook);
     this.idNotebook++;
     this.selectNotebook(newNotebook);
     this.canUserEditNotebookTitle = false;
   }
   selectNotebook(notebook: Notebook) {
-    this.selectedNotebook = notebook
+    this.selectedNotebook = notebook;
   }
   onNotebookChange(selectedNotebookID: number) {
     this.changedNotebookID = selectedNotebookID;
@@ -135,24 +159,35 @@ export class NoteViewComponent implements OnInit {
     this.canUserEditNotebookTitle = !this.canUserEditNotebookTitle;
   }
   deleteNotebook() {
-    const message = `Are you sure you want to delete this notebook: ${this.selectedNotebook.title}?`
+    const message = `Are you sure you want to delete this notebook: ${this.selectedNotebook.title}?`;
     if (window.confirm(message)) {
-      this.notes = this.notes.filter((note) => note.notebook_id !== this.selectedNotebook.id)
-      this.notebooks = this.notebooks.filter((notebook) => notebook.id !== this.selectedNotebook.id);
+      this.notes = this.notes.filter(
+        (note) => note.notebook_id !== this.selectedNotebook.id
+      );
+      this.notebooks = this.notebooks.filter(
+        (notebook) => notebook.id !== this.selectedNotebook.id
+      );
       this.selectNotebook(this.defaultNotebook);
     }
   }
   canUserEditNotebook(): boolean {
-    return this.selectedNotebook !== this.defaultNotebook
-      && this.selectedNotebook !== this.archiveNotebook
-      && this.selectedNotebook !== this.trashNotebook;
+    return (
+      this.selectedNotebook !== this.defaultNotebook &&
+      this.selectedNotebook !== this.archiveNotebook &&
+      this.selectedNotebook !== this.trashNotebook
+    );
   }
   // note
+  // loadNotes(): void {
+  //   this.noteService.getAllNotes().subscribe((notes) => {
+  //     this.notes = notes;
+  //   });
+  // }
   addNote(): void {
-    const newNote: Note = {
+    const note: Note = {
       note_id: this.idNote++,
-      title: "Untitled note " + this.idNote,
-      content: "",
+      title: 'Untitled note ' + this.idNote,
+      content: '',
       pinned: false,
       created_at: new Date(),
       updated_at: new Date(),
@@ -165,12 +200,17 @@ export class NoteViewComponent implements OnInit {
       deleted: false,
       archived: false,
     };
-    this.notes.push(newNote);
+    this.notes.push(note);
+    this.selectNote(note);
+    // this.noteService.createNote(newNote).subscribe((note) => {
+    //   this.notes.push(note);
+    //   this.selectNote(note);
+    // });
   }
   duplicateNote(): void {
     const newNote: Note = {
       note_id: this.idNote++,
-      title: this.selectedNote.title + " - Copy",
+      title: this.selectedNote.title + ' - Copy',
       content: this.selectedNote.content,
       pinned: this.selectedNote.pinned,
       created_at: new Date(),
@@ -182,7 +222,7 @@ export class NoteViewComponent implements OnInit {
       created_by: this.selectedNote.created_by,
       assigned_to: this.selectedNote.assigned_to,
       deleted: this.selectedNote.deleted,
-      archived: this.selectedNote.archived
+      archived: this.selectedNote.archived,
     };
     this.notes.push(newNote);
     this.selectNote(newNote);
@@ -199,19 +239,22 @@ export class NoteViewComponent implements OnInit {
   get filteredNotes(): Note[] {
     const search = this.searchValue.trim().toLowerCase();
 
-    return this.notes.filter(note =>
-      this.matchesSearch(note, search)
-      && this.matchesStatus(note)
-      && this.matchesPriority(note)
-      && this.matchesNotebook(note)
-
-    ).sort((a, b) => {
-      if (a.pinned === b.pinned) {
-        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-      }
-      return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
-
-    })
+    return this.notes
+      .filter(
+        (note) =>
+          this.matchesSearch(note, search) &&
+          this.matchesStatus(note) &&
+          this.matchesPriority(note) &&
+          this.matchesNotebook(note)
+      )
+      .sort((a, b) => {
+        if (a.pinned === b.pinned) {
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+        }
+        return (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0);
+      });
   }
   matchesSearch(note: Note, search: string): boolean {
     return !search || note.title.toLowerCase().includes(search);
@@ -237,8 +280,10 @@ export class NoteViewComponent implements OnInit {
       return this.selectedNotebook.id === this.archiveNotebook.id;
     }
 
-    return this.selectedNotebook.id === this.defaultNotebook.id
-      || note.notebook_id === this.selectedNotebook.id;
+    return (
+      this.selectedNotebook.id === this.defaultNotebook.id ||
+      note.notebook_id === this.selectedNotebook.id
+    );
   }
 
   resetFilters() {
@@ -267,27 +312,35 @@ export class NoteViewComponent implements OnInit {
   }
   deleteNote() {
     this.selectedNote.deleted = true;
+    this.unselectNote();
   }
   deleteNotePermanently() {
-    const message = `Are you sure you want to delete this note: ${this.selectedNote.title}?`
-    if (window.confirm(message)) {
-      this.notes = this.notes.filter((note) => note.note_id !== this.selectedNote.note_id);
-    }
+    const message = `Are you sure you want to delete this note: ${this.selectedNote.title}?`;
+    // if (window.confirm(message)) {
+    //   this.noteService.deleteNote(this.selectedNote.note_id).subscribe(() => {
+    //     this.notes = this.notes.filter(
+    //       (note) => note.note_id !== this.selectedNote.note_id
+    //     );
+    //     this.unselectNote();
+    //   });
+    // }
   }
   restoreNote() {
     this.selectedNote.deleted = false;
   }
   emptyTrash() {
-    const message = `Are you sure you want to delete all deleted notes?`
+    const message = `Are you sure you want to delete all deleted notes?`;
     if (window.confirm(message)) {
-      this.notes = this.notes.filter((note) => !note.deleted)
+      this.notes = this.notes.filter((note) => !note.deleted);
     }
   }
   toggleArchiveNote() {
     this.selectedNote.archived = !this.selectedNote.archived;
   }
   existingNote() {
-    return this.notes.find((note) => note.note_id === this.selectedNote.note_id)
+    return this.notes.find(
+      (note) => note.note_id === this.selectedNote.note_id
+    );
   }
 
   // search
@@ -314,5 +367,4 @@ export class NoteViewComponent implements OnInit {
   toggleNoteFilters() {
     this.isVisibleNoteFilters = !this.isVisibleNoteFilters;
   }
-
 }

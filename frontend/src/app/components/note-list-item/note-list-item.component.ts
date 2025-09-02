@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Note } from '../../models/note.model';
 import { LucideIconComponent } from "../shared/lucide-icon/lucide-icon.component";
-import { DatePipe, NgClass, UpperCasePipe } from '@angular/common';
+import { DatePipe, UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-note-list-item',

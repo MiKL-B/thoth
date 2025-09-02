@@ -52,7 +52,6 @@ export class HomeComponent {
       description: "",
       icon: "brain",
     },
-
   ]
   scrollTop() {
     window.scroll({

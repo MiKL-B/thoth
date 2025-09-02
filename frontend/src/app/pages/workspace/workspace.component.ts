@@ -17,6 +17,7 @@ interface View {
 }
 type ViewType = 'notebook' | 'dashboard' | 'kanban' | 'eisenhower' | 'user';
 //  'calendar' | 'gantt' | 'pert' |'second brain' | 'settings'
+
 @Component({
   selector: 'app-workspace',
   imports: [NgClass, LucideIconComponent, TitleCasePipe, NgComponentOutlet, ButtonIconComponent],
