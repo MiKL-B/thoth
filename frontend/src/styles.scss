@@ -42,6 +42,43 @@ html[data-theme="dark"] {
   --text-color: var(--light);
 }
 
+.display-mobile {
+  display: flex;
+}
+
+.display-desktop {
+  display: none;
+}
+
+@media screen and (min-width:896px) {
+  .display-mobile {
+    display: none;
+  }
+
+  .display-desktop {
+    display: flex;
+  }
+}
+
+html,
+body,
+app-root {
+  height: 100%;
+  margin: 0;
+}
+
+body,
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+
+main {
+  flex: 1;
+}
+
 h1,
 h2 {
   font-family: "Playfair Display", serif;
@@ -368,4 +405,37 @@ progress::-webkit-progress-value {
   to {
     transform: rotate(360deg);
   }
+}
+
+hr.vertical {
+  border-left: var(--border-dashed);
+  height: 100%;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  gap: 0.5rem;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: var(--border);
+  position: relative;
+}
+
+
+.checkbox-wrapper input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  right: 2px;
+  background: var(--dark);
+  border: var(--border);
 }

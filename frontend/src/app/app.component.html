@@ -1,4 +1,10 @@
+@if(isWebsitePage){
+<app-header />
+}
 <main>
-  {{message}}
+  <!-- {{message}} -->
   <router-outlet />
 </main>
+@if(isWebsitePage){
+<app-footer />
+}

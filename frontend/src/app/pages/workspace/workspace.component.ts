@@ -6,6 +6,7 @@ import { LucideIconComponent } from "../../components/shared/lucide-icon/lucide-
 import { UserViewComponent } from '../../components/user-view/user-view.component';
 import { KanbanViewComponent } from '../../components/kanban-view/kanban-view.component';
 import { EisenhowerViewComponent } from '../../components/eisenhower-view/eisenhower-view.component';
+import { ButtonIconComponent } from "../../components/shared/button-icon/button-icon.component";
 interface Notebook {
   id: number,
   title: string
@@ -16,9 +17,10 @@ interface View {
 }
 type ViewType = 'notebook' | 'dashboard' | 'kanban' | 'eisenhower' | 'user';
 //  'calendar' | 'gantt' | 'pert' |'second brain' | 'settings'
+
 @Component({
   selector: 'app-workspace',
-  imports: [NgClass, LucideIconComponent, TitleCasePipe, NgComponentOutlet],
+  imports: [NgClass, LucideIconComponent, TitleCasePipe, NgComponentOutlet, ButtonIconComponent],
   templateUrl: './workspace.component.html',
   styleUrl: './workspace.component.scss'
 })

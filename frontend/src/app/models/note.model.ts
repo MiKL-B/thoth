@@ -12,6 +12,8 @@ export class Note {
         public notebook_id: number,
         public created_by: number,
         public assigned_to: number,
+        public deleted: boolean,
+        public archived: boolean,
     ) { }
 
 }

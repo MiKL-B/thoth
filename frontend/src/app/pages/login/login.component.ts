@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HeaderComponent } from '../../components/shared/header/header.component';
-import { FooterComponent } from '../../components/shared/footer/footer.component';
 import { LucideIconComponent } from "../../components/shared/lucide-icon/lucide-icon.component";
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, HeaderComponent, FooterComponent, LucideIconComponent, FormsModule],
+  imports: [ReactiveFormsModule, LucideIconComponent, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -45,6 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   initForm() {
+
     this.authForm = new FormGroup({
       email: this.propEmail,
       password: this.propPassword
