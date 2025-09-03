@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LucideIcon } from '../../lucide-icon/lucide-icon';
+import { LucideIcon } from '../../shared/lucide-icon/lucide-icon';
 import { NgClass } from '@angular/common';
 
 interface ButtonCalendar {

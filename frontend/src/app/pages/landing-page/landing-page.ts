@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { LucideIcon } from '../../lucide-icon/lucide-icon';
+import { LucideIcon } from '../../shared/lucide-icon/lucide-icon';
 import { Router } from '@angular/router';
 
 @Component({

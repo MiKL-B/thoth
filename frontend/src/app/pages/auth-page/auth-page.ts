@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { LucideIcon } from '../../lucide-icon/lucide-icon';
+import { LucideIcon } from '../../shared/lucide-icon/lucide-icon';
 import {
   FormControl,
   FormGroup,
@@ -15,7 +15,7 @@ import {
   templateUrl: './auth-page.html',
   styleUrl: './auth-page.css',
 })
-export class AuthPage {
+export class AuthPage implements OnInit {
   authForm!: FormGroup;
   regexEmail: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   regexPassword: RegExp =

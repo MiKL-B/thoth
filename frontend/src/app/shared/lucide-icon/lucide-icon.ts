@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { ICONS } from '../lucide-icon';
+import { ICONS } from '../../lucide-icon';
 @Component({
   selector: 'app-lucide-icon',
   standalone: true,

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { Header } from './header/header';
-import { Footer } from './footer/footer';
-import { HttpClient } from '@angular/common/http';
+import { Header } from './shared/header/header';
+import { Footer } from './shared/footer/footer';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +11,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class App {
   isWebsitePage: boolean = true;
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        // Liste des routes où le header/footer doit être masqué
-        // const hiddenRoutes = ['/workspace', '/register'];
-        const hiddenRoute = '/workspace';
-        this.isWebsitePage = hiddenRoute !== event.urlAfterRedirects;
-        // this.isWebsitePage = !hiddenRoutes.includes(event.urlAfterRedirects);
+        this.isWebsitePage = !event.urlAfterRedirects.startsWith('/workspace');
       }
     });
   }

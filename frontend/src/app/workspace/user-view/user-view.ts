@@ -1,7 +1,7 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LucideIcon } from '../../lucide-icon/lucide-icon';
+import { LucideIcon } from '../../shared/lucide-icon/lucide-icon';
 
 @Component({
   selector: 'app-user-view',

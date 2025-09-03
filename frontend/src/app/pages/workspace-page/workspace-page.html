@@ -26,48 +26,46 @@
     </div>
     <ul class="sidebar-list flex flex-col gap-4">
       @for(view of views; track view.title){
-      <div class="flex gap-4">
-        <li
-          [ngStyle]="{ width: listItemWidth }"
-          style="height: 32px"
-          [attr.data-tooltip]="
-            (isMobile ? !isSidebarOpened : !isPanelOpened)
-              ? (view.title | titlecase)
-              : null
-          "
-          data-position="right"
-          (click)="selectView(view.title)"
-          [ngClass]="{ active: selectedView === view.title }"
-        >
-          <app-lucide-icon [name]="view.icon" [size]="16" />
-          @if (!isMobile && isPanelOpened || isMobile && isSidebarOpened) {
-          <span>{{ view.title | titlecase }}</span>
-          }
-        </li>
-      </div>
+      <li
+        [ngStyle]="{ width: listItemWidth }"
+        [attr.data-tooltip]="
+          (isMobile ? !isSidebarOpened : !isPanelOpened)
+            ? (view.title | titlecase)
+            : null
+        "
+        data-position="right"
+        [routerLink]="view.title"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeSidebar()"
+      >
+        <app-lucide-icon [name]="view.icon" [size]="16" />
+        @if (!isMobile && isPanelOpened || isMobile && isSidebarOpened) {
+        <span>{{ view.title | titlecase }}</span>
+        }
+      </li>
       }
     </ul>
     <footer>
       <ul class="sidebar-list flex flex-col gap-4">
-        @for(view of bottomView; track view.title){
-        <div class="flex gap-4">
-          <li
-            [ngStyle]="{ width: listItemWidth }"
-            style="height: 32px"
-            [attr.data-tooltip]="
-              (isMobile ? !isSidebarOpened : !isPanelOpened) ? view.title : null
-            "
-            data-position="right"
-            (click)="selectView(view.title)"
-            [ngClass]="{ active: selectedView === view.title }"
-          >
-            <app-lucide-icon [name]="view.icon" [size]="16" />
-            @if (!isMobile && isPanelOpened || isMobile && isSidebarOpened) {
-            <span>{{ view.title | titlecase }}</span>
-            }
-          </li>
-        </div>
-        }
+        <li
+          [ngStyle]="{ width: listItemWidth }"
+          [attr.data-tooltip]="
+            (isMobile ? !isSidebarOpened : !isPanelOpened)
+              ? ('user' | titlecase)
+              : null
+          "
+          data-position="right"
+          routerLink="user"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeSidebar()"
+        >
+          <app-lucide-icon name="user" [size]="16" />
+          @if (!isMobile && isPanelOpened || isMobile && isSidebarOpened) {
+          <span>User</span>
+          }
+        </li>
       </ul>
     </footer>
   </div>
@@ -97,9 +95,7 @@
       <input type="text" placeholder="Search" class="global-search" />
     </div>
     <div class="h-full">
-      <ng-container
-        [ngComponentOutlet]="viewComponents[selectedView]"
-      ></ng-container>
+      <router-outlet />
     </div>
   </div>
 </div>

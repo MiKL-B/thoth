@@ -1,22 +1,13 @@
-import {
-  NgClass,
-  NgComponentOutlet,
-  NgStyle,
-  TitleCasePipe,
-} from '@angular/common';
+import { NgClass, NgStyle, TitleCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NotebookView } from '../../workspace/notebook-view/notebook-view';
-import { DashboardView } from '../../workspace/dashboard-view/dashboard-view';
-import { UserView } from '../../workspace/user-view/user-view';
-import { KanbanView } from '../../workspace/kanban-view/kanban-view';
-import { CalendarView } from '../../workspace/calendar-view/calendar-view';
-import { GanttView } from '../../workspace/gantt-view/gantt-view';
-import { PertView } from '../../workspace/pert-view/pert-view';
-import { EisenhowerView } from '../../workspace/eisenhower-view/eisenhower-view';
-import { SecondbrainView } from '../../workspace/secondbrain-view/secondbrain-view';
-import { ChatView } from '../../workspace/chat-view/chat-view';
-import { LucideIcon } from '../../lucide-icon/lucide-icon';
-import { AutomatisationView } from '../../workspace/automatisation-view/automatisation-view';
+import { LucideIcon } from '../../shared/lucide-icon/lucide-icon';
+import {
+  RouterModule,
+  RouterLink,
+  RouterOutlet,
+  RouterLinkActive,
+} from '@angular/router';
+
 interface View {
   title: ViewType;
   icon: string;
@@ -34,28 +25,26 @@ type ViewType =
   | 'chat'
   | 'user'
   | 'automatisation';
-interface Notebook {
-  title: string;
-}
+
 @Component({
   selector: 'app-workspace-page',
-  imports: [NgComponentOutlet, NgClass, NgStyle, TitleCasePipe, LucideIcon],
+  imports: [
+    NgClass,
+    NgStyle,
+    TitleCasePipe,
+    LucideIcon,
+    RouterLink,
+    RouterOutlet,
+    RouterLinkActive,
+    RouterModule,
+  ],
   templateUrl: './workspace-page.html',
   styleUrl: './workspace-page.css',
 })
 export class WorkspacePage implements OnInit {
-  selectedView: ViewType = 'dashboard';
   isSidebarOpened: boolean = false;
   isPanelOpened: boolean = false;
-  notebooks: Notebook[] = [
-    { title: 'Notebook 1' },
-    { title: 'Notebook 1' },
-    { title: 'Notebook 1' },
-    { title: 'Notebook 1' },
-    { title: 'Notebook 1' },
-    { title: 'Notebook 1' },
-    { title: 'Notebook 1' },
-  ];
+
   views: View[] = [
     { title: 'dashboard', icon: 'layoutdashboard' },
     { title: 'notebook', icon: 'notebook' },
@@ -68,21 +57,7 @@ export class WorkspacePage implements OnInit {
     { title: 'secondbrain', icon: 'brain' },
     { title: 'automatisation', icon: 'zap' },
   ];
-  bottomView: View[] = [{ title: 'user', icon: 'user' }];
 
-  viewComponents = {
-    dashboard: DashboardView,
-    notebook: NotebookView,
-    kanban: KanbanView,
-    calendar: CalendarView,
-    gantt: GanttView,
-    pert: PertView,
-    eisenhower: EisenhowerView,
-    secondbrain: SecondbrainView,
-    chat: ChatView,
-    user: UserView,
-    automatisation: AutomatisationView,
-  };
   isMobile = false;
 
   ngOnInit() {
@@ -106,7 +81,7 @@ export class WorkspacePage implements OnInit {
     if (this.isMobile) {
       return this.isSidebarOpened ? '100%' : '0px';
     } else {
-      return this.isPanelOpened ? '100%' : '64px';
+      return this.isPanelOpened ? '100%' : '32px';
     }
   }
 
@@ -120,11 +95,5 @@ export class WorkspacePage implements OnInit {
   }
   togglePanel() {
     this.isPanelOpened = !this.isPanelOpened;
-  }
-  selectView(view: ViewType): void {
-    this.selectedView = view;
-    if (this.isMobile) {
-      this.closeSidebar();
-    }
   }
 }

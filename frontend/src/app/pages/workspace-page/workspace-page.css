@@ -24,6 +24,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-8);
+  height: 32px;
 }
 .sidebar-list li svg {
   width: var(--space-16);
@@ -50,10 +51,14 @@
   display: flex;
   flex-direction: column;
 }
+a {
+  text-decoration: none;
+}
 .active {
   background: var(--dark);
   color: var(--white);
 }
+
 .active:hover {
   background: var(--dark);
 }
