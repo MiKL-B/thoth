@@ -56,6 +56,7 @@ export class WorkspacePage implements OnInit {
     { title: 'eisenhower', icon: 'layoutgrid' },
     { title: 'secondbrain', icon: 'brain' },
     { title: 'automatisation', icon: 'zap' },
+    { title: 'user', icon: 'user' },
   ];
 
   isMobile = false;

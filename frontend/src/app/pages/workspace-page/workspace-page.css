@@ -16,7 +16,9 @@
 }
 .sidebar-list {
   padding: var(--space-8) var(--space-16) var(--space-16) var(--space-16);
+  height: 100%;
 }
+
 .sidebar-list li {
   padding: var(--space-8);
   width: 100%;
@@ -26,9 +28,8 @@
   gap: var(--space-8);
   height: 32px;
 }
-.sidebar-list li svg {
-  width: var(--space-16);
-  height: var(--space-16);
+.sidebar-list li:last-child {
+  margin-top: auto;
 }
 .sidebar-list li:hover {
   background: rgba(0, 0, 0, 0.04);
@@ -37,9 +38,11 @@
 .sidebar-list li.active:hover {
   background: var(--dark);
 }
-.sidebar footer {
-  margin-top: auto;
+.sidebar-list li svg {
+  width: var(--space-16);
+  height: var(--space-16);
 }
+
 .visible {
   display: flex;
   flex-direction: column;

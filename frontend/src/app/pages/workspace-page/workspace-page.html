@@ -7,12 +7,13 @@
     [ngStyle]="{ width: sidebarWidth }"
     [ngClass]="{ visible: isSidebarOpened }"
   >
+    <!-- close mobile sidebar -->
     <div style="padding: 1rem 0 0 1rem" class="display-mobile">
       <button (click)="closeSidebar()" class="outline bt-icon mb-8">
         <app-lucide-icon name="X" />
       </button>
     </div>
-
+    <!-- company -->
     <div
       class="flex align-center gap-4 p-6"
       style="border-bottom: var(--border)"
@@ -24,6 +25,7 @@
       <h2>Company</h2>
       }
     </div>
+    <!-- sidebar elements -->
     <ul class="sidebar-list flex flex-col gap-4">
       @for(view of views; track view.title){
       <li
@@ -46,31 +48,10 @@
       </li>
       }
     </ul>
-    <footer>
-      <ul class="sidebar-list flex flex-col gap-4">
-        <li
-          [ngStyle]="{ width: listItemWidth }"
-          [attr.data-tooltip]="
-            (isMobile ? !isSidebarOpened : !isPanelOpened)
-              ? ('user' | titlecase)
-              : null
-          "
-          data-position="right"
-          routerLink="user"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="closeSidebar()"
-        >
-          <app-lucide-icon name="user" [size]="16" />
-          @if (!isMobile && isPanelOpened || isMobile && isSidebarOpened) {
-          <span>User</span>
-          }
-        </li>
-      </ul>
-    </footer>
   </div>
-  <!--  -->
+  <!-- panel right -->
   <div class="panel-right">
+    <!-- top -->
     <div
       class="flex align-center gap-16"
       style="padding: 1rem; border-bottom: var(--border)"
