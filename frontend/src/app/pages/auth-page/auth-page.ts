@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../auth/auth-service';
 
 @Component({
   selector: 'app-auth-page',
@@ -16,6 +17,8 @@ import {
   styleUrl: './auth-page.css',
 })
 export class AuthPage implements OnInit {
+  constructor(private authService: AuthService) {}
+
   authForm!: FormGroup;
   regexEmail: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   regexPassword: RegExp =
@@ -70,6 +73,7 @@ export class AuthPage implements OnInit {
       return;
     }
     console.log(this.authForm.value);
+    this.authService.createUser(this.authForm.value);
   }
   displayRegisterForm(isRegister: boolean) {
     this.isRegisterForm = isRegister;
