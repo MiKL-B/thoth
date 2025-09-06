@@ -1,0 +1,13 @@
+.calendar-header {
+  border-bottom: var(--border);
+  padding: var(--space-16);
+  gap: var(--space-16);
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 960px) {
+  .calendar-header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
-import { LandingPage } from './pages/landing-page/landing-page';
-import { WorkspacePage } from './pages/workspace-page/workspace-page';
-import { AuthPage } from './pages/auth-page/auth-page';
-import { NotfoundPage } from './pages/notfound-page/notfound-page';
+import { Auth } from './components/auth/auth';
+import { Landing } from './components/landing/landing';
+import { Notfound } from './components/notfound/notfound';
+import { Workspace } from './components/workspace/workspace';
 
 export const routes: Routes = [
-  { path: '', component: LandingPage },
+  { path: '', component: Landing },
   {
     path: 'workspace',
-    component: WorkspacePage,
+    component: Workspace,
     children: [
       {
         path: '',
@@ -18,74 +18,66 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadComponent: () =>
-          import('./workspace/dashboard-view/dashboard-view').then(
-            (m) => m.DashboardView
-          ),
+          import('./components/dashboard/dashboard').then((m) => m.Dashboard),
       },
       {
         path: 'notebook',
         loadComponent: () =>
-          import('./workspace/notebook-view/notebook-view').then(
-            (m) => m.NotebookView
-          ),
+          import('./components/notebook/notebook').then((m) => m.Notebook),
       },
       {
         path: 'kanban',
         loadComponent: () =>
-          import('./workspace/kanban-view/kanban-view').then(
-            (m) => m.KanbanView
-          ),
+          import('./components/kanban/kanban').then((m) => m.Kanban),
       },
       {
         path: 'calendar',
         loadComponent: () =>
-          import('./workspace/calendar-view/calendar-view').then(
-            (m) => m.CalendarView
-          ),
+          import('./components/calendar/calendar').then((m) => m.Calendar),
       },
       {
         path: 'chat',
         loadComponent: () =>
-          import('./workspace/chat-view/chat-view').then((m) => m.ChatView),
+          import('./components/chat/chat').then((m) => m.Chat),
       },
       {
         path: 'gantt',
         loadComponent: () =>
-          import('./workspace/gantt-view/gantt-view').then((m) => m.GanttView),
+          import('./components/gantt/gantt').then((m) => m.Gantt),
       },
       {
         path: 'pert',
         loadComponent: () =>
-          import('./workspace/pert-view/pert-view').then((m) => m.PertView),
+          import('./components/pert/pert').then((m) => m.Pert),
       },
       {
         path: 'eisenhower',
         loadComponent: () =>
-          import('./workspace/eisenhower-view/eisenhower-view').then(
-            (m) => m.EisenhowerView
+          import('./components/eisenhower/eisenhower').then(
+            (m) => m.Eisenhower
           ),
       },
       {
         path: 'secondbrain',
         loadComponent: () =>
-          import('./workspace/secondbrain-view/secondbrain-view').then(
-            (m) => m.SecondbrainView
+          import('./components/secondbrain/secondbrain').then(
+            (m) => m.Secondbrain
           ),
       },
       {
         path: 'automatisation',
         loadComponent: () =>
-          import('./workspace/automatisation-view/automatisation-view').then(
-            (m) => m.AutomatisationView
+          import('./components/automatisation/automatisation').then(
+            (m) => m.Automatisation
           ),
       },
       {
         path: 'user',
         loadComponent: () =>
-          import('./workspace/user-view/user-view').then((m) => m.UserView),
+          import('./components/user/user').then((m) => m.User),
       },
     ],
   },
-  { path: 'auth', component: AuthPage },
-  { path: '**', component: NotfoundPage },
+  { path: 'auth', component: Auth },
+  { path: '**', component: Notfound },
 ];
