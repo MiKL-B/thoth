@@ -7,7 +7,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import type { User } from './user.service';
+import { User } from './user';
 @Controller('api')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -21,7 +21,7 @@ export class UserController {
   @Get('users/:id')
   getUser(@Param('id', ParseIntPipe) userID: number) {
     console.log('Requested user ID:', userID);
-    return this.userService.getUser({ userID });
+    return this.userService.getUserByID({ userID });
   }
 
   // http://localhost:3000/api/user

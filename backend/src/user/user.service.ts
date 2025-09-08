@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-export interface User {
-  email: string;
-  password: string;
-}
+import { User } from './user';
+
 @Injectable()
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
@@ -13,7 +11,7 @@ export class UserService {
     return users;
   }
 
-  async getUser({ userID }: { userID: number }) {
+  async getUserByID({ userID }: { userID: number }) {
     const user = await this.prisma.user.findUnique({
       where: {
         id: userID,
@@ -31,6 +29,6 @@ export class UserService {
 
   createUser(user: User) {
     console.log('Backend:', user);
-    return `User data received in backend email:${user.email}, password:${user.password}`;
+    return `User data received in backend`;
   }
 }
