@@ -73,7 +73,17 @@ export class Auth implements OnInit {
       return;
     }
     console.log(this.authForm.value);
-    this.authService.createUser(this.authForm.value);
+    if (!this.isRegisterForm) {
+      this.loginForm();
+    } else {
+      this.registerForm();
+    }
+  }
+  loginForm() {
+    this.authService.login(this.authForm.value);
+  }
+  registerForm() {
+    this.authService.register(this.authForm.value);
   }
   displayRegisterForm(isRegister: boolean) {
     this.isRegisterForm = isRegister;

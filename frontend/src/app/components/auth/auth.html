@@ -55,7 +55,7 @@
           placeholder="John"
         />
         @if (propFirstname.hasError("required") && propFirstname.touched){
-        <small>Firstname required</small>
+        <small style="color: var(--red)">Firstname required</small>
         }
       </div>
       <div class="field-col">
@@ -68,7 +68,7 @@
           placeholder="Doe"
         />
         @if (propLastname.hasError("required") && propLastname.touched){
-        <small>Lastname required</small>
+        <small style="color: var(--red)">Lastname required</small>
         }
       </div>
       }
@@ -82,9 +82,9 @@
           placeholder="johndoe@example.com"
         />
         @if(propEmail.hasError('pattern') && propEmail.touched){
-        <small>Email invalid</small>
+        <small style="color: var(--red)">Email invalid</small>
         } @else if (propEmail.hasError("required") && propEmail.touched){
-        <small>Email required</small>
+        <small style="color: var(--red)">Email required</small>
         }
       </div>
       <div class="field-col">
@@ -109,9 +109,9 @@
           />
         </div>
         @if (propPassword.hasError("required") && propPassword.touched){
-        <small>Password required</small>
+        <small style="color: var(--red)">Password required</small>
         } @else if (propPassword.hasError("pattern") && propPassword.touched){
-        <small
+        <small style="color: var(--red)"
           >At least 8 characters, 1 uppercase letter, 1 number, and 1 special
           character required</small
         >

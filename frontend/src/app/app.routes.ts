@@ -3,12 +3,14 @@ import { Auth } from './components/auth/auth';
 import { Landing } from './components/landing/landing';
 import { Notfound } from './components/notfound/notfound';
 import { Workspace } from './components/workspace/workspace';
+import { AuthGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', component: Landing },
   {
     path: 'workspace',
     component: Workspace,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
